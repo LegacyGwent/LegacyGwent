@@ -59,7 +59,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task ReinforcedTrebuchetStrengthensOnceForEachCrewTrigger()
+        public async Task ReinforcedTrebuchetAddsDamageForEachCrewTrigger()
         {
             var fixture = new HeadlessGameFixture();
             fixture.AddCard(
@@ -70,9 +70,11 @@ namespace Cynthia.Card.Gameplay.Tests
                 fixture.Game.Player1Index, CardId.SiegeSupport, RowPosition.MyRow1);
             await fixture.SynchronizeClientsAsync();
 
-            await trebuchet.Effect.CardPlayEffect(false, false);
-
-            Assert.Equal(10, trebuchet.Status.Strength);
+            var enemy = fixture.AddCard(fixture.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, 20);
+            await fixture.SynchronizeClientsAsync();
+            await fixture.Game.AddTask(() => fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index)));
+            Assert.Equal(-3, enemy.Status.HealthStatus);
+            Assert.Equal(8, trebuchet.Status.Strength);
         }
 
         [Fact]

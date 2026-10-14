@@ -12,20 +12,9 @@ namespace Cynthia.Card
         {
             for (var i = 0; i < 2; i++)
             {
-                var selectList = Game.PlayersHandCard[PlayerIndex]
-                    .Where(handCard => Game.PlayersDeck[PlayerIndex]
-                        .Any(deckCard => deckCard.Status.CardId != handCard.Status.CardId))
-                    .ToList();
-                if (!(await Game.GetSelectMenuCards(PlayerIndex, selectList)).TrySingle(out var swapHandCard))
-                {
-                    return 0;
-                }
-                if (!Game.PlayersDeck[PlayerIndex]
-                    .Where(deckCard => deckCard.Status.CardId != swapHandCard.Status.CardId)
-                    .TryMessOne(out var swapDeckCard, Game.RNG))
-                {
-                    return 0;
-                }
+                var selectList = Game.PlayersHandCard[PlayerIndex].ToList();
+                if (!(await Game.GetSelectMenuCards(PlayerIndex, selectList)).TrySingle(out var swapHandCard)) return 0;
+                if (!Game.PlayersDeck[PlayerIndex].TryMessOne(out var swapDeckCard, Game.RNG)) return 0;
                 await swapHandCard.Effect.Swap(swapDeckCard);
             }
             return 0;

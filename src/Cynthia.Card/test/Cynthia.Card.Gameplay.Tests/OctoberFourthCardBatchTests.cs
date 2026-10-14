@@ -22,7 +22,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task ArtisCanTransformAnAlliedUnitWithoutSoldierCategory()
+        public async Task ArtisDamagesAnAlliedUnitWithoutSoldierCategory()
         {
             var fixture = new HeadlessGameFixture();
             var ally = fixture.AddCard(fixture.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1);
@@ -31,7 +31,8 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await fixture.Game.AddTask(() => artis.Effect.CardPlayEffect(false, false));
 
-            Assert.Equal(CardId.SvalblodFanatic, ally.Status.CardId);
+            Assert.Equal(CardId.Wolf, ally.Status.CardId);
+            Assert.Equal(1, fixture.Game.GetPlaceCards(fixture.Game.Player1Index).Single(x => x.Status.CardId == CardId.SvalblodFanatic).CardPoint());
         }
 
         [Fact]

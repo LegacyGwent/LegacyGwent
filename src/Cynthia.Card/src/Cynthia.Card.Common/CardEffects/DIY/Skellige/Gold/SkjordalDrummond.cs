@@ -20,7 +20,7 @@ namespace Cynthia.Card
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
             var discardCandidates = Game.PlayersDeck[PlayerIndex]
-                .Where(x => x.Is(Group.Copper, CardType.Unit) &&
+                .Where(x => x.Is(type: CardType.Unit) &&
                             Clans.Any(clan => x.HasAnyCategorie(clan)))
                 .ToList();
             if (!(await Game.GetSelectMenuCards(PlayerIndex, discardCandidates, 1,

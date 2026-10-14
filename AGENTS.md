@@ -6,6 +6,11 @@ For every Legacy Gwent task, use the project skill at
 `skills/legacy-gwent-maintainer/SKILL.md`. Read its knowledge index before work
 and apply its mandatory learning rewrite after verified discoveries.
 
+For Unity premium-card work, follow `docs/PremiumEditorReadiness.md`. Check the
+actual content source and quality setting, and verify motion in the main UI
+after restarting Play Mode before claiming the editor is ready. Never repair a
+stale bundle by fabricating its `.editor-ready` marker.
+
 ## Scope
 
 - Start changes from `diy-ai`; never deploy experimental commits to the `diy` service.

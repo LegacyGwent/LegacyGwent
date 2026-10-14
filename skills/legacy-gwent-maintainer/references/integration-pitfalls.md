@@ -30,6 +30,24 @@ Last verified: 2026-09-22
   client/server path for protocol changes, and preview any 28021 migration with
   a restorable backup plan.
 
+### DIY 2.20 client migration dependencies
+
+- At AI `066f6269a`, `RightOnType.Card=3` matches the serialized CardObj type.
+  DIY #828 changes the object to 4 only because #817 inserts EnemyDeck before
+  Card. Copying #828 alone breaks a previously matching AI binding. Preserve
+  existing enum numbers and audit all serialized consumers when adding modes.
+- #817 also inserts `SetEnemyDeck` before `SetNameInfo` in the wire protocol;
+  append new operations with explicit compatible numbers rather than shifting
+  old ones. Spectator snapshots and client rendering require paired validation.
+- #816's spectator button binds `view` while its added locale key is
+  `Spectator_Watch_Button`. Missing translations return the input ID, so fix
+  the shared key contract before porting. Do not replace whole AI language packs.
+- #829 reconnect needs AI-specific settlement, daily crown, premium and login
+  lifecycle integration. #830 is still WIP at the audit; source review is not
+  native reconnect acceptance. Each port requires the user's item approval.
+- These are source-verified migration constraints, not claims that the features
+  have been ported or tested in a packaged AI client.
+
 ## A feature port leaves generic UI translations behind
 
 - Symptom: premium-specific text is translated but titles, borders, settings,

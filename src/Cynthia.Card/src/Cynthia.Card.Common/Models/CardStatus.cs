@@ -25,6 +25,39 @@ namespace Cynthia.Card
             this.DeckFaction = deckFaction;
         }
 
+        // Copy current visible/gameplay status without changing destination zone.
+        public void CopyCurrentStateFrom(CardStatus state)
+        {
+            CardInfo = state.CardInfo;
+            CardId = state.CardId;
+            IsPremium = state.IsPremium;
+            CardArtsId = state.CardArtsId;
+            Group = state.Group;
+            IsDoomed = state.IsDoomed;
+            Type = state.Type;
+            IsReveal = state.IsReveal;
+            IsShield = state.IsShield;
+            IsSpying = state.IsSpying;
+            IsResilience = state.IsResilience;
+            Armor = state.Armor;
+            Strength = state.Strength;
+            CrewCount = state.CrewCount;
+            HealthStatus = state.HealthStatus;
+            IsLock = state.IsLock;
+            Conceal = state.Conceal;
+            IsImmue = state.IsImmue;
+            IsConcealCard = state.IsConcealCard;
+            IsCardBack = state.IsCardBack;
+            DeckFaction = state.DeckFaction;
+            Faction = state.Faction;
+            Name = state.Name;
+            Info = state.Info;
+            Countdown = state.Countdown;
+            IsCountdown = state.IsCountdown;
+            Categories = (Categorie[])state.Categories.Clone();
+            HideTags = (HideTag[])state.HideTags.Clone();
+        }
+
         private Categorie[] _categories;
         private HideTag[] _hideTags;
         private string _name;

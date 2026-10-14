@@ -26,6 +26,8 @@ Read this file first, then load only the rows relevant to the task.
 | September 24-25 card batches | [september-24-batch-2026.md](september-24-batch-2026.md) | Soldier-count damage, initial Armor restoration, Egmond repeat timing, Gaunter guesses, Witcher selection, and Cat School row-count effects |
 | September 27 card batch | [september-27-batch-2026.md](september-27-batch-2026.md) | Raffard's Vengeance Countdown/Crew order, art IDs, and identity/category corrections |
 | September 29 card batch | [september-29-batch-2026.md](september-29-batch-2026.md) | Gaetan/Brehen pre-damage row counts, concealed Ambush, servant Conceal timing, and Ophelie power |
+| October 7 card batch | [october-7-batch-2026.md](october-7-batch-2026.md) | Egmond timer, Cat School snapshot/damage, and exchange exclusions |
+| October 12 card batch | [october-12-batch-2026.md](october-12-batch-2026.md) | Restored Cultist, transform facts/current-state copies, actual-loss Artis, and named DIY effect imports |
 | Zone changes, state reset, unlocking, replay and return-to-deck | [zone-state-transitions.md](zone-state-transitions.md) | A-H transition matrix, Repair versus Resurrect, preserved power/counters, and card-specific exceptions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |
@@ -39,6 +41,7 @@ Read this file first, then load only the rows relevant to the task.
 | Unity CI, packaging, versions, release artifacts | [unity-release-pitfalls.md](unity-release-pitfalls.md) | Unity release root causes and verified remedies |
 | Local premium build, long Windows paths, old Java keystore formats | [local-premium-packaging.md](local-premium-packaging.md) | Short-path retry and identity-preserving JKS conversion |
 | Premium source delivery, package capabilities, Android variants | [premium-delivery.md](premium-delivery.md) | Versioned sources, standard/premium contracts, signing and verification boundaries |
+| Editor premium cards stop after resource edits, missing cache, source preview | [premium-editor-readiness.md](premium-editor-readiness.md) | Automatic Editor source fallback, readiness checks and real playback acceptance |
 | Branches, worktrees, PR integration, workflow triggers | [integration-pitfalls.md](integration-pitfalls.md) | Integration drift and automation traps |
 | Other failure, confusing symptom, known trap | [pitfalls.md](pitfalls.md) | Cross-cutting root causes and verified remedies |
 | Website, Blazor, local preview failure | [website-pitfalls.md](website-pitfalls.md) | Website-specific symptoms and verified remedies |

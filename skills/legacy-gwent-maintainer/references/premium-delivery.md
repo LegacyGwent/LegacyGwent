@@ -1,7 +1,6 @@
 # Premium source delivery and package variants
 
-Last verified: 2026-09-26
-
+Last verified: 2026-10-07
 ## Clean-checkout source delivery
 
 - Symptom: premium builds work only in the asset-rich authoring checkout.
@@ -25,7 +24,6 @@ Last verified: 2026-09-26
   sizes/digests match the manifest; one unauthenticated public download also
   matched its local hash. Local restore alone is not proof of remote availability;
   publishing verifies the final remote inventory before making its draft visible.
-
 ## Resuming an interrupted source publication
 
 - Symptom: the tag endpoint returns 404 for a draft, or an interrupted asset
@@ -51,7 +49,6 @@ Last verified: 2026-09-26
   returned digest matched; real chunk reassembly reproduced a 590 MB ZIP hash.
   Regression fixtures cover transient read retries, no blind creation retries,
   and preservation of the intended tag when a resumed draft is published.
-
 ## Platform and content are independent build dimensions
 
 - Symptom: a standard package exposes crafting it cannot render, or Android
@@ -67,8 +64,28 @@ Last verified: 2026-09-26
   Android uses IL2CPP, both ARM ABIs, GLES3, ETC2 RGBA8 and max-1024 dynamic PNGs;
   unsupported postprocess shaders are skipped. Keep one authored source library.
 - Verification: `verify-client-content.py` checks the embedded target/variant,
+  static Addressables settings/catalog and their referenced local bundles,
   premium partition membership and ARM64. Fixtures prove gate behavior, not
   real APK success. `RewardClientTest` covers capability/deck/preference rules.
+  The final local `d5edd7df9` selective-cache premium Android APK is 2,378,080,073
+  bytes, version 2.1.10/code 2001010, ARMv7/ARM64, with the same `cf51` signing
+  certificate prefix and a successful in-place install. Source/hash receipt:
+  `D:/LegacyGwentBuildArchive/ai-diy-2026-10-07/premium-local-oct6-addressables-selectiveCache-d5edd7df9/Android/build-receipt.json`.
+  On the API35 translated-ARM64 AVD, fresh registration/login, first Yen/Triss
+  reward rendering/confirmation, cleared reward arrays, card sprites and deck
+  editor succeeded. A synthetic Whispering Hillock premium craft cost 1000 dust;
+  enabling Graphics flash-card quality `Low` (default `Off`) rendered animation.
+  `outputs/emulator-oct6-d5-render1.png` and `render2.png` show changed animation
+  positions; the final observed session had no exceptions. Three individually
+  confirmed no-rank notices drained their queue (see `account-messages.md`).
+  Windows `3fbbc738c` has only artifact/static-content acceptance; its native UI,
+  physical phones, explicitly observed borders and the exact missing-address
+  completion path remain unverified. Public `v2.1.10` now contains Windows ZIP
+  (2011551690 bytes, SHA-256 `fc09c959410823b5c6dfdd9b4bbd34d2762b57a55be5b6be5c6a28535442f8df`)
+  and Android 7z (2075248944 bytes, SHA-256 `46e51299c3b99e1449b9d3c4b0bbad3a7c70c8ee7f10a1f75b128be07dc9d93a`).
+  Integrity/GitHub digests match; public range downloads return HTTP206.
+  Deflate ZIP exceeded 2 GiB; 7z retains the tested APK below the size limit.
+  Extract before installing; defective draft assets/duplicate builds were removed.
 - CI also runs the Mongo-backed crafting, daily, GG, same-opponent and combined
   reward suites against an isolated MongoDB 4.4.29 instance. Run the combined
   suite using `dotnet RewardSystemTest.dll <repo> <results> 127.0.0.1`, not the
@@ -82,7 +99,37 @@ Last verified: 2026-09-26
   fresh ID on each test run, and tolerate an absent wallet while polling its
   background creation. Reusing a fixed job ID falsely suppresses the reward
   for a newly generated test user on later runs.
+## Successful player build omits static Addressables content
 
+- Symptom: Unity exits zero and premium verification succeeds, yet static
+  avatars, borders or card art cannot load. The APK can contain all 677 dynamic
+  card payloads while having no `assets/aa/` directory.
+- Cause: Addressables 1.18.19's `CopyTemporaryPlayerBuildData` uses
+  `Directory.Move` from Library to StreamingAssets. A whole-Library junction
+  to another volume caused `UnauthorizedAccessException`; the observed player
+  build continued successfully. The previous verifier checked only the variant
+  marker, dynamic partitions and ABI, so it missed the independent static
+  content contract. This differs from stripped reflection constructors: code
+  preservation cannot restore missing catalog/settings or bundles.
+- Fix: use a same-volume cache layout for paths moved by Unity/Addressables
+  (see `local-premium-packaging.md`). The shared artifact verifier requires
+  nonempty `aa/settings.json`, a matching build target, its local JSON catalogs,
+  and every RuntimePath `.bundle` reference in those catalogs. Optional internal
+  ID prefixes and Windows separators follow the pinned catalog format; remote
+  URLs do not require embedded files. The local-content contract applies to both
+  standard and premium players and directory/ZIP/APK inputs.
+- Prevention: verify the actual artifact after a successful build, not only
+  premium source count or exit status. Require catalog-referenced files instead
+  of an arbitrary bundle or a hardcoded list of cards/groups. Format changes
+  such as a bundled/binary local catalog need an explicit verifier update.
+- Verification: the `3fbbc738c` cacheD Android APK is rejected for missing
+  `assets/aa/settings.json`; the `d5edd7df9` selective-cache Android APK and
+  original `3fbbc738c` Windows directory pass. Fixtures cover missing/empty
+  settings/catalog/bundles, wrong platform, unrelated replacement bundles,
+  compressed IDs, remote URLs and both variants. Presence checks do not prove
+  bundle integrity, address resolution, rendering or IL2CPP AOT correctness;
+  those need independent packaged-player/device evidence. The final `d5edd7df9`
+  AVD rendering acceptance above supplies that bounded observation.
 ## Signing and runner prerequisites
 
 - Symptom: a valid APK cannot replace an installed version, or CI fails before
@@ -112,7 +159,6 @@ Last verified: 2026-09-26
   and actual old/new client gameplay. Static Roslyn compilation does not run
   IL2CPP or compile Android shaders. Phone memory/visual acceptance remains
   required even with low-quality render targets and texture overrides.
-
 ## Custom Unity build succeeds but GameCI rejects the action
 
 - Symptom: Unity exits successfully and the executable, content marker and
@@ -131,7 +177,6 @@ Last verified: 2026-09-26
   the production reporting template using both zero-error and nonzero-error
   report fixtures, then applies the pinned parser shape. A successful rerun
   and artifact verification are still required to prove the live fix.
-
 ## Inspecting long first builds
 
 - Symptom: a cold Unity upgrade stays in the builder step much longer than a

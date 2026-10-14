@@ -2419,7 +2419,7 @@
         },
         "43002": {
             "Name": "Ves",
-            "Info": "Zamień kartę, a następnie Zamień drugą kartę.",
+            "Info": "Wymień kartę, następnie powtórz tę zdolność.",
             "Flavor": "Lepiej przeżyć jeden dzień jak król niż całe życie jak dziad."
         },
         "43003": {
@@ -4319,7 +4319,7 @@
         },
         "70194": {
             "Name": "Widmowy czarodziej",
-            "Info": "Na początku gry zmień stan Blokady tej jednostki. Co 2 własne tury, jeśli jej siła wynosi co najmniej 3, powtórz ten efekt.",
+            "Info": "Na początku meczu zmień stan blokady tej jednostki. Co 2 tury, na początku tury, jeśli jej siła wynosi co najmniej 3, powtórz tę zdolność.",
             "Flavor": ""
         },
         "70195": {
@@ -4349,7 +4349,7 @@
         },
         "70200": {
             "Name": "Egmond",
-            "Info": "Remove the Boost from an allied unit and damage an enemy by the power it lost. If the target is destroyed, or this unit is Boosted during your turn, repeat this ability at turn end.",
+            "Info": "Usuń wzmocnienie sojusznika i zadaj wrogowi obrażenia równe utraconej sile. Co 2 tury, na końcu tury, powtórz tę zdolność.",
             "Flavor": ""
         },
         "70201": {
@@ -4389,12 +4389,12 @@
         },
         "70208": {
             "Name": "Gaetan",
-            "Info": "Damage all other allied units on this row by 1. If the opposing row has more units than this unit’s base power, deal damage equal to the difference and repeat once for each other unit on this row.",
+            "Info": "Zadaj innym sojusznikom w tym rzędzie 1 pkt obrażeń. Jeśli przeciwny rząd ma więcej jednostek niż bazowa siła tej jednostki, zadaj obrażenia równe różnicy i powtórz dwukrotnie. Powtórz dodatkowo raz za każde 2 inne jednostki w tym rzędzie.",
             "Flavor": ""
         },
         "70209": {
             "Name": "Brehen",
-            "Info": "Zadaj 1 pkt obrażeń wszystkim innym sojuszniczym jednostkom w tym rzędzie, a następnie wzmocnij tę kartę o połowę liczby jednostek w tym rzędzie. Jeśli w przeciwnym rzędzie jest mniej jednostek niż wynosi bazowa siła tej karty, zadaj każdej z nich obrażenia równe różnicy.",
+            "Info": "Zadaj innym sojusznikom w tym rzędzie 1 pkt obrażeń. Jeśli przeciwny rząd ma mniej jednostek niż bazowa siła tej jednostki, zadaj wszystkim jednostkom w tym rzędzie obrażenia równe różnicy. Zwiększ obrażenia o 1 za każde 2 inne jednostki w tym rzędzie.",
             "Flavor": ""
         },
         "70210": {

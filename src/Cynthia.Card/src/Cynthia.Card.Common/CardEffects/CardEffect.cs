@@ -706,6 +706,8 @@ namespace Cynthia.Card
             // card that caused the transform, not by the transformed target. A self
             // transform passes source == Card, so read the source before replacing the
             // target's status or the old premium state would already be gone.
+            var previousCardId = Card.Status.CardId;
+            var previousType = Card.Status.Type;
             var isPremium = source?.Status.IsPremium;
             Card.Status = new CardStatus(cardId) { DeckFaction = Game.PlayersFaction[PlayerIndex], CardRow = Card.Status.CardRow, IsPremium = isPremium };
             Card.Effects.Clear();
@@ -716,7 +718,7 @@ namespace Cynthia.Card
             await Game.ShowSetCard(Card);
             await Game.SetPointInfo();
             //8888888888888888888888888888888888888888888888888888888888888888888888
-                await Game.SendEvent(new AfterCardTransform(Card, source));
+                await Game.SendEvent(new AfterCardTransform(Card, source, previousCardId, previousType));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
         public virtual async Task Resurrect(CardLocation location, GameCard source)//复活
