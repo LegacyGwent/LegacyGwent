@@ -80,7 +80,8 @@ public static class SpectatorUiPortVerification
             {
                 if (control != null) ClearGrid(control);
                 if (cardPrefab != null) PrefabUtility.UnloadPrefabContents(cardPrefab);
-                EditorSceneManager.RestoreSceneManagerSetup(setup);
+                if (setup.Any(s => s.isLoaded)) EditorSceneManager.RestoreSceneManagerSetup(setup);
+                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
             finally
             {

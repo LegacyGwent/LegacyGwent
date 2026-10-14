@@ -69,18 +69,15 @@ public static class ClientUiPortVerification
                 var content = editor.RightSwitchMenu.GetComponentsInChildren<CardContent>(true).Single();
                 Require(content.gameObject.activeSelf && content.CardInfoText.text == expected, "leader description " + premium, checks);
             }
-            var output = Environment.GetEnvironmentVariable("GWENT_UI_VERIFY_OUTPUT");
-            if (string.IsNullOrEmpty(output)) output = Path.GetFullPath("../../../../work/client-ui-verification.json");
-            Directory.CreateDirectory(Path.GetDirectoryName(output));
-            File.WriteAllText(output, JsonConvert.SerializeObject(new { passed = true, checks, boundary = "Unity edit-mode object and text validation; not rendered player or device acceptance" }, Formatting.Indented));
-            Debug.Log("Client UI port verification passed: " + checks.Count);
+
         }
         finally
         {
             try
             {
                 if (prefab != null) PrefabUtility.UnloadPrefabContents(prefab);
-                EditorSceneManager.RestoreSceneManagerSetup(setup);
+                if (setup.Any(s => s.isLoaded)) EditorSceneManager.RestoreSceneManagerSetup(setup);
+                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
             finally
             {
@@ -88,6 +85,11 @@ public static class ClientUiPortVerification
                 if (container != null) container.Dispose();
             }
         }
+        var output = Environment.GetEnvironmentVariable("GWENT_UI_VERIFY_OUTPUT");
+        if (string.IsNullOrEmpty(output)) output = Path.GetFullPath("../../../../work/client-ui-verification.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(output));
+        File.WriteAllText(output, JsonConvert.SerializeObject(new { passed = true, checks, boundary = "Unity edit-mode object and text validation; not rendered player or device acceptance" }, Formatting.Indented));
+        Debug.Log("Client UI port verification passed: " + checks.Count);
     }
 
     private static void Require(bool value, string label, List<string> checks)
