@@ -1,6 +1,6 @@
 # Integration pitfalls
 
-Last verified: 2026-09-22
+Last verified: 2026-10-14
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
 
@@ -42,6 +42,11 @@ Last verified: 2026-09-22
 - #816's spectator button binds `view` while its added locale key is
   `Spectator_Watch_Button`. Missing translations return the input ID, so fix
   the shared key contract before porting. Do not replace whole AI language packs.
+- Approved Oct14 UI port uses that key in all four languages, binds all four
+  editor Back targets, and widens both player name/title regions without weather
+  changes. A scene target must have a real stripped GameObject declaration,
+  not merely a matching number in the translation list. Bronibor's miniature
+  `c10003900_slot` was already registered in AI at `6dc6233a0`; no duplicate port.
 - #829 reconnect needs AI-specific settlement, daily crown, premium and login
   lifecycle integration. #830 is still WIP at the audit; source review is not
   native reconnect acceptance. Each port requires the user's item approval.
