@@ -3,6 +3,7 @@ using Alsein.Extensions.LifetimeAnnotations;
 using Assets.Script.Localization;
 using Assets.Script.ResourceManagement;
 using Autofac;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using System;
@@ -44,6 +45,13 @@ namespace Cynthia.Card.Client
         private LocalizationService _translator;
         private ClientMessagesReaderService _messagesReaderService;
         private readonly SemaphoreSlim _connectionStartGate = new SemaphoreSlim(1, 1);
+        private string _username;
+        private string _password;
+        private readonly SynchronizationContext _mainThread;
+        // The server keeps a game for 60 seconds after a disconnect; stop trying a bit earlier
+        private const int ReconnectSeconds = 55;
+        private int _handlingClosed;
+
 
         private readonly object _lock = new object();
         private ClientState _clientState = ClientState.Standby;
@@ -100,6 +108,7 @@ namespace Cynthia.Card.Client
         {
             _translator = container.Resolve<LocalizationService>();
             _globalUIService = globalUIService;
+            _mainThread = SynchronizationContext.Current;
 
             /*待修改*/
             (sender, receiver) = Tube.CreateSimplex();
@@ -126,37 +135,13 @@ namespace Cynthia.Card.Client
                     _translator.GetText("PopupWindow_LoggedOutDesc"));
             });
             hubConnection.On("DailyQuestsChanged", () => { if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent) _ = Assets.Script.DynamicCards.DailyQuestClient.Refresh(true); });
-            hubConnection.Closed += (async x =>
+            hubConnection.Closed += x =>
             {
-                // Keep credentials and server exception messages out of player logs.
-                // The exception type lets Android players report why login closed.
-                var closeReason = x?.GetBaseException().GetType().Name ?? "ConnectionClosed";
-                Debug.LogError("[LegacyGwent] Hub closed; reason=" + closeReason + "; state=" + ClientState);
-                if (x?.GetBaseException() is ExecutionEngineException aotError)
-                    Debug.LogError("[LegacyGwent] AOT failure: " + aotError.Message);
-                Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
-                (sender, receiver) = Tube.CreateSimplex();
-                SceneManager.LoadScene("LoginScene");
-                ClientState = ClientState.Standby;
-                Player.ResetTube();
+                Debug.Log("[LegacyGwent] Hub closed; reason=" + (x?.GetBaseException().GetType().Name ?? "ConnectionClosed"));
+                // SignalR raises Closed on a worker thread, but scenes and UI may only be touched from Unity's main thread
+                return RunOnMainThread(() => OnConnectionClosed());
+            };
 
-                // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
-                await _globalUIService.YNMessageBox(
-                    _translator.GetText("PopupWindow_DisconnectedTitle"),
-                    _translator.GetText("PopupWindow_DisconnectedDesc") + "\n[" + closeReason + "]",
-                    "PopupWindow_OkButton", isOnlyYes: true);
-                Application.Quit();
-                // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
-                // messageBox.Buttons.SetActive(true);
-                // messageBox.YesButton.SetActive(true);
-                // messageBox.NoButton.SetActive(false);
-                // messageBox.TitleText.text = "断开连接";
-                // messageBox.MessageText.text = "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n");
-                // messageBox.YesText.text = "确定";
-                // messageBox.gameObject.SetActive(true);
-                // await messageBox.receiver.ReceiveAsync<bool>();
-                // LayoutRebuilder.ForceRebuildLayoutImmediate(messageBox.Context);
-            });
             hubConnection.On("ExitGame", () =>
             {
                 Application.Quit();
@@ -487,6 +472,9 @@ namespace Cynthia.Card.Client
             if (User != null)
             {
                 Player.PlayerName = User.PlayerName;
+                //保存登录信息,用于断线重连
+                _username = username;
+                _password = password;
                 try
                 {
                     if (Assets.Script.DynamicCards.ClientContent.HasPremiumContent)
@@ -503,8 +491,150 @@ namespace Cynthia.Card.Client
                 Debug.Log("[LegacyGwent] Login: refreshing daily quests.");
                 await Assets.Script.DynamicCards.DailyQuestClient.Refresh(true);
                 Debug.Log("[LegacyGwent] Login: daily quest refresh returned.");
+
             }
             return User;
+        }
+
+        // Resume the game this user was disconnected from, if the server still holds it.
+        // The server then sends the whole game state, so the game scene has to be (re)loaded.
+        private void ResetPlayer()
+        {
+            var old = Player;
+            old.Retire();
+            Player = new LocalPlayer(HubConnection)
+            {
+                PlayerName = old.PlayerName,
+                CurrentAvatar = old.CurrentAvatar,
+                CurrentBorder = old.CurrentBorder,
+                CurrentTitle = old.CurrentTitle,
+                Deck = old.Deck,
+                Blacklist = old.Blacklist
+            };
+        }
+
+        public async Task<bool> Reconnect()
+        {
+            ResetPlayer();
+            try
+            {
+                return await HubConnection.InvokeAsync<bool>("Reconnect");
+            }
+            catch (HubException)
+            {
+                //服务端不支持重连
+                return false;
+            }
+        }
+
+        private async Task OnConnectionClosed()
+        {
+            if (Interlocked.CompareExchange(ref _handlingClosed, 1, 0) != 0) return;
+            try { await OnConnectionClosedCore(); }
+            finally { Volatile.Write(ref _handlingClosed, 0); }
+        }
+
+        private async Task OnConnectionClosedCore()
+        {
+            Assets.Script.DynamicCards.PremiumCollectionClient.Reset();
+            Player.Retire();
+            if (ClientState == ClientState.Play && ClientGlobalInfo.ViewingRoomId == "" && await TryReconnectGame())
+                return;
+            if (ClientState == ClientState.Play)
+                await Player.EndGame();
+            (sender, receiver) = Tube.CreateSimplex();
+            SceneManager.LoadScene("LoginScene");
+            ClientState = ClientState.Standby;
+            ResetPlayer();
+
+            // LayoutRebuilder.ForceRebuildLayoutImmediate(Context);
+            await _globalUIService.YNMessageBox(
+                _translator.GetText("PopupWindow_DisconnectedTitle"),
+                _translator.GetText("PopupWindow_DisconnectedDesc"),
+                "PopupWindow_OkButton", isOnlyYes: true);
+            Application.Quit();
+            // var messageBox = GameObject.Find("GlobalUI").transform.Find("MessageBoxBg").gameObject.GetComponent<MessageBox>();//.Show("断开连接", "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n"), isOnlyYes: true);
+            // messageBox.Buttons.SetActive(true);
+            // messageBox.YesButton.SetActive(true);
+            // messageBox.NoButton.SetActive(false);
+            // messageBox.TitleText.text = "断开连接";
+            // messageBox.MessageText.text = "请尝试重新登陆\n注意! 在目前版本中,如果处于对局或匹配时断线,需要重新启动客户端,否则下次游戏开始时会异常卡死。\nNote!\nIn the current version, if you are disconnected when matching or Playing, you need to restart the client, otherwise the next game will start with an abnormal.".Replace("\\n", "\n");
+            // messageBox.YesText.text = "确定";
+            // messageBox.gameObject.SetActive(true);
+            // await messageBox.receiver.ReceiveAsync<bool>();
+            // LayoutRebuilder.ForceRebuildLayoutImmediate(messageBox.Context);
+        }
+
+        private Task RunOnMainThread(Func<Task> action)
+        {
+            if (_mainThread == null || SynchronizationContext.Current == _mainThread)
+                return action();
+            var done = new TaskCompletionSource<bool>();
+            _mainThread.Post(async _ =>
+            {
+                try
+                {
+                    await action();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+                done.SetResult(true);
+            }, null);
+            return done.Task;
+        }
+
+        // The connection dropped during a game: connect and log in again, then resume the game
+        private async Task<bool> TryReconnectGame()
+        {
+            if (_username == null)
+                return false;
+            var deadline = DateTime.UtcNow.AddSeconds(ReconnectSeconds);
+            try
+            {
+                try
+                {
+                    _globalUIService.Wait("PopupWindow_ReconnectingTitle", "PopupWindow_ReconnectingDesc");
+                }
+                catch (Exception e)
+                {
+                    //提示框出错不影响重连
+                    Debug.LogException(e);
+                }
+                while (DateTime.UtcNow < deadline)
+                {
+                    try
+                    {
+                        await EnsureConnectedAsync();
+                    }
+                    catch
+                    {
+                        await Task.Delay(2000);
+                        continue;
+                    }
+                    Debug.Log("重连: 已连接 Reconnect: connected");
+                    if (await Login(_username, _password) == null)
+                        return false;
+                    var resumed = await Reconnect();
+                    Debug.Log($"重连: 回到对局 Reconnect: game resumed = {resumed}");
+                    if (!resumed)
+                        return false;
+                    ClientGlobalInfo.IsReconnecting = true;
+                    SceneManager.LoadScene("GamePlay");
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Reconnect failed: {e.Message}");
+                return false;
+            }
+            finally
+            {
+                _globalUIService.Close();
+            }
         }
         // get the version of the Trinket Map to decide if it needs an update
         public async Task<UserInfo> QueryUserInfo(string username, string password)

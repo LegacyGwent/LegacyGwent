@@ -220,8 +220,16 @@ static class SurrenderCrownTest
             var second = new BrokenSinkPlayer { Deck = Deck(), Fail = false };
             var game = Game(out var wallets, matchId: "broken", first: first, second: second);
             var play = game.Play();
-            first.Fail = second.Fail = true;
-            await game.GameEnd(0, new Exception("peer connection lost"));
+            // Failure begins at the terminal segment, so this tests notification isolation,
+            // rather than racing an unrelated gameplay fault before concession is claimed.
+            var terminal = (Task)typeof(GwentServerGame).GetMethod("RunGameAction",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .Invoke(game, new object[] { (Func<Task>)(async () =>
+                {
+                    first.Fail = second.Fail = true;
+                    await game.GameEnd(0, new Exception("peer connection lost"));
+                }) });
+            await terminal;
             var completed = await Task.WhenAny(play, Task.Delay(5000));
             Check(completed == play, "a conceded match with unreachable peers still releases Play()");
             if (completed == play) await play; // Completion alone must not hide a faulted match task.

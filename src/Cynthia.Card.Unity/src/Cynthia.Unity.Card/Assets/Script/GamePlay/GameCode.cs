@@ -16,6 +16,12 @@ public class GameCode : MonoBehaviour
     public Animator MyRoundShow;
     public Transform GameScale;
 
+    private void Awake()
+    {
+        //断线重连回到对局时没有待选的卡牌,隐藏显示按钮(需要时调度/选卡会重新打开)
+        if (ClientGlobalInfo.IsReconnecting)
+            GameCardShowControl.OpenButton.SetActive(false);
+    }
     private void Start()
     {
         GameStart();

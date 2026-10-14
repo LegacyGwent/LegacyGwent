@@ -55,16 +55,19 @@ Last verified: 2026-10-14
 - #816's spectator button binds `view` while its added locale key is
   `Spectator_Watch_Button`. Missing translations return the input ID, so fix
   the shared key contract before porting. Do not replace whole AI language packs.
-- Approved Oct14 UI port uses that key in all four languages, binds all four
-  editor Back targets, and widens both player name/title regions without weather
-  changes. A scene target must have a real stripped GameObject declaration,
-  not merely a matching number in the translation list. Bronibor's miniature
-  `c10003900_slot` was already registered in AI at `6dc6233a0`; no duplicate port.
-- #829 reconnect needs AI-specific settlement, daily crown, premium and login
-  lifecycle integration. #830 is still WIP at the audit; source review is not
-  native reconnect acceptance. Each port requires the user's item approval.
-- These are source-verified migration constraints, not claims that the features
-  have been ported or tested in a packaged AI client.
+- Approved Oct14 UI port uses that key in four languages, binds four editor Back
+  targets, and widens both name/title regions without weather changes. Scene
+  targets need real stripped GameObject declarations. Bronibor c10003900_slot
+  was already registered in AI at 6dc6233a0; no duplicate port.
+- #829 preserves AI terminal/settlement gates, daily reward keys, GG receipts,
+  premium/profile/login behavior and version/endpoints. See docs/reconnection.md
+  for invariants and focused source checks; these do not prove native acceptance.
+- #830 callback isolation must not fabricate draw/ranking/rewards for incomplete
+  failures. Awaited faults stay visible; initialization and cleanup are contained.
+  Async spectator optimization remains separate.
+- .NET 10 IHubClients.Client mocks implement ISingleClientProxy; Unity lifetime
+  tests reference actual bundled SignalR 5.0.8. Packaged clients, mixed versions
+  and deployed acceptance remain distinct from offline regressions.
 
 ## A feature port leaves generic UI translations behind
 

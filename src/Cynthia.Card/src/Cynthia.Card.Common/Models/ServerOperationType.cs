@@ -77,5 +77,6 @@ namespace Cynthia.Card
         //------------------------------
         SetEnemyDeck = 44, // appended: preserve existing wire IDs
         //预留一些指令
+        MessageBoxAutoClose,//显示消息,几秒后自动关闭 (string message, int seconds, bool showTimer)
     }
 }

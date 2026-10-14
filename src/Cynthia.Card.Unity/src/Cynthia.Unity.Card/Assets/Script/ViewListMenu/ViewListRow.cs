@@ -37,6 +37,7 @@ public class ViewListRow : MonoBehaviour
         if (await DependencyResolver.Container.Resolve<GwentClientService>().HubConnection.InvokeAsync<bool>("JoinViewList", RoomId))
         {
             ClientGlobalInfo.ViewingRoomId = RoomId;
+            ClientGlobalInfo.IsReconnecting = false;
             SceneManager.LoadScene("GamePlay");
         }
     }
