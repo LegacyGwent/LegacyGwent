@@ -39,6 +39,16 @@ Last verified: 2026-10-14
 - #817 also inserts `SetEnemyDeck` before `SetNameInfo` in the wire protocol;
   append new operations with explicit compatible numbers rather than shifting
   old ones. Spectator snapshots and client rendering require paired validation.
+- AI spectator adaptation appends `SetEnemyDeck=44`, `RightOnType.EnemyDeck=4`,
+  and `MenuShowType.EnemyDeck=5`; `SetNameInfo=43` and `RightOnType.Card=3` stay
+  unchanged. Bind the EnemyDeck scene component to 4; do not import #828.
+  Both initial and per-player deck refreshes use the same spectator perspective.
+  The player-0 operation stream can mask opponent draw/mulligan cards, so flush
+  those moves before the spectator-only real-status update. `SetCard` must be
+  guarded by `IsOnRow`: decks/cemeteries/banish are not indexed client rows.
+  Preserve real `Conceal`/`IsCardBack`; #817 does not authorize revealing ambush
+  visuals. `SpectatorProtocolTests` covers both sides, wire IDs, premium and
+  player secrecy offline; native Unity interaction remains a separate gate.
 - #816's spectator button binds `view` while its added locale key is
   `Spectator_Watch_Button`. Missing translations return the input ID, so fix
   the shared key contract before porting. Do not replace whole AI language packs.

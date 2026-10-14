@@ -697,6 +697,8 @@ namespace Cynthia.Card.Server
                 await ClientDelay(300, myPlayerIndex);
                 //88888888888888888888888888888888888888888888888888888
                 await SendEvent(new AfterPlayerDraw(myPlayerIndex, drawcard, null));
+                await SendOperactionList();
+                await SendSpectatorSetCard(drawcard);
                 //88888888888888888888888888888888888888888888888888888
             }
             return list;
@@ -777,6 +779,7 @@ namespace Cynthia.Card.Server
                 //每次调度
                 //立刻推送消息
                 await SendOperactionList();
+                await SendSpectatorSetCard(card);
             }
             //++++++++++++++++++++++++++++++++++++++++
             //将黑名单卡池中所有卡牌随机插入到卡组中
@@ -1172,18 +1175,18 @@ namespace Cynthia.Card.Server
             await SetDeckInfo();
             // await SendOperactionList();
         }
-        public async Task SetDeckInfo(int playerIndex)
+        private IList<CardStatus> GetDeckInfo(int playerIndex) => PlayersDeck[playerIndex]
+            .Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group)
+            .ThenByDescending(x => x.Strength).ToList();
+
+        public Task SetDeckInfo(int playerIndex)
         {
-            await Players[playerIndex].SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[playerIndex].Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList());
+            var deck = GetDeckInfo(playerIndex);
+            var operation = playerIndex == Player1Index ? ServerOperationType.SetMyDeck : ServerOperationType.SetEnemyDeck;
+            return Task.WhenAll(new[] { Players[playerIndex].SendAsync(ServerOperationType.SetMyDeck, deck) }
+                .Concat(ViewList.Select(viewer => viewer.SendAsync(operation, deck))));
         }
-        public async Task SetDeckInfo()
-        {
-            var player1Task = SetDeckInfo(Player1Index);
-            var player2Task = SetDeckInfo(Player2Index);
-            // Send deck info to all spectators
-            var spectatorTasks = ViewList.Select(viewer => viewer.SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[Player1Index].Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList()));
-            await Task.WhenAll(new[] { player1Task, player2Task }.Concat(spectatorTasks));
-        }
+        public Task SetDeckInfo() => Task.WhenAll(SetDeckInfo(Player1Index), SetDeckInfo(Player2Index));
         public Task SetCemeteryInfo(int playerIndex)
         {
             var player1Task = Players[playerIndex].SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[playerIndex].Select(x => x.Status));
@@ -1568,6 +1571,15 @@ namespace Cynthia.Card.Server
             );
         }
 
+        private Task SendSpectatorSetCard(GameCard card)
+        {
+            // SetCard is indexed into board/hand/stay/leader rows, never deck or banish.
+            if (!card.Status.CardRow.IsOnRow()) return Task.CompletedTask;
+            var location = GetCardLocation(Player1Index, card);
+            return Task.WhenAll(ViewList.Select(viewer => viewer.SendAsync(
+                ServerOperationType.SetCard, location, card.Status)));
+        }
+
         public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)
         {
             var isFromHide = card.Status.CardRow.IsInBack();
@@ -1595,8 +1607,9 @@ namespace Cynthia.Card.Server
 
         public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
         {
-            if (!card.Status.CardRow.IsOnRow()) return;
-            await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
+            if (card.Status.CardRow.IsOnRow())
+                await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
+            await SendSpectatorSetCard(card);
         }
         public async Task ShowCardDown(GameCard card)//落下
         {
@@ -2069,7 +2082,8 @@ namespace Cynthia.Card.Server
             await viewer.SendAsync(ServerOperationType.SetAllInfo, GetAllInfoForSpectator());
             
             // Send deck information for both players
-            await viewer.SendAsync(ServerOperationType.SetMyDeck, PlayersDeck[Player1Index].Select(x => x.Status).OrderBy(x => x.CardId).OrderByDescending(x => x.Group).ThenByDescending(x => x.Strength).ToList());
+            await viewer.SendAsync(ServerOperationType.SetMyDeck, GetDeckInfo(Player1Index));
+            await viewer.SendAsync(ServerOperationType.SetEnemyDeck, GetDeckInfo(Player2Index));
             
             // Send cemetery information for both players
             await viewer.SendAsync(ServerOperationType.SetMyCemetery, PlayersCemetery[Player1Index].Select(x => x.Status).ToList());

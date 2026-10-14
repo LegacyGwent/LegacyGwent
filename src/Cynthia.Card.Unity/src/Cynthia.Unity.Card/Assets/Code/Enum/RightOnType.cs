@@ -1,10 +1,11 @@
-﻿namespace Cynthia.Card
+namespace Cynthia.Card
 {
     public enum RightOnType
     {
         MyCemetery,
         EnemyCemetery,
         MyDeck,
-        Card
+        Card,
+        EnemyDeck = 4
     }
 }

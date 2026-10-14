@@ -49,6 +49,7 @@ public class GameCardShowControl : MonoBehaviour
     public IList<CardStatus> UseCardList = new List<CardStatus>();
     public IList<CardStatus> MyCemetery = new List<CardStatus>();
     public IList<CardStatus> MyDeck = new List<CardStatus>();
+    public IList<CardStatus> EnemyDeck = new List<CardStatus>();
     public IList<CardStatus> EnemyCemetery = new List<CardStatus>();
     private int _nowIndex;
     //
@@ -84,6 +85,10 @@ public class GameCardShowControl : MonoBehaviour
                 {
                     ClickedId  = MyDeck[LastHoveredCard].CardId;
                 }
+                else if (_nowShowType == MenuShowType.EnemyDeck)
+                {
+                    ClickedId = EnemyDeck[LastHoveredCard].CardId;
+                }
                 Debug.Log("RightClicked Card of ID: "+ClickedId);
                 GameEvent.RighClickActive=true;
                 GameEvent.RightClickedCardID=ClickedId;
@@ -111,6 +116,10 @@ public class GameCardShowControl : MonoBehaviour
                 else if (_nowShowType == MenuShowType.MyDeck)
                 {
                     ClickedId  = MyDeck[LastHoveredCard].CardId;
+                }
+                else if (_nowShowType == MenuShowType.EnemyDeck)
+                {
+                    ClickedId = EnemyDeck[LastHoveredCard].CardId;
                 }
                 Debug.Log("RightClicked Card of ID: "+ClickedId);
                 GameEvent.RighClickActive=true;
@@ -212,7 +221,8 @@ public class GameCardShowControl : MonoBehaviour
         var cards = _nowShowType == MenuShowType.UseCard ? UseCardList :
             _nowShowType == MenuShowType.EnemyCemetery ? EnemyCemetery :
             _nowShowType == MenuShowType.MyCemetery ? MyCemetery :
-            _nowShowType == MenuShowType.MyDeck ? MyDeck : null;
+            _nowShowType == MenuShowType.MyDeck ? MyDeck :
+            _nowShowType == MenuShowType.EnemyDeck ? EnemyDeck : null;
         if (cards == null || index >= cards.Count || cards[index].IsCardBack || cards[index].Conceal) return;
         if (ArtCard.gameObject.activeSelf && LastHoveredCard == index) return;
         LastHoveredCard = index;
@@ -302,6 +312,18 @@ public class GameCardShowControl : MonoBehaviour
         ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
         _nowShowType = MenuShowType.MyDeck;
         SetCardInfo(MyDeck);
+        ClearCardPreview();
+        CardSelectUI.SetActive(true);
+        SetButtonShow(IsCloseShow: true);
+        IsUseMenuShow = false;
+    }
+    public void ShowEnemyDeck()
+    {
+        if (EnemyDeck == null || EnemyDeck.Count() == 0)
+            return;
+        ShowCardMessage.text = _translator.GetText("IngameMenu_PlayerDeck");
+        _nowShowType = MenuShowType.EnemyDeck;
+        SetCardInfo(EnemyDeck);
         ClearCardPreview();
         CardSelectUI.SetActive(true);
         SetButtonShow(IsCloseShow: true);
