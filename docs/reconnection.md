@@ -30,13 +30,23 @@ Run from the repository root with .NET 10:
 dotnet build src/Cynthia.Card/src/Cynthia.Card.Server/Cynthia.Card.Server.csproj
 dotnet run --project src/Cynthia.Card/test/ReconnectRegression/ReconnectRegression.csproj
 dotnet run --project src/Cynthia.Card/test/ClientLifetimeRegression/ClientLifetimeRegression.csproj
+dotnet run --project src/Cynthia.Card/test/MessageBoxLifetimeRegression/MessageBoxLifetimeRegression.csproj
 ```
 
 The server regression runs against production code and covers interrupted
 claims, frozen wire payloads, answers during blocked snapshot transport, stale
-owners, obsolete tickets and competing terminal paths. The client regression
+owners, obsolete tickets and competing terminal paths. Real mulligan entry
+checks block automatic transport flush during both opening and request sends:
+the snapshot must contain the current hand, remaining count and request before
+any send can suspend, and an early accepted answer must stay consumed. The client regression
 links the production LocalPlayer with SignalR 5.0.8, checks retirement and fresh
 receive isolation, and parses the client service/scene loop using C# 7.3.
+
+The message-box check links production `MessageBox` with minimal Unity stubs.
+It covers overlapping confirmations, notification replacement, stale countdowns,
+close/disable and stray clicks. Every display owns an independent answer;
+replacement declines the old confirmation and can never synthesize consent.
+Native layout/timer rendering is not exercised by the stubs.
 
 These are offline checks. They do not verify Unity native execution, real
 two-client reconnects, mixed client versions or deployed behavior. New platform

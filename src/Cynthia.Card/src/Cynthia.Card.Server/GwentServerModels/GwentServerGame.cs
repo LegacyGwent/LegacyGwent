@@ -735,20 +735,29 @@ namespace Cynthia.Card.Server
             if (PlayersDeck[playerIndex].Count <= 0)
                 return;
             var mulliganStartOperation = Operation.Create(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status), count);
-            await Players[playerIndex].SendAsync(mulliganStartOperation);
-            PlayerToResendToViewerInfo[playerIndex].Add(mulliganStartOperation);
             IsPlayersMulligan[playerIndex] = true;
+            if (count > 0)
+                await SendRequestAsync(playerIndex, mulliganStartOperation,
+                    mulliganStartOperation, Operation.Create(ServerOperationType.GetMulliganInfo));
+            else
+                await Players[playerIndex].SendAsync(mulliganStartOperation);
+            PlayerToResendToViewerInfo[playerIndex].Add(mulliganStartOperation);
             await SetMulliganInfo();
             var backList = new List<string>();
             var blackCardPool = new List<GameCard>();
             for (var i = 0; i < count; i++)
             {
-                await Players[playerIndex].SendAsync(ServerOperationType.GetMulliganInfo);
-                PlayerToResendToViewerInfo[playerIndex].Add(Operation.Create(ServerOperationType.GetMulliganInfo));
-                // a reconnecting player needs the mulligan screen again, with the current hand and the remaining count
-                SetPendingRequest(playerIndex,
-                    Operation.Create(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status).ToList(), count - i),
-                    Operation.Create(ServerOperationType.GetMulliganInfo));
+                // Register the complete resumable request before transport can flush/suspend.
+                // A reconnect during that await needs the screen, current hand and remaining count.
+                var request = Operation.Create(ServerOperationType.GetMulliganInfo);
+                if (i > 0)
+                    await SendRequestAsync(playerIndex, request,
+                        Operation.Create(ServerOperationType.MulliganStart, PlayersHandCard[playerIndex].Select(x => x.Status).ToList(), count - i), request);
+                else if (_pendingRequests[playerIndex].Count > 0)
+                    // The first request was published with the opening screen. A reconnect
+                    // may have already answered it while that screen's transport was pending.
+                    await Players[playerIndex].SendAsync(request);
+                PlayerToResendToViewerInfo[playerIndex].Add(request);
                 var result = await ReceiveAsync(playerIndex);
                 var mulliganCardIndex = result.Arguments.ToArray()[0].ToType<int>();
                 if (mulliganCardIndex == -1)
@@ -2107,9 +2116,10 @@ namespace Cynthia.Card.Server
         }
 
         // Send a request that waits for an answer, remembering it so it can be resent after a reconnect
-        private async Task SendRequestAsync(int playerIndex, Operation<ServerOperationType> operation)
+        private async Task SendRequestAsync(int playerIndex, Operation<ServerOperationType> operation,
+            params Operation<ServerOperationType>[] pending)
         {
-            SetPendingRequest(playerIndex, operation);
+            SetPendingRequest(playerIndex, pending.Length == 0 ? new[] { operation } : pending);
             await Players[playerIndex].SendAsync(operation);
         }
 

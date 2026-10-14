@@ -1079,7 +1079,12 @@ namespace Cynthia.Card.Server
         private async Task NotifyDisconnected(User user)
         {
             try { await _gwentMatchs.PlayerDisconnected(user.CurrentPlayer, ReconnectWaitSeconds, user); }
-            catch (Exception) { /* Transport failure must not disable the reconnect deadline. */ }
+            catch (Exception error)
+            {
+                // Log the operation and exception type, not transport messages or session secrets.
+                NLog.LogManager.GetCurrentClassLogger().Warn("Disconnect notice failed; reconnect deadline remains active. ErrorType={0}",
+                    error.GetBaseException().GetType().Name);
+            }
         }
 
         // Called by a freshly logged in client; resumes the game the user was disconnected from
@@ -1120,8 +1125,10 @@ namespace Cynthia.Card.Server
                 InovkeUserChanged();
                 return restored;
             }
-            catch (Exception)
+            catch (Exception error)
             {
+                NLog.LogManager.GetCurrentClassLogger().Warn("Reconnect state delivery failed; restoring bounded ticket. ErrorType={0}",
+                    error.GetBaseException().GetType().Name);
                 // A failed state delivery restores a bounded reconnect ticket.
                 await Disconnect(connectionId);
                 return false;

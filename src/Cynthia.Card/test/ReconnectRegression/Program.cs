@@ -110,6 +110,49 @@ await game.GameEnd(0, null);
 Check(results == 1, "Natural/forced settlement published duplicate results");
 Console.WriteLine("PASS: terminal settlement cancels pending input and natural/forced paths publish once");
 
+// Drive the real mulligan entry at both transport boundaries: opening screen and
+// GetMulliganInfo automatic flush. Complete pending state must exist before either await.
+foreach (var queuedCount in new[] { 50, 48 })
+{
+    var mulliganUser = new User("mulligan", "mulligan", UserState.Play);
+    var mulliganPlayer = new ClientPlayer(mulliganUser, () => hub) { Deck = GwentDeck.CreateBasicDeck(0) };
+    var otherPlayer = new ClientPlayer(enemyUser, () => hub) { Deck = GwentDeck.CreateBasicDeck(0) };
+    var mulliganGame = new GwentServerGame(mulliganPlayer, otherPlayer);
+    var handCard = mulliganGame.PlayersDeck[0][0];
+    mulliganGame.PlayersDeck[0].RemoveAt(0);
+    mulliganGame.PlayersHandCard[0].Add(handCard);
+    for (int i = 0; i < queuedCount; i++)
+        mulliganPlayer.OperactionList.Add(Operation.Create(ServerOperationType.SetCoinInfo, true));
+    wire.Batches.Clear();
+    wire.Captured = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    wire.Block = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+    var mulligan = Run(mulliganGame, () => mulliganGame.MulliganCard(0, 2));
+    await wire.Captured.Task.WaitAsync(TimeSpan.FromSeconds(3));
+    var resume = mulliganGame.ResendGameState(0);
+    await Run(mulliganGame, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
+    var restored = mulliganPlayer.OperactionList.OfType<Operation<ServerOperationType>>().ToList();
+    Check(restored.Any(x => x.OperationType == ServerOperationType.SetAllInfo)
+        && restored.Any(x => x.OperationType == ServerOperationType.GetMulliganInfo),
+        "Mulligan reconnect lost the pending request during automatic flush");
+    var screen = restored.Single(x => x.OperationType == ServerOperationType.MulliganStart);
+    Check(screen.Arguments.ElementAt(1).ToType<int>() == 2
+        && screen.Arguments.First().ToType<IList<CardStatus>>().Single().CardId == handCard.Status.CardId,
+        "Restored mulligan screen lost current hand or remaining count");
+    var answerMulligan = (Task)typeof(GwentServerGame).GetMethod("AcceptInput", BindingFlags.NonPublic | BindingFlags.Instance)
+        .Invoke(mulliganGame, new object[] { mulliganPlayer, mulliganUser, Operation.Create(UserOperationType.MulliganInfo, -1) });
+    await Run(mulliganGame, () => Task.CompletedTask);
+    var mulliganPending = (IList<Operation<ServerOperationType>>[])Field(mulliganGame, "_pendingRequests").GetValue(mulliganGame);
+    Check(mulliganPending[0].Count == 0, "Early restored answer was not consumed before transport resumed");
+    wire.Block.TrySetResult(true);
+    Check(await resume.WaitAsync(TimeSpan.FromSeconds(3)), "Mulligan restore did not finish after transport resumed");
+    await Task.WhenAll(answerMulligan, mulligan).WaitAsync(TimeSpan.FromSeconds(3));
+    Check(mulliganPending[0].Count == 0, "Opening-screen continuation republished an already accepted answer");
+    Check(!mulliganGame.IsPlayersMulligan[0], "Restored mulligan answer did not release the real entry");
+}
+wire.Block = null;
+wire.Captured = null;
+Console.WriteLine("PASS: real mulligan opening/request flush snapshots contain current hand, remaining count and input request");
+
 // Initial MatchResult failure occurs before game construction, and must still clean both users.
 var startupRoom = new GwentRoom(player, "") { Player2 = enemy };
 var startupMatches = new GwentMatchs(() => hub, null, service);

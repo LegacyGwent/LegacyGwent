@@ -138,6 +138,8 @@ namespace Cynthia.Card.Client
             hubConnection.Closed += x =>
             {
                 Debug.Log("[LegacyGwent] Hub closed; reason=" + (x?.GetBaseException().GetType().Name ?? "ConnectionClosed"));
+                if (x?.GetBaseException() is ExecutionEngineException aotError)
+                    Debug.LogError("[LegacyGwent] AOT failure: " + aotError.Message);
                 // SignalR raises Closed on a worker thread, but scenes and UI may only be touched from Unity's main thread
                 return RunOnMainThread(() => OnConnectionClosed());
             };

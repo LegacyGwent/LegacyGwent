@@ -62,12 +62,17 @@ Last verified: 2026-10-14
 - #829 preserves AI terminal/settlement gates, daily reward keys, GG receipts,
   premium/profile/login behavior and version/endpoints. See docs/reconnection.md
   for invariants and focused source checks; these do not prove native acceptance.
+  Publish pending state before every transport await, including the mulligan
+  opening screen; do not re-register an early replay answer after send resumes.
+  Each dialog owns its answer: replacement declines old confirmation, never
+  injects consent into a shared tube. Focused regressions exercise both paths.
 - #830 callback isolation must not fabricate draw/ranking/rewards for incomplete
   failures. Awaited faults stay visible; initialization and cleanup are contained.
   Async spectator optimization remains separate.
 - .NET 10 IHubClients.Client mocks implement ISingleClientProxy; Unity lifetime
   tests reference actual bundled SignalR 5.0.8. Packaged clients, mixed versions
   and deployed acceptance remain distinct from offline regressions.
+
 
 ## A feature port leaves generic UI translations behind
 
