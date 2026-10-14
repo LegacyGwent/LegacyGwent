@@ -30713,6 +30713,8 @@ MonoBehaviour:
     TextObject: {fileID: 961599310}
   - Id: ReorderDecks
     TextObject: {fileID: 1736025218}
+  - Id: EditorMenu_BackButton
+    TextObject: {fileID: 1660924981}
   - Id: Spectator_Title
     TextObject: {fileID: 449667612}
   - Id: Enter_deck_name
