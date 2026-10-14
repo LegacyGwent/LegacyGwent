@@ -64,7 +64,8 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(42, (int)ServerOperationType.SetMyDeck);
             Assert.Equal(43, (int)ServerOperationType.SetNameInfo);
             Assert.Equal(44, (int)ServerOperationType.SetEnemyDeck);
-            Assert.Equal(45, System.Enum.GetValues<ServerOperationType>().Distinct().Count());
+            Assert.Equal(45, (int)ServerOperationType.MessageBoxAutoClose);
+            Assert.Equal(46, System.Enum.GetValues<ServerOperationType>().Distinct().Count());
         }
 
         private static HeadlessGameFixture CreateEmptyDeckFixture()
