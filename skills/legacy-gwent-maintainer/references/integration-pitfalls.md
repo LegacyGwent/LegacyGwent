@@ -51,7 +51,8 @@ Last verified: 2026-10-14
   guarded by `IsOnRow`: decks/cemeteries/banish are not indexed client rows.
   Preserve real `Conceal`/`IsCardBack`; #817 does not authorize revealing ambush
   visuals. `SpectatorProtocolTests` covers both sides, wire IDs, premium and
-  player secrecy offline; native Unity interaction remains a separate gate.
+  player secrecy offline. Oct14 Unity 2019 menu checks passed 15 assertions;
+  the reduced-art fixture does not validate rendered art, input or premium motion.
 - #816's spectator button binds `view` while its added locale key is
   `Spectator_Watch_Button`. Missing translations return the input ID, so fix
   the shared key contract before porting. Do not replace whole AI language packs.
@@ -70,8 +71,10 @@ Last verified: 2026-10-14
   failures. Awaited faults stay visible; initialization and cleanup are contained.
   Async spectator optimization remains separate.
 - .NET 10 IHubClients.Client mocks implement ISingleClientProxy; Unity lifetime
-  tests reference actual bundled SignalR 5.0.8. Packaged clients, mixed versions
-  and deployed acceptance remain distinct from offline regressions.
+  tests reference actual bundled SignalR 5.0.8. Oct14 loopback acceptance uses
+  real WebSockets, production Hub/JSON/LocalPlayer and reconnect request replay;
+  it bypasses Login/Mongo and uses graceful close, not OS network loss. Packaged
+  clients, automatic Unity scene recovery and mixed versions remain unverified.
 
 
 ## A feature port leaves generic UI translations behind
