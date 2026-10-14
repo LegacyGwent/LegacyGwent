@@ -68,3 +68,25 @@ Already committed round rewards retain their existing durable retry semantics.
 The focused reconnect fixture also checks callback isolation and failed initial
 notifications. `SurrenderCrownTest` covers the AI terminal/reward invariants.
 Its wallet is a fixture; it does not validate MongoDB or deployed reward jobs.
+
+## Local loopback acceptance
+
+```
+dotnet run --project src/Cynthia.Card/test/ReconnectLoopbackAcceptance/ReconnectLoopbackAcceptance.csproj
+```
+
+This test starts Kestrel only on an ephemeral loopback port and maps the actual
+`GwentHub` with the production JSON converter/protocol. Production `ClientPlayer`
+creates a selection request; SignalR 5.0.8 and the linked production `LocalPlayer`
+consume it. Closing that real connection triggers production disconnect/ticket
+creation. A fresh connection invokes production `Reconnect`, consumes typed
+snapshot/pending arguments, and responds to finish the original server wait.
+On a candidate containing the spectator port it also consumes `SetEnemyDeck=44`
+through the production spectator channel; otherwise that check reports SKIP.
+
+The fixture pre-registers isolated users/room in memory, bypassing credential
+Login, MongoDB and reward persistence. It does not start full production Startup
+or its hosted workers. `StopAsync` is graceful WebSocket closure, not OS packet
+loss; Unity scenes, reconnect retry UI, mixed packaged clients and deployed
+network-outage behavior remain separate acceptance boundaries. The spectator
+check validates wire consumption, not spectator admission or privacy policy.
