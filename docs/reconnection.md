@@ -90,3 +90,19 @@ or its hosted workers. `StopAsync` is graceful WebSocket closure, not OS packet
 loss; Unity scenes, reconnect retry UI, mixed packaged clients and deployed
 network-outage behavior remain separate acceptance boundaries. The spectator
 check validates wire consumption, not spectator admission or privacy policy.
+
+## Reward fixtures and serialized callbacks
+
+`RoundWon` is a synchronous enqueue callback. A fixture that calls an async
+Mongo method and blocks on `GetResult()` inside it deadlocks under the game
+synchronization context: the callback blocks the drain while the awaited
+continuation waits for that same drain. This is a fixture contract violation,
+not a reason to bypass production game serialization.
+
+`RewardSystemTest/CrownRewardCapture.cs` records stable event identities in the
+callback. Fixtures await the actual database jobs outside the game action before
+asserting persisted crowns. Game completion and persistence waits are bounded;
+background tasks are retained and awaited so storage errors cannot strand a
+completion signal. The shared helper is also linked into `ReconnectRegression`
+with a genuinely asynchronous, database-free continuation and failure check.
+That check establishes scheduling behavior, not Mongo persistence acceptance.

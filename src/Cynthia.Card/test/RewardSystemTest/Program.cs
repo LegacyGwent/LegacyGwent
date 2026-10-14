@@ -385,8 +385,10 @@ partial class Program
                 var ca=game.PlayersDeck[0][0];ca.Status.Strength=scenario==1?0:10;ca.Status.Conceal=false;game.PlayersPlace[0][0].Add(ca);
                 var cb=game.PlayersDeck[1][0];cb.Status.Strength=scenario==0?0:10;cb.Status.Conceal=false;game.PlayersPlace[1][0].Add(cb);
                 game.PlayersWinCount[0]=game.PlayersWinCount[1]=1;
-                int calls=0;game.RoundWon=(w,k,t)=>{calls++;db.AwardDailyCrown(w==0?a.UserName:b.UserName,k,t).GetAwaiter().GetResult();};
+                var rewards=new CrownRewardCapture((w,k,t)=>db.AwardDailyCrown(w==0?a.UserName:b.UserName,k,t));
+                int calls=0;game.RoundWon=(w,k,t)=>{calls++;rewards.Enqueue(w,k,t);};
                 var end=game.BigRoundEnd();if(await Task.WhenAny(end,Task.Delay(8000))!=end)throw new TimeoutException("BigRoundEnd");await end;
+                await rewards.DrainAsync("score settlement scenario "+scenario);
                 Check(calls==(scenario==2?0:1),"real BigRoundEnd callback count for winner/tie scenario "+scenario);
             }
             Check((await Account(a)).DailyQuests.Crowns==1 && (await Account(b)).DailyQuests.Crowns==1,"actual score settlement credits only each round winner, never the tied round");

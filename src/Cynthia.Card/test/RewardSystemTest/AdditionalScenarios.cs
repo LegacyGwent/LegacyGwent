@@ -190,8 +190,10 @@ partial class Program
             var conceded=await NewUser("end-"+mode);
             game=SimpleGame();
             int concededWinner=-1;var concededKeys=new List<string>();
-            game.RoundWon=(w,key,time)=>{concededWinner=w;concededKeys.Add(key);db.AwardDailyCrown(conceded.UserName,key,Now).GetAwaiter().GetResult();};
-            await game.GameEnd(0,new Exception(mode+" fixture"),surrender);
+            var concededRewards=new CrownRewardCapture((w,key,time)=>db.AwardDailyCrown(conceded.UserName,key,Now));
+            game.RoundWon=(w,key,time)=>{concededWinner=w;concededKeys.Add(key);concededRewards.Enqueue(w,key,time);};
+            await game.GameEnd(0,new Exception(mode+" fixture"),surrender).WaitAsync(TimeSpan.FromSeconds(15));
+            await concededRewards.DrainAsync(mode+" undecided round");
             Check((await db.GetDailyQuests(conceded.UserName)).Wallet.Collection.DailyQuests.Crowns==2,
                 mode+" during the first undecided round credits both match-win crowns");
             Check(concededWinner==0 && concededKeys.Count==2 && concededKeys.Distinct().Count()==2,
@@ -200,19 +202,25 @@ partial class Program
             // One genuinely won round already credited a crown; the concession completes the pair.
             var ongoing=await NewUser("end-ongoing-"+mode);
             game=SimpleGame();
-            game.RoundWon=(w,key,time)=>db.AwardDailyCrown(ongoing.UserName,key,Now).GetAwaiter().GetResult();
+            var ongoingRewards=new CrownRewardCapture((w,key,time)=>db.AwardDailyCrown(ongoing.UserName,key,Now));
+            game.RoundWon=ongoingRewards.Enqueue;
             var firstRound=game.PlayersDeck[0][0];firstRound.Status.Conceal=false;firstRound.Status.Strength=10;game.PlayersPlace[0][0].Add(firstRound);
-            await game.BigRoundEnd();
-            await game.GameEnd(0,new Exception(mode+" in round two"),surrender);
+            await game.BigRoundEnd().WaitAsync(TimeSpan.FromSeconds(15));
+            await ongoingRewards.DrainAsync(mode+" won round");
+            await game.GameEnd(0,new Exception(mode+" in round two"),surrender).WaitAsync(TimeSpan.FromSeconds(15));
+            await ongoingRewards.DrainAsync(mode+" round two concession");
             Check((await Account(ongoing)).DailyQuests.Crowns==2,
                 mode+" in a later round keeps the settled crown and continues the crown count for the conceded round");
 
             var settledUser=await NewUser("end-settled-"+mode);
             game=SimpleGame();
-            game.RoundWon=(w,key,time)=>db.AwardDailyCrown(settledUser.UserName,key,Now).GetAwaiter().GetResult();
+            var settledRewards=new CrownRewardCapture((w,key,time)=>db.AwardDailyCrown(settledUser.UserName,key,Now));
+            game.RoundWon=settledRewards.Enqueue;
             var settledCard=game.PlayersDeck[0][0];settledCard.Status.Conceal=false;settledCard.Status.Strength=10;game.PlayersPlace[0][0].Add(settledCard);
-            game.PlayersWinCount[0]=1;await game.BigRoundEnd();
-            await game.GameEnd(1,new Exception("fixture end"),surrender);
+            game.PlayersWinCount[0]=1;await game.BigRoundEnd().WaitAsync(TimeSpan.FromSeconds(15));
+            await settledRewards.DrainAsync(mode+" deciding round");
+            await game.GameEnd(1,new Exception("fixture end"),surrender).WaitAsync(TimeSpan.FromSeconds(15));
+            await settledRewards.DrainAsync(mode+" already decided concession");
             Check((await Account(settledUser)).DailyQuests.Crowns==1,
                 mode+" preserves a settled crown without inventing one once the match is already decided");
         }
@@ -224,11 +232,13 @@ partial class Program
             Func<Player> unreachable=()=>new BrokenSinkPlayer{Deck=new DeckModel{Leader=leader,Deck=new List<string>{bronze}}};
             game=new GwentServerGame(unreachable(),unreachable());
             int credited=0;
-            game.RoundWon=(w,key,time)=>{credited++;db.AwardDailyCrown(offline.UserName,key,Now).GetAwaiter().GetResult();};
-            Exception messaging=null;
-            try{await game.GameEnd(0,new Exception("peer connection lost"));}catch(Exception e){messaging=e;}
+            var offlineRewards=new CrownRewardCapture((w,key,time)=>db.AwardDailyCrown(offline.UserName,key,Now));
+            game.RoundWon=(w,key,time)=>{credited++;offlineRewards.Enqueue(w,key,time);};
+            // Production contains notification failures; terminal timeout/fault must fail the fixture.
+            await game.GameEnd(0,new Exception("peer connection lost")).WaitAsync(TimeSpan.FromSeconds(15));
+            await offlineRewards.DrainAsync("unreachable peer concession");
             Check(credited==2 && (await Account(offline)).DailyQuests.Crowns==2,
-                "both disconnect crowns are committed even when the leaving client cannot be notified",new{rewardCalls=credited,notificationFailed=messaging!=null});
+                "both disconnect crowns are committed even when the leaving client cannot be notified",new{rewardCalls=credited});
         }
         game=SimpleGame();game.PlayersWinCount[0]=1;
         var winning=game.PlayersDeck[0][0];winning.Status.Conceal=false;winning.Status.Strength=10;game.PlayersPlace[0][0].Add(winning);
@@ -242,17 +252,17 @@ partial class Program
         game=SimpleGame();game.PlayersWinCount[0]=1;
         winning=game.PlayersDeck[0][0];winning.Status.Conceal=false;winning.Status.Strength=10;game.PlayersPlace[0][0].Add(winning);
         var release=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var settled=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task settlement=Task.CompletedTask;
         string firstKey=null;DateTimeOffset firstTime=default;
         game.RoundWon=(w,key,time)=>
         {
             firstKey=key;firstTime=time;
-            _=Task.Run(async()=>{await release.Task;await db.AwardDailyCrown(user.UserName,key,Now);settled.TrySetResult(true);});
+            settlement=Task.Run(async()=>{await release.Task;await db.AwardDailyCrown(user.UserName,key,Now);});
         };
         var roundEnd=game.BigRoundEnd();
-        Check(await Task.WhenAny(roundEnd,Task.Delay(3000))==roundEnd && game.CurrentRoundCount==1,
-            "round advancement does not wait for reward storage");
-        release.TrySetResult(true);await settled.Task;
+        await roundEnd.WaitAsync(TimeSpan.FromSeconds(3));
+        Check(game.CurrentRoundCount==1,"round advancement does not wait for reward storage");
+        release.TrySetResult(true);await settlement.WaitAsync(TimeSpan.FromSeconds(15));
         Check(firstKey!=null && firstTime!=default && (await Account(user)).DailyQuests.Crowns==1,
             "background settlement keeps the server-generated round identity and credits once");
     }

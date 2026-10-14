@@ -184,6 +184,42 @@ catch (InvalidOperationException) { }
 await Run(game, () => Task.CompletedTask).WaitAsync(TimeSpan.FromSeconds(3));
 Console.WriteLine("PASS: callback faults are isolated while awaited action failures remain observable");
 
+// Reuse the persistence suite's actual capture helper with truly asynchronous work.
+// Calling GetResult here inside RoundWon would wait for a continuation queued on
+// the blocked game context; enqueue then drain outside that context avoids it.
+var rewardGame = new GwentServerGame(player, enemy);
+var queuedKeys = new List<string>();
+var persistedKeys = new List<string>();
+SynchronizationContext callbackContext = null;
+var capture = new CrownRewardCapture(async (winner, key, time) =>
+{
+    Check(SynchronizationContext.Current == null, "Persistence began inside game synchronization context");
+    await Task.Yield();
+    Check(SynchronizationContext.Current == null, "Persistence continuation returned to blocked game context");
+    persistedKeys.Add(key);
+});
+rewardGame.RoundWon = (winner, key, time) =>
+{
+    callbackContext = SynchronizationContext.Current;
+    queuedKeys.Add(key);
+    capture.Enqueue(winner, key, time);
+};
+await rewardGame.GameEnd(0, null).WaitAsync(TimeSpan.FromSeconds(3));
+Check(callbackContext?.GetType().Name == "GameExecutionContext" && queuedKeys.Count == 2 && persistedKeys.Count == 0,
+    "Reward callback did not use enqueue-only production contract");
+await capture.DrainAsync("no-DB async continuation regression").WaitAsync(TimeSpan.FromSeconds(3));
+Check(persistedKeys.SequenceEqual(queuedKeys) && persistedKeys.Distinct().Count() == 2,
+    "Deferred persistence changed or dropped crown event keys");
+var brokenCapture = new CrownRewardCapture(async (winner, key, time) =>
+{
+    await Task.Yield();
+    throw new InvalidOperationException("persistence fixture failure");
+});
+brokenCapture.Enqueue(0, "failure-fixture", DateTimeOffset.UtcNow);
+try { await brokenCapture.DrainAsync("error propagation"); throw new Exception("Persistence failure was hidden"); }
+catch (InvalidOperationException error) when (error.Message == "persistence fixture failure") { }
+Console.WriteLine("PASS: shared reward fixture records on game context, awaits asynchronous persistence outside it and preserves failures/keys");
+
 sealed class Wire : ISingleClientProxy
 {
     public Task<T> InvokeCoreAsync<T>(string method, object[] args, CancellationToken cancellationToken = default) => throw new NotSupportedException();

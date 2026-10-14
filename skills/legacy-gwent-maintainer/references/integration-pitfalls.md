@@ -75,7 +75,10 @@ Last verified: 2026-10-14
   real WebSockets, production Hub/JSON/LocalPlayer and reconnect request replay;
   it bypasses Login/Mongo and uses graceful close, not OS network loss. Packaged
   clients, automatic Unity scene recovery and mixed versions remain unverified.
-
+- Reward fixtures must keep RoundWon enqueue-only: synchronous Mongo GetResult
+  blocks the game drain needed by database continuations. CrownRewardCapture
+  records events; await its persistence outside game actions with bounded waits
+  and propagated failures. ReconnectRegression covers the same helper without DB.
 
 ## A feature port leaves generic UI translations behind
 
