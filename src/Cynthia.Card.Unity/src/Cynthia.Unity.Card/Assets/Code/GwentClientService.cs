@@ -580,7 +580,7 @@ namespace Cynthia.Card.Client
                 }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    Debug.LogError("[LegacyGwent] Closed handler failed; type=" + e.GetBaseException().GetType().Name);
                 }
                 done.SetResult(true);
             }, null);
@@ -602,7 +602,7 @@ namespace Cynthia.Card.Client
                 catch (Exception e)
                 {
                     //提示框出错不影响重连
-                    Debug.LogException(e);
+                    Debug.LogWarning("[LegacyGwent] Reconnect notification failed; type=" + e.GetBaseException().GetType().Name);
                 }
                 while (DateTime.UtcNow < deadline)
                 {
@@ -630,7 +630,7 @@ namespace Cynthia.Card.Client
             }
             catch (Exception e)
             {
-                Debug.Log($"Reconnect failed: {e.Message}");
+                Debug.LogWarning("[LegacyGwent] Reconnect failed; type=" + e.GetBaseException().GetType().Name);
                 return false;
             }
             finally
