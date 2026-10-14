@@ -1,5 +1,4 @@
 # Integration pitfalls
-
 Last verified: 2026-10-14
 
 ## A stable-DIY commit compiles but is unsafe to cherry-pick into DIY-AI
