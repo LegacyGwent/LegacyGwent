@@ -44,7 +44,10 @@ Last verified: 2026-10-14
   unchanged. Bind the EnemyDeck scene component to 4; do not import #828.
   Both initial and per-player deck refreshes use the same spectator perspective.
   The player-0 operation stream can mask opponent draw/mulligan cards, so flush
-  those moves before the spectator-only real-status update. `SetCard` must be
+  those moves before the spectator-only real-status update. Hand-entry moves
+  (including return) and direct creation need the same flush/update at their
+  shared `ShowCardMove`/`CreateCard` entry points, not card-effect exceptions.
+  `SetCard` must be
   guarded by `IsOnRow`: decks/cemeteries/banish are not indexed client rows.
   Preserve real `Conceal`/`IsCardBack`; #817 does not authorize revealing ambush
   visuals. `SpectatorProtocolTests` covers both sides, wire IDs, premium and

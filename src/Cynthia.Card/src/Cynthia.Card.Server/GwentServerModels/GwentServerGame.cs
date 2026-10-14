@@ -1580,6 +1580,14 @@ namespace Cynthia.Card.Server
                 ServerOperationType.SetCard, location, card.Status)));
         }
 
+        private async Task SynchronizeSpectatorHand(GameCard card)
+        {
+            if (!card.Status.CardRow.IsInHand()) return;
+            // The forwarded move/create must reach viewers before replacing its hidden payload.
+            await SendOperactionList();
+            await SendSpectatorSetCard(card);
+        }
+
         public async Task ShowCardMove(CardLocation location, GameCard card, bool refresh = true, bool refreshPoint = false, bool isShowEnemyBack = false, bool autoUpdateCemetery = true, bool autoUpdateDeck = true)
         {
             var isFromHide = card.Status.CardRow.IsInBack();
@@ -1603,6 +1611,7 @@ namespace Cynthia.Card.Server
             await SetCountInfo();
             if (refreshPoint)
                 await SetPointInfo();
+            await SynchronizeSpectatorHand(card);
         }
 
         public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
@@ -1972,6 +1981,7 @@ namespace Cynthia.Card.Server
             //在操作完毕后及时更新效果
             await SetCountInfo();
             await SetPointInfo();
+            await SynchronizeSpectatorHand(creatCard);
             return creatCard;
         }
         public async Task<int> CreateAndMoveStay(int playerIndex, string[] cards, int createCount = 1, bool isCanOver = false, string title = "选择生成一张卡", GameCard source = null)

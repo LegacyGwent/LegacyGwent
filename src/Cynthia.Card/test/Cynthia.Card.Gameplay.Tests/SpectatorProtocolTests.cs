@@ -75,7 +75,7 @@ namespace Cynthia.Card.Gameplay.Tests
             return fixture;
         }
 
-        private static Viewer Record(HeadlessGameFixture fixture, List<Operation<ServerOperationType>> operations)
+        private static Viewer Record(HeadlessGameFixture fixture, List<Operation<ServerOperationType>> operations, bool forwardPlayer = false)
         {
             var viewer = new Viewer(new User("protocol-viewer", "headless"), () => null);
             viewer.Receive -= viewer.AddOperation;
@@ -86,6 +86,13 @@ namespace Cynthia.Card.Gameplay.Tests
                     JsonConvert.SerializeObject(args.Result)));
                 return Task.CompletedTask;
             };
+            if (forwardPlayer)
+                fixture.FirstPlayer.Receive += args =>
+                {
+                    operations.Add(JsonConvert.DeserializeObject<Operation<ServerOperationType>>(
+                        JsonConvert.SerializeObject(args.Result)));
+                    return Task.CompletedTask;
+                };
             fixture.Game.ViewList.Add(viewer);
             return viewer;
         }
@@ -173,6 +180,42 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.True(opponent.Data.GetCard(new CardLocation(RowPosition.EnemyRow1, 0)).IsCardBack);
             var own = owner == 0 ? f.FirstPlayer : f.SecondPlayer;
             Assert.True(own.Data.GetCard(new CardLocation(RowPosition.MyRow1, 0)).IsCardBack);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        public async Task ReturnAndCreateHandCardsReplaceForwardedHiddenPayloadForBothOwners(int owner)
+        {
+            var f = CreateEmptyDeckFixture();
+            var card = f.AddCard(owner, CardId.GeraltOfRivia, RowPosition.MyRow1);
+            card.Status.IsPremium = true;
+            await f.SynchronizeClientsAsync();
+            var messages = new List<Operation<ServerOperationType>>();
+            Record(f, messages, forwardPlayer: true);
+            var opponent = owner == 0 ? f.SecondPlayer : f.FirstPlayer;
+            var privateMessages = new List<Operation<ServerOperationType>>();
+            opponent.Receive += args =>
+            {
+                privateMessages.Add(JsonConvert.DeserializeObject<Operation<ServerOperationType>>(
+                    JsonConvert.SerializeObject(args.Result)));
+                return Task.CompletedTask;
+            };
+            await f.Game.ShowCardMove(new CardLocation(RowPosition.MyHand, 0), card);
+            AssertHandUpdate(messages, owner, card.Status.CardId, true);
+            Assert.True(messages.FindLastIndex(op => op.OperationType == ServerOperationType.CardMove)
+                < messages.FindLastIndex(op => op.OperationType == ServerOperationType.SetCard));
+            var forwarded = JsonConvert.DeserializeObject<MoveCardInfo>(messages.First(op => op.OperationType == ServerOperationType.CardMove).Arguments.First());
+            Assert.Equal(owner == 1, forwarded.Card.IsCardBack);
+            var privateMove = JsonConvert.DeserializeObject<MoveCardInfo>(privateMessages.Last(op => op.OperationType == ServerOperationType.CardMove).Arguments.First());
+            Assert.True(privateMove.Card.IsCardBack);
+            messages.Clear();
+            var created = await f.Game.CreateCard(CardId.Dandelion, owner,
+                new CardLocation(RowPosition.MyHand, 0), sendEvent: false, source: card);
+            AssertHandUpdate(messages, owner, created.Status.CardId, true);
+            Assert.True(messages.FindLastIndex(op => op.OperationType == ServerOperationType.CreateCard)
+                < messages.FindLastIndex(op => op.OperationType == ServerOperationType.SetCard));
+            Assert.True(opponent.Data.GetCard(new CardLocation(RowPosition.EnemyHand, 0)).IsCardBack);
         }
 
         private static void AssertDeck(List<Operation<ServerOperationType>> messages, ServerOperationType operation, string cardId, bool premium)
