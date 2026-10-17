@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberTwelfthBatchPreservesIdentityAndRestoresOnlyCultist()
         {
-            Assert.Equal(new Version(1, 0, 0, 210), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
             Assert.Equal(10, GwentMap.CardMap[CardId.Artis].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.ImmortalCavalry].Strength);
             var cultist = GwentMap.CardMap[CardId.CultistOblation];
@@ -52,7 +52,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberSeventhBatchPreservesIdentityAndMatchesAllLocaleSurfaces()
         {
-            Assert.Equal(new Version(1, 0, 0, 210), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
             Assert.Equal(7, GwentMap.CardMap[CardId.Brehen].Strength);
             Assert.True(GwentMap.CardMap[CardId.Egmond].IsCountdown);
             Assert.Equal(2, GwentMap.CardMap[CardId.Egmond].Countdown);
@@ -109,7 +109,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 210), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
             Assert.Equal(737, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -148,14 +148,15 @@ namespace Cynthia.Card.Server.Tests
 
             Assert.Equal(3, GwentMap.CardMap[CardId.Bronibor].Strength);
             Assert.Equal(Faction.Neutral, GwentMap.CardMap[CardId.VlodimirVonEverec].Faction);
-            Assert.Equal(1, GwentMap.CardMap[CardId.VlodimirVonEverec].Strength);
+            Assert.Equal(2, GwentMap.CardMap[CardId.VlodimirVonEverec].Strength);
             Assert.Equal("欧菲丽·凡·莫拉汉姆", GwentMap.CardMap[CardId.OphelieVanMoorlehem].Name);
             Assert.Equal("史裘达尔·德拉蒙", GwentMap.CardMap[CardId.SkjordalDrummond].Name);
-            Assert.Equal(new[] { Categorie.Witcher }, GwentMap.CardMap[CardId.GezrasOfLeyda].Categories);
+            Assert.Equal(new[] { Categorie.Witcher, Categorie.Elf }, GwentMap.CardMap[CardId.GezrasOfLeyda].Categories);
             Assert.Equal(Group.Gold, GwentMap.CardMap[CardId.GezrasOfLeyda].Group);
             Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Gaetan].Group);
             Assert.Equal(Group.Silver, GwentMap.CardMap[CardId.Brehen].Group);
             Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.CatSchoolWitcherThug].Group);
+            Assert.Equal(1, GwentMap.CardMap[CardId.CatSchoolWitcherThug].Strength);
             Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.CatSchoolWitcher].Group);
 
             var dataService = new GwentCardDataService();
@@ -283,6 +284,7 @@ namespace Cynthia.Card.Server.Tests
             {
                 [CardId.Bronibor] = "生成1个“可怜的步兵”。随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于该排士兵总数的伤害。",
                 [CardId.CatSchoolWitcherThug] = "将2个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害，重复1次。",
+                [CardId.GezrasOfLeyda] = "使同排单位免疫来自灾厄的伤害。将最多7个友军“猎魔人”和“精灵”单位移至此排。对一个单位造成等同于其溢出移动次数的削弱。",
                 [CardId.DwarvenChariot] = "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。",
                 [CardId.VlodimirVonEverec] = "从牌组打出1张铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。"
             };

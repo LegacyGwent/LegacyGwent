@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 210);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 211);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -15634,7 +15634,7 @@ namespace Cynthia.Card
                 "70204",//弗洛迪米·伊佛瑞克 Vlodimir von Everec
                 new GwentCard()
                 {
-                    CardId = "70204", Name = "弗洛迪米·伊佛瑞克", Strength = 1, Group = Group.Silver,
+                    CardId = "70204", Name = "弗洛迪米·伊佛瑞克", Strength = 2, Group = Group.Silver,
                     Faction = Faction.Neutral, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed },
@@ -15676,8 +15676,8 @@ namespace Cynthia.Card
                     CardId = "70207", Name = "雷达的吉兹拉斯", Strength = 5, Group = Group.Gold,
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "择一：选择1个友军铜色/银色“猎魔人”或“野兽”单位，使其获得1点强化；或削弱其战力至1点。随后将其重新打出。",
+                    Categories = new Categorie[] { Categorie.Witcher, Categorie.Elf }, Flavor = "",
+                    Info = "使同排单位免疫来自灾厄的伤害。将最多7个友军“猎魔人”和“精灵”单位移至此排。对一个单位造成等同于其溢出移动次数的削弱。",
                     CardArtsId = "202801", LinkedCards = new List<String> {},
                 }
             },
@@ -15709,7 +15709,7 @@ namespace Cynthia.Card
                 "70210",//猫学派猎魔人恶徒 Cat School Witcher Thug
                 new GwentCard()
                 {
-                    CardId = "70210", Name = "猫学派猎魔人恶徒", Strength = 2, Group = Group.Copper,
+                    CardId = "70210", Name = "猫学派猎魔人恶徒", Strength = 1, Group = Group.Copper,
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",

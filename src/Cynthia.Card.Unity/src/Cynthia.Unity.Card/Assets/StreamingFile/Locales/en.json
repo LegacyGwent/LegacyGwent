@@ -4392,7 +4392,7 @@
         },
         "70207": {
             "Name": "Gezras of Leyda",
-            "Info": "Choose one: Strengthen an allied Bronze/Silver Witcher or Beast by 1; or Weaken it to 1. Then replay it.",
+            "Info": "Units on this row are immune to damage from Hazards. Move up to 7 allied Witcher and Elf units to this row. Weaken a unit by the number of unused moves.",
             "Flavor": ""
         },
         "70208": {

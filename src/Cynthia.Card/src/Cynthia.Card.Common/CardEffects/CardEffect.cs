@@ -819,11 +819,11 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardConsume(target, Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Move(CardLocation location, GameCard source)//发送位移
+        public virtual async Task<bool> Move(CardLocation location, GameCard source)//发送位移；返回是否实际执行位移
         {//移动,只限于从场上移动到另一排
             //如果不在场上,返回
             var count = Game.RowToList(Card.PlayerIndex, location.RowPosition).Count;
-            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead || Card.Status.Type == CardType.Special) return;
+            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead || Card.Status.Type == CardType.Special) return false;
             if (location.CardIndex > count)
             {
                 location.CardIndex = count;
@@ -837,6 +837,7 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             await Game.AddTask(async () => await CardDown(isSpyingChange, false, false, (true, isSpyingChange), false));
+            return true;
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤

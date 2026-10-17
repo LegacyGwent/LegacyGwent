@@ -159,25 +159,188 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GezrasStrengthensThenQueuesTheSameWitcherForReplay()
+        public async Task GezrasUsesSevenUnusedMovesWhenNoAlliesCanMove()
         {
             var f = new HeadlessGameFixture();
-            var target = f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyRow1);
-            var initialStrength = target.Status.Strength;
-            target.Status.HealthStatus = 2;
-            target.Status.Armor = 3;
-            var gezras = f.AddCard(
-                f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
-            f.FirstPlayer.QueueMenuOptionKeys("GezrasOfLeyda_1_Strengthen");
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
             await f.SynchronizeClientsAsync();
 
-            var queued = await gezras.Effect.CardPlayEffect(false, false);
+            await gezras.Effect.CardPlayEffect(false, false);
 
-            Assert.Equal(1, queued);
-            Assert.Equal(initialStrength + 1, target.Status.Strength);
-            Assert.Equal(0, target.Status.HealthStatus);
-            Assert.Equal(0, target.Status.Armor);
-            Assert.Same(target, Assert.Single(f.Game.PlayersStay[f.Game.Player1Index]));
+            Assert.Equal(13, enemy.Status.Strength);
+            Assert.Empty(f.FirstPlayer.MenuRequests);
+        }
+
+        [Fact]
+        public async Task GezrasMovesOnlyOffRowWitchersAndElvesThenWeakensByFour()
+        {
+            var f = new HeadlessGameFixture();
+            var witcher = f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyRow1);
+            var firstElf = f.AddCard(f.Game.Player1Index, CardId.ElvenScout, RowPosition.MyRow1);
+            var secondElf = f.AddCard(f.Game.Player1Index, CardId.ElvenScout, RowPosition.MyRow3);
+            var beast = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1);
+            var sameRowWitcher = f.AddCard(f.Game.Player1Index, CardId.CatSchoolWitcher, RowPosition.MyRow2);
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.EnemyRow1)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await gezras.Effect.CardPlayEffect(false, false);
+
+            Assert.Equal(RowPosition.MyRow2, witcher.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow2, firstElf.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow2, secondElf.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow1, beast.Status.CardRow);
+            Assert.Equal(RowPosition.MyRow2, sameRowWitcher.Status.CardRow);
+            Assert.Equal(16, enemy.Status.Strength);
+            Assert.Equal(3, f.FirstPlayer.MenuRequests.Single().SelectCount);
+        }
+
+        [Fact]
+        public async Task GezrasCanMoveSevenAlliesWithoutWeakening()
+        {
+            var f = new HeadlessGameFixture();
+            var allies = Enumerable.Range(0, 7)
+                .Select(index => f.AddCard(f.Game.Player1Index,
+                    index % 2 == 0 ? CardId.Eskel : CardId.ElvenScout,
+                    index < 4 ? RowPosition.MyRow1 : RowPosition.MyRow3))
+                .ToArray();
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            await f.SynchronizeClientsAsync();
+
+            await gezras.Effect.CardPlayEffect(false, false);
+
+            Assert.All(allies, ally => Assert.Equal(RowPosition.MyRow2, ally.Status.CardRow));
+            Assert.Equal(20, enemy.Status.Strength);
+            Assert.Equal(7, f.FirstPlayer.MenuRequests.Single().SelectCount);
+            Assert.Empty(f.FirstPlayer.PlaceSelectionSources);
+        }
+
+        [Fact]
+        public async Task GezrasCountsRowCapacityAsUnusedMoves()
+        {
+            var f = new HeadlessGameFixture();
+            f.Game.RowMaxCount = 3;
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow2);
+            var allies = Enumerable.Range(0, 3)
+                .Select(_ => f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyRow1))
+                .ToArray();
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.EnemyRow1)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await gezras.Effect.CardPlayEffect(false, false);
+
+            Assert.Equal(1, allies.Count(ally => ally.Status.CardRow == RowPosition.MyRow2));
+            Assert.Equal(14, enemy.Status.Strength);
+            Assert.Equal(1, f.FirstPlayer.MenuRequests.Single().SelectCount);
+        }
+
+        [Fact]
+        public async Task GezrasCannotMoveAlliesIntoAFullRow()
+        {
+            var f = new HeadlessGameFixture();
+            f.Game.RowMaxCount = 2;
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow2);
+            var elf = f.AddCard(f.Game.Player1Index, CardId.ElvenScout, RowPosition.MyRow1);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.EnemyRow1)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await gezras.Effect.CardPlayEffect(false, false);
+
+            Assert.Equal(RowPosition.MyRow1, elf.Status.CardRow);
+            Assert.Equal(13, enemy.Status.Strength);
+            Assert.Empty(f.FirstPlayer.MenuRequests);
+        }
+
+        [Theory]
+        [InlineData(0, 7)]
+        [InlineData(1, 6)]
+        public async Task GezrasLetsThePlayerLeaveMovementChoicesUnused(int selectedCount, int weaken)
+        {
+            var f = new HeadlessGameFixture();
+            var allies = Enumerable.Range(0, 3)
+                .Select(_ => f.AddCard(f.Game.Player1Index, CardId.ElvenScout, RowPosition.MyRow1))
+                .ToArray();
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            f.FirstPlayer.MenuSelectionOverride = _ => Enumerable.Range(0, selectedCount).ToArray();
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.EnemyRow1)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await gezras.Effect.CardPlayEffect(false, false);
+
+            Assert.True(f.FirstPlayer.MenuRequests.Single().IsCanOver);
+            Assert.Equal(selectedCount, allies.Count(ally => ally.Status.CardRow == RowPosition.MyRow2));
+            Assert.Equal(20 - weaken, enemy.Status.Strength);
+        }
+
+        [Fact]
+        public async Task GezrasCountsAMoveEvenWhenBowmanKillsTheMovedAlly()
+        {
+            var f = new HeadlessGameFixture();
+            var fragileElf = f.AddCard(f.Game.Player1Index, CardId.ElvenScout, RowPosition.MyRow1, 1);
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            f.AddCard(f.Game.Player2Index, "54009", RowPosition.MyRow1);
+            var weakenTarget = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow3, 20);
+            f.FirstPlayer.PlaceSelectionOverride = info => info.CanSelect.CardsPartToLocation()
+                .Where(location => location.RowPosition == RowPosition.EnemyRow3)
+                .Take(info.SelectCount).ToList();
+            await f.SynchronizeClientsAsync();
+
+            await f.Game.AddTask(async () => await gezras.Effect.CardPlayEffect(false, false));
+
+            Assert.True(fragileElf.IsDead || fragileElf.Status.CardRow.IsInCemetery());
+            Assert.Equal(14, weakenTarget.Status.Strength);
+        }
+
+        [Fact]
+        public async Task GezrasHazardProtectionAppliesOnlyToAlliesOnItsRow()
+        {
+            var f = new HeadlessGameFixture();
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var protectedAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow2, 20);
+            var otherRowAlly = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow1, 20);
+            var enemy = f.AddCard(f.Game.Player2Index, CardId.Wolf, RowPosition.MyRow2, 20);
+            await f.SynchronizeClientsAsync();
+
+            await protectedAlly.Effect.Damage(2, gezras, damageType: DamageType.BitingFrost);
+            await gezras.Effect.Damage(2, gezras, damageType: DamageType.TorrentialRain);
+            await otherRowAlly.Effect.Damage(2, gezras, damageType: DamageType.BitingFrost);
+            await enemy.Effect.Damage(2, gezras, damageType: DamageType.BitingFrost);
+            await protectedAlly.Effect.Damage(2, enemy);
+
+            Assert.Equal(-2, protectedAlly.Status.HealthStatus);
+            Assert.Equal(0, gezras.Status.HealthStatus);
+            Assert.Equal(-2, otherRowAlly.Status.HealthStatus);
+            Assert.Equal(-2, enemy.Status.HealthStatus);
+        }
+
+        [Fact]
+        public async Task LockedGezrasDoesNotProtectAlliesFromHazards()
+        {
+            var f = new HeadlessGameFixture();
+            var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
+            var ally = f.AddCard(f.Game.Player1Index, CardId.Wolf, RowPosition.MyRow2, 20);
+            gezras.Status.IsLock = true;
+            await f.SynchronizeClientsAsync();
+
+            await ally.Effect.Damage(2, gezras, damageType: DamageType.BitingFrost);
+
+            Assert.Equal(-2, ally.Status.HealthStatus);
         }
 
         [Fact]
@@ -357,7 +520,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.Equal(RowPosition.MyRow2, firstMoved.Status.CardRow);
             Assert.Equal(RowPosition.MyRow2, secondMoved.Status.CardRow);
-            Assert.Equal(-6, damageTarget.Status.HealthStatus);
+            Assert.Equal(-8, damageTarget.Status.HealthStatus);
             Assert.Equal(0, firstMoved.Status.HealthStatus);
             Assert.Equal(0, secondMoved.Status.HealthStatus);
         }
