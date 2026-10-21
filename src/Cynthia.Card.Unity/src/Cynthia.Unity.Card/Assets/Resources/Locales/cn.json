@@ -868,7 +868,7 @@
         "IngameMenu_ShowCards": "显示卡牌",
         "Leaderboard_RankNumber": "排名 {0}",
         "LoginMenu_Connecting": "正在与服务器连接，请稍等…",
-        "LoginMenu_NewsBody": "欢迎来到 DiyGwent AITest 5010 实验服！\n\n本作永久免费开源。\n下载与社区：https://discord.gg/Dw9sKgaUZN\n\nAI 匹配密码：\nai：杰洛特与希里\nai1：新兵训练\nai2：阿瓦拉克\nai3：奥贝伦王\nai4：铁隼佣兵团\nai5：猎龙人\n输入对应匹配密码即可挑战 AI。有其他玩家时优先匹配玩家；添加 #f 后缀可强制挑战 AI（例如 ai#f）。",
+        "LoginMenu_NewsBody": "欢迎来到 DiyGwent AITest 5010 实验服！\n\n本作永久免费开源。\n下载与社区：https://discord.gg/Dw9sKgaUZN\n\nAI 匹配密码：\nai：杰洛特与希里\nai1：新兵训练\nai2：阿瓦拉克\nai3：奥贝伦王\nai4：铁隼佣兵团\nai5：猎龙人\n想与 AI 对战，请在休闲模式中点击密码输入框下方的“与 AI 对战”，从向上展开的菜单中选择对手，即可开始对战。",
         "LoginMenu_Status": "状态：",
         "Season_NoData": "暂无赛季数据",
         "Spectator_RoomNumber": "房间 {0}",

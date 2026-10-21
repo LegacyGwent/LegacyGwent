@@ -868,7 +868,7 @@
         "IngameMenu_ShowCards": "Pokaż karty",
         "Leaderboard_RankNumber": "Miejsce {0}",
         "LoginMenu_Connecting": "Łączenie z serwerem… Proszę czekać…",
-        "LoginMenu_NewsBody": "Witaj na eksperymentalnym serwerze DiyGwent AITest na porcie 5010!\n\nGra jest na zawsze darmowa i ma otwarty kod źródłowy.\nPobieranie gry i społeczność: https://discord.gg/Dw9sKgaUZN\n\nMecze przeciw SI:\nai: Geralt i Ciri\nai1: Szkolenie rekrutów\nai2: Avallac’h\nai3: Król Auberon\nai4: Najemnicy Żelaznych Sokołów\nai5: Łowca smoków\nWpisz odpowiednie hasło wyszukiwania meczu, aby wyzwać SI. Dostępni gracze mają pierwszeństwo. Dodaj #f, aby wymusić mecz przeciw SI (np. ai#f).",
+        "LoginMenu_NewsBody": "Witaj na eksperymentalnym serwerze DiyGwent AITest na porcie 5010!\n\nGra jest na zawsze darmowa i ma otwarty kod źródłowy.\nPobieranie gry i społeczność: https://discord.gg/Dw9sKgaUZN\n\nMecze przeciw SI:\nai: Geralt i Ciri\nai1: Szkolenie rekrutów\nai2: Avallac’h\nai3: Król Auberon\nai4: Najemnicy Żelaznych Sokołów\nai5: Łowca smoków\nAby zagrać przeciw SI, otwórz tryb swobodny i kliknij „Graj przeciw SI” pod polem hasła. Wybierz przeciwnika z menu rozwijanego w górę, aby rozpocząć mecz.",
         "LoginMenu_Status": "Stan:",
         "Season_NoData": "Brak danych sezonu",
         "Spectator_RoomNumber": "Pokój {0}",
