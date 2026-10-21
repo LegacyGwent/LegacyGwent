@@ -79,22 +79,22 @@ Last verified: 2026-10-14
   records events; await its persistence outside game actions with bounded waits
   and propagated failures. ReconnectRegression covers the same helper without DB.
 
-## A feature port leaves generic UI translations behind
+## A feature port leaves UI changes behind
 
-- Symptom: premium-specific text is translated but titles, borders, settings,
-  and card category names revert to old English strings in the AI client.
-- Cause: comparing file presence or a feature-key subset does not cover all
-  personal changes inside shared language files. Whole-file copying is also
-  unsafe because AI card descriptions and choice text follow newer rules.
-- Fix: compare personal-base, personal-current, AI-base and AI-current values
-  per UI key. Restore nonconflicting generic text without replacing AI rule
-  descriptions, removed options or the AI endpoint welcome text. Synchronize
-  Resources, StreamingFile and server Locales together.
-- Prevention: audit original dirty files as well as committed source paths;
-  distinguish source Release delivery from Git tracking and historical evidence.
-- Verification: the final delivery audit restored 74 omitted UI translations;
-  `scripts/Verify-Localization.py` passed across all four languages and stores.
-  File/key presence alone does not establish semantic parity or device behavior.
+- Symptom: a completed merge contains rewards or premium work but omits a
+  separately edited UI layout or translation from the original working tree.
+- Cause: porting a selected file/key subset is not a complete feature inventory;
+  a merge commit proves only the candidate contents were integrated. Whole-file
+  locale copying can also overwrite newer AI card rules.
+- Fix: compare original dirty/committed changes with the final candidate by
+  behavior and UI key. Port layout, label and verification together; synchronize
+  Resources, StreamingFile and server Locales without reformatting whole JSON.
+- Prevention: explicitly report included and remaining features before delivery.
+  TextLocalization seeds bundled keys before downloaded-key overlays; missing
+  new server keys retain bundled defaults. Keep button and HUD labels separate.
+- Verification: 6c93e1261's AI layout was absent from fa719c7f2 and upstream
+  59f8c44e5; it was omitted, not reverted. Check actual file history and semantic
+  locale deltas, run Verify-Localization.py, then inspect the current UI.
 
 ## A clean release branch does not mean the fork has no private history
 

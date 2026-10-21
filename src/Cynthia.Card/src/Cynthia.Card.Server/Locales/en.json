@@ -85,6 +85,7 @@
         "MainMenu_PlayersOnlineText": "Players Online:",
         "MainMenu_PlayingPvpText": "Playing (pvp):",
         "MainMenu_PlayingvsAIText": "Playing (vs AI):",
+        "MainMenu_PlayVsAIButton": "Play vs AI",
         "MainMenu_PlayingCasualText": "Playing:",
         "MainMenu_PlayingRankText": "Playing:",
         "MainMenu_CasualFlagText": "Opponent Found",

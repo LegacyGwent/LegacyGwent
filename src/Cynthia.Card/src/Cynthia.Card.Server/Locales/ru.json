@@ -85,6 +85,7 @@
         "MainMenu_PlayersOnlineText": "Игроки онлайн:",
         "MainMenu_PlayingPvpText": "Играют (pvp):",
         "MainMenu_PlayingvsAIText": "Играют (против AI):",
+        "MainMenu_PlayVsAIButton": "Играть против ИИ",
         "MainMenu_PlayingCasualText": "Играют:",
         "MainMenu_PlayingRankText": "Играют:",
         "MainMenu_CasualFlagText": "Соперник найден",
