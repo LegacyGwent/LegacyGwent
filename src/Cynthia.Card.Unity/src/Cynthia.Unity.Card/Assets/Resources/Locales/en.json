@@ -868,7 +868,7 @@
         "IngameMenu_ShowCards": "Show cards",
         "Leaderboard_RankNumber": "Rank {0}",
         "LoginMenu_Connecting": "Connecting to the server… Please wait…",
-        "LoginMenu_NewsBody": "Welcome to the experimental DiyGwent AITest realm on port 5010!\n\nThis game is permanently free and open-source.\nDownloads and community: https://discord.gg/Dw9sKgaUZN\n\nAI matchmaking:\nai: Geralt and Ciri\nai1: Recruit Training\nai2: Avallac’h\nai3: King Auberon\nai4: Iron Falcon Mercenaries\nai5: Dragon Hunter\nEnter the corresponding matchmaking password to challenge the AI. Players take priority when available. Add #f to force an AI match (for example, ai#f).",
+        "LoginMenu_NewsBody": "Welcome to the experimental DiyGwent AITest realm on port 5010!\n\nThis game is permanently free and open-source.\nDownloads and community: https://discord.gg/Dw9sKgaUZN\n\nAI matchmaking:\nai: Geralt and Ciri\nai1: Recruit Training\nai2: Avallac’h\nai3: King Auberon\nai4: Iron Falcon Mercenaries\nai5: Dragon Hunter\nTo play against AI, open Casual mode and click “Play vs AI” below the password field. Choose an opponent from the menu that opens upward to start a match.",
         "LoginMenu_Status": "Status:",
         "Season_NoData": "No season data",
         "Spectator_RoomNumber": "Room {0}",

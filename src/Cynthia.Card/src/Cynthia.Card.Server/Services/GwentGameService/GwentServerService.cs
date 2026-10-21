@@ -1157,7 +1157,7 @@ ai3 奥贝伦王
 ai4 铁隼佣兵团
 ai5 猎龙人
 
-若可能遇到同密码玩家，在末尾加 #f（也兼容 #）即可强制挑战 AI，例如 ai1#f。
+想与 AI 对战，请在休闲模式中点击密码输入框下方的“与 AI 对战”，从向上展开的菜单中选择对手，即可开始对战。
 
 提示：本线路更新较快，可能断线或临时调整；实验数据会独立演进，遇到问题请到群内反馈。";
         }
@@ -1177,7 +1177,7 @@ ai3 King Auberon
 ai4 Iron Falcon
 ai5 Dragon Hunter
 
-Append #f (# is also accepted) to force an AI match when another player may use the same password, for example ai1#f.
+To play against AI, open Casual mode and click “Play vs AI” below the password field. Choose an opponent from the menu that opens upward to start a match.
 
 Note: this realm changes frequently and may be interrupted. Its experimental data evolves independently; report issues in the group.";
         }
