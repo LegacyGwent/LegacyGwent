@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("70199")]//安德莱格女王 Endrega Queen
-    public class EndregaQueen : CardEffect, IHandlesEvent<OnGameStart>, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardStrengthen>
+    public class EndregaQueen : CardEffect, IHandlesEvent<OnGameStart>, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardStrengthen>, IHandlesEvent<TriggerCountdown>
     {
         public EndregaQueen(GameCard card) : base(card) { }
 
@@ -26,6 +26,15 @@ namespace Cynthia.Card
                 return;
             }
 
+            await AdvanceCountdown();
+        }
+
+        public Task HandleEvent(TriggerCountdown @event) =>
+            @event.Target == Card && Card.IsAliveOnPlance() && Card.Status.IsCountdown
+                ? AdvanceCountdown() : Task.CompletedTask;
+
+        private async Task AdvanceCountdown()
+        {
             await SetCountdown(offset: -1);
             if (Countdown > 0)
             {

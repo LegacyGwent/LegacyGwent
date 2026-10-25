@@ -17,9 +17,52 @@ namespace Cynthia.Card.Server.Tests
     public class DiyAiCardPoolTests
     {
         [Fact]
+        public void OctoberTwentyFourthBatchAppendsQueenAndPromotesPlumardWithoutChangingHistory()
+        {
+            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal("70213", GwentMap.CardMap.Keys.Last());
+            var queen = GwentMap.CardMap[CardId.KikimoreQueen];
+            Assert.Equal("齐齐摩女王", queen.Name);
+            Assert.Equal(8, queen.Strength);
+            Assert.Equal(Group.Gold, queen.Group);
+            Assert.Equal(Faction.Monsters, queen.Faction);
+            Assert.Equal(new[] { Categorie.Insectoid }, queen.Categories);
+            Assert.True(queen.IsCountdown);
+            Assert.Equal(2, queen.Countdown);
+            Assert.Equal("d19130000", queen.CardArtsId);
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.KikimoreQueen));
+            Assert.True(DiyAiCardPool.IsUserDeckCard(CardId.Plumard));
+            Assert.Equal(Group.Copper, GwentMap.CardMap[CardId.Plumard].Group);
+            Assert.False(GwentMap.CardMap[CardId.Plumard].IsDerive);
+            Assert.Equal(Faction.ScoiaTael, GwentMap.CardMap[CardId.Filavandrel].Faction);
+            Assert.DoesNotContain("（", GwentMap.CardMap[CardId.FeastOfBlood].Info);
+            Assert.DoesNotContain("）", GwentMap.CardMap[CardId.FeastOfBlood].Info);
+            var ids = new[] { CardId.XavierMoran, CardId.BowDryad, CardId.GezrasOfLeyda,
+                CardId.Garkain, CardId.FeastOfBlood, CardId.Plumard, CardId.KikimoreQueen };
+            var roots = new[] {
+                "src/Cynthia.Card/src/Cynthia.Card.Server/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/Resources/Locales",
+                "src/Cynthia.Card.Unity/src/Cynthia.Unity.Card/Assets/StreamingFile/Locales" };
+            foreach (var language in new[] { "cn", "en", "pl", "ru" })
+            {
+                var locales = roots.Select(root => JsonConvert.DeserializeObject<GameLocale>(
+                    File.ReadAllText(FindRepositoryFile(root + "/" + language + ".json")))).ToArray();
+                foreach (var id in ids)
+                {
+                    Assert.All(locales.Skip(1), locale =>
+                    {
+                        Assert.Equal(locales[0].CardLocales[id].Info, locale.CardLocales[id].Info);
+                        Assert.Equal(locales[0].CardLocales[id].Name, locale.CardLocales[id].Name);
+                    });
+                    if (language == "cn") Assert.Equal(GwentMap.CardMap[id].Info, locales[0].CardLocales[id].Info);
+                }
+            }
+        }
+
+        [Fact]
         public void OctoberTwelfthBatchPreservesIdentityAndRestoresOnlyCultist()
         {
-            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
             Assert.Equal(10, GwentMap.CardMap[CardId.Artis].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.ImmortalCavalry].Strength);
             var cultist = GwentMap.CardMap[CardId.CultistOblation];
@@ -52,7 +95,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberSeventhBatchPreservesIdentityAndMatchesAllLocaleSurfaces()
         {
-            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
             Assert.Equal(7, GwentMap.CardMap[CardId.Brehen].Strength);
             Assert.True(GwentMap.CardMap[CardId.Egmond].IsCountdown);
             Assert.Equal(2, GwentMap.CardMap[CardId.Egmond].Countdown);
@@ -109,8 +152,8 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 211), GwentMap.CardMapVersion);
-            Assert.Equal(737, GwentMap.CardMap.Count);
+            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal(738, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
             var historicalHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(historicalIds)))
@@ -120,7 +163,7 @@ namespace Cynthia.Card.Server.Tests
                 "1d92e39fd29ffd178e2998d5c9bc761cebd37bf5c3adee040505840d9fab84a9",
                 historicalHash);
             Assert.Equal(
-                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203", "70204", "70205", "70206", "70207", "70208", "70209", "70210", "70211", "70212" },
+                new[] { "34034", "34035", "34036", "64035", "64036", "64037", "70191", "70192", "70193", "70194", "70195", "70196", "70197", "70198", "70199", "70200", "70201", "70202", "70203", "70204", "70205", "70206", "70207", "70208", "70209", "70210", "70211", "70212", "70213" },
                 GwentMap.CardMap.Keys.Skip(709));
         }
 
@@ -284,7 +327,7 @@ namespace Cynthia.Card.Server.Tests
             {
                 [CardId.Bronibor] = "生成1个“可怜的步兵”。随后使己方单排所有“士兵”单位获得1点护甲，对1个敌军单位造成等同于该排士兵总数的伤害。",
                 [CardId.CatSchoolWitcherThug] = "将2个敌军单位移至其所在半场的同排。若对方同排单位总数高于自身基础战力，造成差值的伤害，重复1次。",
-                [CardId.GezrasOfLeyda] = "使同排单位免疫来自灾厄的伤害。将最多7个友军“猎魔人”和“精灵”单位移至此排。对一个单位造成等同于其溢出移动次数的削弱。",
+                [CardId.GezrasOfLeyda] = "使同排单位免疫来自灾厄的伤害。将最多8个友军“猎魔人”和“精灵”单位移至此排，对1个敌军单位造成等同于其溢出移动次数的削弱。",
                 [CardId.DwarvenChariot] = "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。",
                 [CardId.VlodimirVonEverec] = "从牌组打出1张铜色/银色“猎魔人”单位牌。使己方打出的“刚特·欧迪姆”至多猜测3次。"
             };
@@ -766,7 +809,7 @@ namespace Cynthia.Card.Server.Tests
                 [CardId.Draug] = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                 [CardId.NorthernRealmsDraug] = "选择墓场中至多8个单位，将其复活为战力为1的“战鬼”至同排。",
                 ["70050"] = "使1个受伤或受护甲保护的友军单位与1个敌军单位对决。",
-                [CardId.FeastOfBlood] = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）"
+                [CardId.FeastOfBlood] = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。"
             };
             var data = new GwentCardDataService();
             Assert.Equal(typeof(Draug), data.GetType(CardId.Draug));
@@ -854,7 +897,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains("3个“吸血鬼”或“野兽”单位", GwentMap.CardMap[CardId.DetlaffCrimsonCurse].Info);
             Assert.Equal("吸血鸟怪", GwentMap.CardMap[CardId.Plumard].Name);
             Assert.Equal(
-                "同排非同名单位汲取时，汲取同目标1点战力。",
+                "位于己方半场、手牌或牌组：友军“吸血鬼”单位摧毁单位时获得1点增益。同排非同名单位汲食时，汲食同目标1点战力。",
                 GwentMap.CardMap[CardId.Plumard].Info);
             Assert.Contains("生成一个“吸血鸟怪”", GwentMap.CardMap[CardId.FeastOfBlood].Info);
             Assert.Contains("位于手牌、牌组：", GwentMap.CardMap[CardId.SirScratchALot].Info);
@@ -1997,7 +2040,7 @@ namespace Cynthia.Card.Server.Tests
             };
             Assert.All(deckableIds, id => Assert.True(DiyAiCardPool.IsUserDeckCard(id)));
 
-            var generatedIds = new[] { "70107", "70108", "70147", "70186", "70187" };
+            var generatedIds = new[] { "70107", "70108", "70186", "70187" };
             Assert.All(generatedIds, id =>
             {
                 Assert.DoesNotContain(id, DiyAiCardPool.RetiredCardIds);
@@ -2659,7 +2702,7 @@ namespace Cynthia.Card.Server.Tests
                 ["22007"] = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
                 ["34005"] = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
                 [CardId.Saesenthessis] = "获得等同于友军和手牌中“矮人”单位数量的增益；造成等同于友军和手牌中“精灵”单位数量的伤害。",
-                [CardId.XavierMoran] = "使自身获得等同于最后打出的非同名“矮人”单位牌的初始战力的增益。",
+                [CardId.XavierMoran] = "增益自身等同于本小局打出的“矮人”单位牌的最强基础战力。",
                 [CardId.Malena] = "伏击：2回合后的回合开始时：翻开，在战力不超过5点的铜色/银色敌军单位中魅惑最强的一个。",
                 [CardId.WildBoarOfTheSea] = "回合结束时，使左侧单位获得1点强化，右侧单位受到1点伤害。5点护甲。",
                 [CardId.Donar] = "改变1个单位的锁定状态。从对方墓场中将1张铜色单位牌移至己方墓场。",

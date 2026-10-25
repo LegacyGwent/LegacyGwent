@@ -28,6 +28,7 @@ Read this file first, then load only the rows relevant to the task.
 | September 29 card batch | [september-29-batch-2026.md](september-29-batch-2026.md) | Gaetan/Brehen pre-damage row counts, concealed Ambush, servant Conceal timing, and Ophelie power |
 | October 7 card batch | [october-7-batch-2026.md](october-7-batch-2026.md) | Egmond timer, Cat School snapshot/damage, and exchange exclusions |
 | October 12 card batch | [october-12-batch-2026.md](october-12-batch-2026.md) | Restored Cultist, transform facts/current-state copies, actual-loss Artis, and named DIY effect imports |
+| October 24 card batch | [october-24-batch-2026.md](october-24-batch-2026.md) | Delayed movement damage, countdown trigger contract and unresolved Queen chain, Vampire destruction, and local art delivery |
 | Zone changes, state reset, unlocking, replay and return-to-deck | [zone-state-transitions.md](zone-state-transitions.md) | A-H transition matrix, Repair versus Resurrect, preserved power/counters, and card-specific exceptions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |

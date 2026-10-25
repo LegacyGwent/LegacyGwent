@@ -5,7 +5,7 @@ using Alsein.Extensions;
 namespace Cynthia.Card
 {
     [CardEffectId("70107")]//安德莱格幼虫
-    public class EndregaLarva : CardEffect, IHandlesEvent<AfterTurnOver>
+    public class EndregaLarva : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<TriggerCountdown>
     {//3回合后，回合结束时，转化为“安德莱格战士”。
         public EndregaLarva(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
@@ -24,6 +24,15 @@ namespace Cynthia.Card
             {
                 return;
             }
+            await AdvanceCountdown();
+        }
+
+        public Task HandleEvent(TriggerCountdown @event) =>
+            @event.Target == Card && Card.IsAliveOnPlance() && Card.Status.IsCountdown
+                ? AdvanceCountdown() : Task.CompletedTask;
+
+        private async Task AdvanceCountdown()
+        {
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown <= 0)
             {

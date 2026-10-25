@@ -56,7 +56,7 @@ namespace Cynthia.Card
                 if (_target.Status.CardRow.IsOnPlace())
                 {
                     await Game.Debug("伯爵送入墓地");
-                    await _target.Effect.ToCemetery(CardBreakEffectType.Scorch);
+                    await _target.Effect.ToCemetery(source: Card, type: CardBreakEffectType.Scorch);
                     await Game.Debug("伯爵送入墓地完成");
 
                 }

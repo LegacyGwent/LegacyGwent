@@ -2743,7 +2743,7 @@
         },
         "52003": {
             "Name": "Xavier Moran",
-            "Info": "Deploy: Boost this unit by the base Strength of the Highest base Strength Dwarf you played this round.",
+            "Info": "Boost self by the highest base power of a Dwarf unit played this round.",
             "Flavor": "Well? Somethin' wrong? Venison a wee bit rank for ye? Ehh, princess?"
         },
         "52004": {
@@ -3868,7 +3868,7 @@
         },
         "70114": {
             "Name": "Dryad Sharpshooter",
-            "Info": "Deploy: Damage an enemy by 3. During your turn, if this unit is moved to the Ranged row, repeat this ability.",
+            "Info": "Deal 3 damage. During your turn, if this unit or an enemy unit is moved to the ranged row, repeat this ability at turn end.",
             "Flavor": "She does no warning shot, always aims to kill. No mercy, even for the little ones."
         },
         "70115": {
@@ -3953,7 +3953,7 @@
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deploy: Deal 1 Damage to a random enemy 5 times. If an enemy was already Damaged, Drain it instead.",
+            "Info": "Deal 1 damage to a random unit on the opposing row 5 times. If the target is wounded, Drain instead.",
             "Flavor": "Blood on the ceiling, entrails on the wall... Got garkain written all over it."
         },
         "70133": {
@@ -4028,7 +4028,7 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever a different allied unit on the same row Drains, Drain the same target by 1.",
+            "Info": "While on your side of the board, in hand or in deck: Boost self by 1 whenever an allied Vampire destroys a unit. Whenever a differently named unit on this row Drains, Drain 1 power from the same target.",
             "Flavor": "One alone poses no great threat. But a dozen? Gods be with you."
         },
         "70148": {
@@ -4208,7 +4208,7 @@
         },
         "70183": {
             "Name": "Feast of Blood",
-            "Info": "Choose a Vampire ally and make it Drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
+            "Info": "Choose an allied Vampire and have it Drain 4 power from an enemy unit. If the target survives, Spawn a Plumard to the right.",
             "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
         },
         "70184": {
@@ -4393,7 +4393,7 @@
         },
         "70207": {
             "Name": "Gezras of Leyda",
-            "Info": "Units on this row are immune to damage from Hazards. Move up to 7 allied Witcher and Elf units to this row. Weaken a unit by the number of unused moves.",
+            "Info": "Units on this row are immune to Hazard damage. Move up to 8 allied Witcher and Elf units to this row, then Weaken an enemy unit by the number of unused moves.",
             "Flavor": ""
         },
         "70208": {
@@ -4424,6 +4424,11 @@
         "70212": {
             "Name": "Raffard’s Vengeance",
             "Info": "Every 4 turns, at turn end, deal 10 damage. Increase the damage by 1 for each Mage on the same row. Crewed: Reduce the countdown by 1.",
+            "Flavor": ""
+        },
+        "70213": {
+            "Name": "Kikimore Queen",
+            "Info": "At the start of every 2nd allied turn, advance the Countdown of all other allied Insectoid units once. Immune.",
             "Flavor": ""
         }
     }

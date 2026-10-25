@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -159,7 +159,7 @@ namespace Cynthia.Card.Gameplay.Tests
         }
 
         [Fact]
-        public async Task GezrasUsesSevenUnusedMovesWhenNoAlliesCanMove()
+        public async Task GezrasUsesEightUnusedMovesWhenNoAlliesCanMove()
         {
             var f = new HeadlessGameFixture();
             var gezras = f.AddCard(f.Game.Player1Index, CardId.GezrasOfLeyda, RowPosition.MyRow2);
@@ -168,12 +168,12 @@ namespace Cynthia.Card.Gameplay.Tests
 
             await gezras.Effect.CardPlayEffect(false, false);
 
-            Assert.Equal(13, enemy.Status.Strength);
+            Assert.Equal(12, enemy.Status.Strength);
             Assert.Empty(f.FirstPlayer.MenuRequests);
         }
 
         [Fact]
-        public async Task GezrasMovesOnlyOffRowWitchersAndElvesThenWeakensByFour()
+        public async Task GezrasMovesOnlyOffRowWitchersAndElvesThenWeakensByFive()
         {
             var f = new HeadlessGameFixture();
             var witcher = f.AddCard(f.Game.Player1Index, CardId.Eskel, RowPosition.MyRow1);
@@ -195,15 +195,15 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(RowPosition.MyRow2, secondElf.Status.CardRow);
             Assert.Equal(RowPosition.MyRow1, beast.Status.CardRow);
             Assert.Equal(RowPosition.MyRow2, sameRowWitcher.Status.CardRow);
-            Assert.Equal(16, enemy.Status.Strength);
+            Assert.Equal(15, enemy.Status.Strength);
             Assert.Equal(3, f.FirstPlayer.MenuRequests.Single().SelectCount);
         }
 
         [Fact]
-        public async Task GezrasCanMoveSevenAlliesWithoutWeakening()
+        public async Task GezrasCanMoveEightAlliesWithoutWeakening()
         {
             var f = new HeadlessGameFixture();
-            var allies = Enumerable.Range(0, 7)
+            var allies = Enumerable.Range(0, 8)
                 .Select(index => f.AddCard(f.Game.Player1Index,
                     index % 2 == 0 ? CardId.Eskel : CardId.ElvenScout,
                     index < 4 ? RowPosition.MyRow1 : RowPosition.MyRow3))
@@ -216,7 +216,7 @@ namespace Cynthia.Card.Gameplay.Tests
 
             Assert.All(allies, ally => Assert.Equal(RowPosition.MyRow2, ally.Status.CardRow));
             Assert.Equal(20, enemy.Status.Strength);
-            Assert.Equal(7, f.FirstPlayer.MenuRequests.Single().SelectCount);
+            Assert.Equal(8, f.FirstPlayer.MenuRequests.Single().SelectCount);
             Assert.Empty(f.FirstPlayer.PlaceSelectionSources);
         }
 
@@ -239,7 +239,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await gezras.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(1, allies.Count(ally => ally.Status.CardRow == RowPosition.MyRow2));
-            Assert.Equal(14, enemy.Status.Strength);
+            Assert.Equal(13, enemy.Status.Strength);
             Assert.Equal(1, f.FirstPlayer.MenuRequests.Single().SelectCount);
         }
 
@@ -260,13 +260,13 @@ namespace Cynthia.Card.Gameplay.Tests
             await gezras.Effect.CardPlayEffect(false, false);
 
             Assert.Equal(RowPosition.MyRow1, elf.Status.CardRow);
-            Assert.Equal(13, enemy.Status.Strength);
+            Assert.Equal(12, enemy.Status.Strength);
             Assert.Empty(f.FirstPlayer.MenuRequests);
         }
 
         [Theory]
-        [InlineData(0, 7)]
-        [InlineData(1, 6)]
+        [InlineData(0, 8)]
+        [InlineData(1, 7)]
         public async Task GezrasLetsThePlayerLeaveMovementChoicesUnused(int selectedCount, int weaken)
         {
             var f = new HeadlessGameFixture();
@@ -304,7 +304,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await f.Game.AddTask(async () => await gezras.Effect.CardPlayEffect(false, false));
 
             Assert.True(fragileElf.IsDead || fragileElf.Status.CardRow.IsInCemetery());
-            Assert.Equal(14, weakenTarget.Status.Strength);
+            Assert.Equal(13, weakenTarget.Status.Strength);
         }
 
         [Fact]

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Cynthia.Card
 {
     [CardEffectId("70106")]//安德莱格虫卵
-    public class EndregaEggs : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>
+    public class EndregaEggs : CardEffect, IHandlesEvent<AfterTurnOver>, IHandlesEvent<AfterCardDeath>, IHandlesEvent<TriggerCountdown>
     {//在左侧生成1张原始同名牌。遗愿：在同排生成1个“安德莱格幼虫”，使牌组中的“安德莱格女王”获得1点强化。3回合后的回合结束时，摧毁自身。
         public EndregaEggs(GameCard card) : base(card) { }
 
@@ -26,6 +26,15 @@ namespace Cynthia.Card
             {
                 return;
             }
+            await AdvanceCountdown();
+        }
+
+        public Task HandleEvent(TriggerCountdown @event) =>
+            @event.Target == Card && Card.IsAliveOnPlance() && Card.Status.IsCountdown
+                ? AdvanceCountdown() : Task.CompletedTask;
+
+        private async Task AdvanceCountdown()
+        {
             await Card.Effect.SetCountdown(offset: -1);
             if (Card.Effect.Countdown <= 0)
             {

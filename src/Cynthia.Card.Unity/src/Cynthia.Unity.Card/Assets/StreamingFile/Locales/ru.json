@@ -2743,7 +2743,7 @@
         },
         "52003": {
             "Name": "Ксавьер Моран",
-            "Info": "Усильте этот юнит стартовой силой Гнома с самой сильной стартовой силой, которую вы играли в этом раунде.",
+            "Info": "Boost self by the highest base power of a Dwarf unit played this round.",
             "Flavor": "Ну и что такое? Сраньем смердит, королевишна?"
         },
         "52004": {
@@ -3868,7 +3868,7 @@
         },
         "70114": {
             "Name": "Лучница",
-            "Info": "Размещение: нанесите врагу 3 ед. урона. В свой ход, если этот отряд перемещён в дальнобойный ряд, повторите эту способность.",
+            "Info": "Deal 3 damage. During your turn, if this unit or an enemy unit is moved to the ranged row, repeat this ability at turn end.",
             "Flavor": "Она стреляет без предупреждения. Не щадит даже детей."
         },
         "70115": {
@@ -3953,7 +3953,7 @@
         },
         "70132": {
             "Name": "Гаркейн",
-            "Info": "Нанесите 1 ед. урона случайному отряду 5 раз, если он уже был повреждён, тогда истощите его.",
+            "Info": "Deal 1 damage to a random unit on the opposing row 5 times. If the target is wounded, Drain instead.",
             "Flavor": "Кровь на потолке, кишки на стенах... Должно быть, это гаркаин."
         },
         "70133": {
@@ -4028,7 +4028,7 @@
         },
         "70147": {
             "Name": "Плюмард",
-            "Info": "Каждый раз, когда другой союзный отряд в том же ряду истощает цель, истощите ту же цель на 1 ед.",
+            "Info": "While on your side of the board, in hand or in deck: Boost self by 1 whenever an allied Vampire destroys a unit. Whenever a differently named unit on this row Drains, Drain 1 power from the same target.",
             "Flavor": "Один он неопасен. А вот дюжина — это верная смерть."
         },
         "70148": {
@@ -4208,7 +4208,7 @@
         },
         "70183": {
             "Name": "Кровавый пир",
-            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły z wroga. A jeśli przeżyje, stwórz Wąpierza po prawej stronie wybranego wcześniej wampira. ",
+            "Info": "Choose an allied Vampire and have it Drain 4 power from an enemy unit. If the target survives, Spawn a Plumard to the right.",
             "Flavor": "Wampir potrafi nie jeść nawet trzy lata. Ale kiedy już rusza na łowy... Nie spocznie, dopóki nie opije się krwią."
         },
         "70184": {
@@ -4393,7 +4393,7 @@
         },
         "70207": {
             "Name": "Gezras of Leyda",
-            "Info": "Отряды в этом ряду не получают урон от опасностей. Переместите в этот ряд до 7 союзных отрядов Ведьмаков и Эльфов. Ослабьте один отряд на число неиспользованных перемещений.",
+            "Info": "Units on this row are immune to Hazard damage. Move up to 8 allied Witcher and Elf units to this row, then Weaken an enemy unit by the number of unused moves.",
             "Flavor": ""
         },
         "70208": {
@@ -4424,6 +4424,11 @@
         "70212": {
             "Name": "Месть Раффарда",
             "Info": "В конце каждого 4-го хода нанесите 10 ед. урона. Увеличьте урон на 1 за каждого Мага в этом ряду. Расчёт: уменьшите счётчик на 1.",
+            "Flavor": ""
+        },
+        "70213": {
+            "Name": "Kikimore Queen",
+            "Info": "At the start of every 2nd allied turn, advance the Countdown of all other allied Insectoid units once. Immune.",
             "Flavor": ""
         }
     }

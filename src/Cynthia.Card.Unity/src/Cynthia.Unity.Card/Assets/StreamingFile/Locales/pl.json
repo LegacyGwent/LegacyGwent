@@ -2743,7 +2743,7 @@
         },
         "52003": {
             "Name": "Xavier Moran",
-            "Info": "Rozmieszczenie: Wzmocnij tę jednostkę o siłę bazową krasnoluda o największej sile bazowej spośród zagranych przez Ciebie w tej rundzie.",
+            "Info": "Boost self by the highest base power of a Dwarf unit played this round.",
             "Flavor": "No, co jest? Śmierdzi ci sarnina, królewiczu?"
         },
         "52004": {
@@ -3868,7 +3868,7 @@
         },
         "70114": {
             "Name": "Driadzia Łuczniczka",
-            "Info": "Rozmieszczenie: Zadaj wrogowi 3 pkt obrażeń. Podczas twojej tury, jeśli ta jednostka zostanie przeniesiona do rzędu dalekiego zasięgu, powtórz tę zdolność.",
+            "Info": "Deal 3 damage. During your turn, if this unit or an enemy unit is moved to the ranged row, repeat this ability at turn end.",
             "Flavor": "Nie strzelała po to, by kogokolwiek ostrzec. Bez litości, nawet dla najmłodszych."
         },
         "70115": {
@@ -3953,7 +3953,7 @@
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Zadaj 1 pkt obrażeń losowemu wrogowi 5 razy. Jeśli był już zraniony zamiast tego Wykradnij 1 pkt.",
+            "Info": "Deal 1 damage to a random unit on the opposing row 5 times. If the target is wounded, Drain instead.",
             "Flavor": "Krew na suficie, flaki na ścianie... To musiał być garkain."
         },
         "70133": {
@@ -4028,7 +4028,7 @@
         },
         "70147": {
             "Name": "Wąpierz",
-            "Info": "Kiedy inna sojusznicza jednostka w tym samym rzędzie Wykradnie, Wykradnij temu samemu celowi 1.",
+            "Info": "While on your side of the board, in hand or in deck: Boost self by 1 whenever an allied Vampire destroys a unit. Whenever a differently named unit on this row Drains, Drain 1 power from the same target.",
             "Flavor": "Jeden jest niegroźny. Tuzin to pewna śmierć."
         },
         "70148": {
@@ -4208,7 +4208,7 @@
         },
         "70183": {
             "Name": "Krwawa uczta",
-            "Info": "Wybierz sojuszniczego wampira, który wykradnie 4 siły wrogowi. Jeśli wróg przeżyje, stwórz Wąpierza po prawej stronie tej jednostki. ",
+            "Info": "Choose an allied Vampire and have it Drain 4 power from an enemy unit. If the target survives, Spawn a Plumard to the right.",
             "Flavor": "Wampir potrafi nie jeść nawet trzy lata. Ale kiedy już rusza na łowy... Nie spocznie, dopóki nie opije się krwią."
         },
         "70184": {
@@ -4393,7 +4393,7 @@
         },
         "70207": {
             "Name": "Gezras of Leyda",
-            "Info": "Jednostki w tym rzędzie są odporne na obrażenia od zagrożeń. Przenieś do tego rzędu maksymalnie 7 sojuszniczych jednostek Wiedźminów i Elfów. Osłab jednostkę o liczbę niewykorzystanych przeniesień.",
+            "Info": "Units on this row are immune to Hazard damage. Move up to 8 allied Witcher and Elf units to this row, then Weaken an enemy unit by the number of unused moves.",
             "Flavor": ""
         },
         "70208": {
@@ -4424,6 +4424,11 @@
         "70212": {
             "Name": "Zemsta Raffarda",
             "Info": "Co 4 tury, na koniec tury, zadaj 10 pkt obrażeń. Zwiększ obrażenia o 1 za każdego Maga w tym samym rzędzie. Obsługa: Zmniejsz licznik o 1.",
+            "Flavor": ""
+        },
+        "70213": {
+            "Name": "Kikimore Queen",
+            "Info": "At the start of every 2nd allied turn, advance the Countdown of all other allied Insectoid units once. Immune.",
             "Flavor": ""
         }
     }

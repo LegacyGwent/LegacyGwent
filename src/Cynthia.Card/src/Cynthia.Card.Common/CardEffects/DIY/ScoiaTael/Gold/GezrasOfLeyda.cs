@@ -8,7 +8,7 @@ namespace Cynthia.Card
     [CardEffectId(CardId.GezrasOfLeyda)]
     public class GezrasOfLeyda : CardEffect, IHandlesEvent<BeforeCardDamage>
     {
-        private const int MoveLimit = 7;
+        private const int MoveLimit = 8;
 
         public GezrasOfLeyda(GameCard card) : base(card) { }
 
@@ -29,7 +29,7 @@ namespace Cynthia.Card
             if (selectCount > 0)
             {
                 var selected = await Game.GetSelectMenuCards(
-                    PlayerIndex, candidates, selectCount, "选择最多7个友军猎魔人或精灵移至此排", isCanOver: true);
+                    PlayerIndex, candidates, selectCount, "选择最多8个友军猎魔人或精灵移至此排", isCanOver: true);
                 foreach (var target in selected)
                 {
                     if (target.PlayerIndex != PlayerIndex || target.Status.CardRow == row) continue;
@@ -40,7 +40,7 @@ namespace Cynthia.Card
             var excess = MoveLimit - moved;
             if (excess > 0)
             {
-                var selectedTarget = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.AllRow);
+                var selectedTarget = await Game.GetSelectPlaceCards(Card, selectMode: SelectModeType.EnemyRow);
                 if (selectedTarget.TrySingle(out var target))
                     await target.Effect.Weaken(excess, Card);
             }

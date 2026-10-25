@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 211);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 212);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -8136,7 +8136,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "怎么了，公主？吃不惯野味吗？嗯？",
-                    Info = "使自身获得等同于最后打出的非同名“矮人”单位牌的初始战力的增益。",
+                    Info = "增益自身等同于本小局打出的“矮人”单位牌的最强基础战力。",
                     CardArtsId = "20008000",
                     LinkedCards=new List<String> {},
                 }
@@ -12497,7 +12497,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Dryad},
                     Flavor = "",
-                    Info = "造成3点伤害。己方回合中，若被移至远程排，重复此能力。",
+                    Info = "造成3点伤害。己方回合中，若自身或有敌军单位被移至远程排，回合结束时，重复此能力。",
                     CardArtsId = "202676",
                     LinkedCards=new List<String> {},
                 }
@@ -13762,7 +13762,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "如此恐怖的现场……显然是蝠翼脑魔所为。",
-                    Info = "使对方同排的随机单位受到1点伤害5次，若目标受伤则变为汲食。",
+                    Info = "对对方同排的随机单位造成1点伤害5次，若目标受伤则变为汲食。",
                     CardArtsId = "202224",
                     LinkedCards=new List<String> {},
                 }
@@ -14351,10 +14351,10 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = true,
+                    IsDerive = false,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "同排非同名单位汲取时，汲取同目标1点战力。",
+                    Info = "位于己方半场、手牌或牌组：友军“吸血鬼”单位摧毁单位时获得1点增益。同排非同名单位汲食时，汲食同目标1点战力。",
                     CardArtsId = "202231",
                     LinkedCards=new List<String> {},
                 }
@@ -15074,7 +15074,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }
@@ -15677,7 +15677,7 @@ namespace Cynthia.Card
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher, Categorie.Elf }, Flavor = "",
-                    Info = "使同排单位免疫来自灾厄的伤害。将最多7个友军“猎魔人”和“精灵”单位移至此排。对一个单位造成等同于其溢出移动次数的削弱。",
+                    Info = "使同排单位免疫来自灾厄的伤害。将最多8个友军“猎魔人”和“精灵”单位移至此排，对1个敌军单位造成等同于其溢出移动次数的削弱。",
                     CardArtsId = "202801", LinkedCards = new List<String> {},
                 }
             },
@@ -15739,6 +15739,18 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Machine }, Flavor = "",
                     Info = "每4回合结束时，造成10点伤害。同排每有1个“法师”单位，伤害提高1点。驱动：减少1次回合计数。",
                     CardArtsId = "203050", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70213",//齐齐摩女王 Kikimore Queen
+                new GwentCard()
+                {
+                    CardId = "70213", Name = "齐齐摩女王", Strength = 8, Group = Group.Gold,
+                    Faction = Faction.Monsters, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = true, Countdown = 2, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Insectoid }, Flavor = "",
+                    Info = "每2回合开始时，触发所有其它友军“类虫生物”单位的倒计时1次。免疫。",
+                    CardArtsId = "d19130000", LinkedCards = new List<String> {},
                 }
             },
         };

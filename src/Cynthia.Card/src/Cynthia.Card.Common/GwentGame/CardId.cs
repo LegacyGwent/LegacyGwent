@@ -698,6 +698,7 @@ namespace Cynthia.Card
         public const string CatSchoolWitcherThug = "70210";
         public const string CatSchoolWitcher = "70211";
         public const string RaffardsVengeance = "70212";
+        public const string KikimoreQueen = "70213";
         public const string SvalblodFanatic = "70046";
 
     }
