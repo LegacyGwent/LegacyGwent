@@ -101,5 +101,54 @@ namespace Cynthia.Card.Gameplay.Tests
             Assert.Equal(2, first.Status.Countdown);
             Assert.Equal(1, second.Status.Countdown);
         }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(6)]
+        public async Task QueenChainActivatesEveryPhysicalCopyOnceAndLaterIndependentChainCanRepeat(int copies)
+        {
+            var f = new HeadlessGameFixture();
+            var queens = Enumerable.Range(0, copies)
+                .Select(_ => f.AddCard(f.Game.Player1Index, Queen, RowPosition.MyRow1)).ToArray();
+            var larva = f.AddCard(f.Game.Player1Index, CardId.EndregaLarva, RowPosition.MyRow2);
+            var behemoth = f.AddCard(f.Game.Player1Index, CardId.ArachasBehemoth, RowPosition.MyRow3);
+            larva.Status.Countdown = behemoth.Status.Countdown = 20;
+            await f.SynchronizeClientsAsync();
+
+            for (var chainNumber = 1; chainNumber <= 2; chainNumber++)
+            {
+                foreach (var queen in queens) queen.Status.Countdown = 1;
+                await f.Game.SendEvent(new TriggerCountdown(queens[0]));
+                // Real insectoid ticks witness exactly one propagation per Queen.
+                Assert.Equal(20 - copies * chainNumber, larva.Status.Countdown);
+                Assert.Equal(20 - copies * chainNumber, behemoth.Status.Countdown);
+                Assert.Equal(copies * chainNumber, f.Game.GetPlaceCards(f.Game.Player1Index)
+                    .Count(card => card.Status.CardId == CardId.ArachasHatchling));
+                Assert.All(queens, queen => Assert.InRange(queen.Status.Countdown, 1, 2));
+            }
+        }
+
+        [Fact]
+        public async Task RepeatedAbilityIsSuppressedButItsTimerStillTicksAndResets()
+        {
+            var f = new HeadlessGameFixture();
+            var queen = f.AddCard(f.Game.Player1Index, Queen, RowPosition.MyRow1);
+            var larva = f.AddCard(f.Game.Player1Index, CardId.EndregaLarva, RowPosition.MyRow2);
+            queen.Status.Countdown = 1;
+            var chain = new CountdownTriggerChain();
+            await f.SynchronizeClientsAsync();
+            await f.Game.SendEvent(new TriggerCountdown(queen, chain));
+            Assert.Equal(2, larva.Status.Countdown);
+            await f.Game.SendEvent(new TriggerCountdown(queen, chain));
+            Assert.Equal(1, queen.Status.Countdown);
+            await f.Game.SendEvent(new TriggerCountdown(queen, chain));
+            Assert.Equal(2, queen.Status.Countdown);
+            Assert.Equal(2, larva.Status.Countdown);
+            // A natural trigger always owns a new scope, even in the same turn.
+            await f.Game.SendEvent(new AfterTurnStart(f.Game.Player1Index));
+            await f.Game.SendEvent(new AfterTurnStart(f.Game.Player1Index));
+            Assert.Equal(1, larva.Status.Countdown);
+        }
     }
 }

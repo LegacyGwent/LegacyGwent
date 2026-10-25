@@ -2,8 +2,6 @@
 
 Last verified: 2026-10-25
 
-Local candidate only; not deployed.
-
 ## Movement and imported behavior
 
 - Gezras `70207` has eight movement opportunities. Only successful `Move`
@@ -25,7 +23,7 @@ Local candidate only; not deployed.
   `Card.Effect` instance after recording state through global events.
 - Filavandrel `51003` was already Scoia'tael in the incoming AI baseline.
 
-## Countdown contract and pending design boundary
+## Countdown contract and Queen chains
 
 - `SetCountdown` only sets visible state; it does not resolve reaching zero.
   `TriggerCountdown` targets one card through the ordinary dispatcher, retaining
@@ -35,10 +33,19 @@ Local candidate only; not deployed.
   generated during it do not receive an extra tick from that same activation.
 - New Kikimore Queen `70213` is appended after `70212`; never reorder older
   map slots. Its natural tick is owner-turn-start, every two turns.
-- **Unresolved; do not publish this candidate:** three copied Queens can
-  recursively advance one another forever. No chain limit or exclusion has
-  been authorized. The owner must select the intended rule before enabling
-  this batch in production; ordinary one/two-Queen tests do not prove safety.
+- Three or more copied Queens otherwise advance each other forever. The user
+  approved one ability activation per physical Queen in one countdown chain.
+  `CountdownTriggerChain` is explicitly carried by nested `TriggerCountdown`
+  requests; a natural Queen tick starts a new chain. It is neither static
+  global state nor a per-turn/card-ID restriction. Other same-name instances
+  may activate, and later independent chains may activate those instances again.
+- An already activated Queen still receives ticks. Reaching zero resets its
+  timer to two normally, but does not propagate its ability a second time in
+  that chain. Timers therefore never remain zero or run negative. Other
+  insectoids continue receiving one normal tick per Queen activation.
+- `OctoberTwentyFourthCountdownTests` covers three, four and six physical
+  Queens, independent subsequent chains, reset without repeated propagation,
+  real larva timer advancement and Behemoth spawning, plus lock/owner/zone gates.
 
 ## Resource delivery
 

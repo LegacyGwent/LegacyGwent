@@ -18,18 +18,21 @@ namespace Cynthia.Card
         public async Task HandleEvent(AfterTurnStart @event)
         {
             if (@event.PlayerIndex != PlayerIndex || !Card.IsAliveOnPlance()) return;
-            await AdvanceCountdown();
+            await AdvanceCountdown(new CountdownTriggerChain());
         }
 
         public Task HandleEvent(TriggerCountdown @event) =>
             @event.Target == Card && Card.IsAliveOnPlance() && Card.Status.IsCountdown
-                ? AdvanceCountdown() : Task.CompletedTask;
+                ? AdvanceCountdown(@event.Chain) : Task.CompletedTask;
 
-        private async Task AdvanceCountdown()
+        private async Task AdvanceCountdown(CountdownTriggerChain chain)
         {
             await SetCountdown(offset: -1);
             if (Countdown > 0) return;
             await SetCountdown(2);
+            // Later ticks in this chain still advance/reset the visible timer,
+            // but the approved rule allows each physical Queen to propagate once.
+            if (!chain.TryActivate(Card)) return;
 
             // Snapshot before ticking: transformations, deaths and generated units
             // must not change this activation's set of recipients.
@@ -39,7 +42,7 @@ namespace Cynthia.Card
             foreach (var target in targets)
             {
                 if (target.PlayerIndex == PlayerIndex && target.IsAliveOnPlance())
-                    await Game.SendEvent(new TriggerCountdown(target));
+                    await Game.SendEvent(new TriggerCountdown(target, chain));
             }
         }
     }
