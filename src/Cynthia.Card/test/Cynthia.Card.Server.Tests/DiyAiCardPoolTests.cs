@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberTwentyFourthBatchAppendsQueenAndPromotesPlumardWithoutChangingHistory()
         {
-            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
             Assert.Equal("70213", GwentMap.CardMap.Keys.Last());
             var queen = GwentMap.CardMap[CardId.KikimoreQueen];
             Assert.Equal("齐齐摩女王", queen.Name);
@@ -62,7 +62,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberTwelfthBatchPreservesIdentityAndRestoresOnlyCultist()
         {
-            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
             Assert.Equal(10, GwentMap.CardMap[CardId.Artis].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.ImmortalCavalry].Strength);
             var cultist = GwentMap.CardMap[CardId.CultistOblation];
@@ -95,7 +95,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberSeventhBatchPreservesIdentityAndMatchesAllLocaleSurfaces()
         {
-            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
             Assert.Equal(7, GwentMap.CardMap[CardId.Brehen].Strength);
             Assert.True(GwentMap.CardMap[CardId.Egmond].IsCountdown);
             Assert.Equal(2, GwentMap.CardMap[CardId.Egmond].Countdown);
@@ -152,7 +152,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 212), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
             Assert.Equal(738, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -734,6 +734,16 @@ namespace Cynthia.Card.Server.Tests
         }
 
         [Fact]
+        public void FilavandrelLinkedCardsMatchActiveScoiaTaelSilverSpecialPool()
+        {
+            var eligible = GwentMap.GetGenerateCardsId(card =>
+                card.Faction == Faction.ScoiaTael && card.Is(Group.Silver, CardType.Special));
+            Assert.NotEmpty(eligible);
+            Assert.Equal(eligible.OrderBy(id => id),
+                GwentMap.CardMap[CardId.Filavandrel].LinkedCards.OrderBy(id => id));
+        }
+
+        [Fact]
         public void SeptemberEleventhFirstBatchMatchesRulesMetadataAndLocales()
         {
             var expected = new[]
@@ -747,7 +757,7 @@ namespace Cynthia.Card.Server.Tests
                 (Id: "70109", Strength: 8, Group: Group.Copper, Faction: Faction.ScoiaTael,
                     Effect: typeof(DwarvenChariot), Info: "将2个友军单位移至同排，自身移动后使所在排1个最弱单位获得2点增益。"),
                 (Id: "51003", Strength: 3, Group: Group.Leader, Faction: Faction.ScoiaTael,
-                    Effect: typeof(Filavandrel), Info: "生成1张起始牌组之外的银色中立“特殊”牌。"),
+                    Effect: typeof(Filavandrel), Info: "生成1张起始牌组之外的银色松鼠党“特殊”牌。"),
                 (Id: "70191", Strength: 2, Group: Group.Leader, Faction: Faction.ScoiaTael,
                     Effect: typeof(DanaMeadbh), Info: "从牌组打出1张中立牌。"),
                 (Id: "12011", Strength: 9, Group: Group.Gold, Faction: Faction.Neutral,
@@ -1710,7 +1720,7 @@ namespace Cynthia.Card.Server.Tests
                 ["41002"] = "生成1个铜色北方领域“诅咒生物”单位。",
                 ["42010"] = "择一：生成1张起始牌组之外的铜色“炼金”牌；或从牌组打出1张铜色/银色“道具”牌。",
                 ["43019"] = "若落后，生成1个起始牌组之外的北方领域偶数战力铜色单位；若领先，变为奇数战力。",
-                ["51003"] = "生成1张起始牌组之外的银色中立“特殊”牌。",
+                ["51003"] = "生成1张起始牌组之外的银色松鼠党“特殊”牌。",
                 ["52013"] = "择一：从牌组打出1张铜色/银色“特殊”牌；或生成1个起始牌组之外的非间谍银色“精灵”单位。",
                 ["53018"] = "若落后，生成1个起始牌组之外的松鼠党偶数战力铜色单位；若领先，变为奇数战力。",
                 ["53021"] = "择一：生成1个起始牌组之外的铜色“矮人”单位；或使1个单位获得7点强化。",

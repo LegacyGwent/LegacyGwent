@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 212);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 213);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -8052,9 +8052,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Elf},
                     Flavor = "虽然我们人数不多、四散分离，但我们的内心燃烧得比任何时候都要炽热。",
-                    Info = "生成1张起始牌组之外的银色中立“特殊”牌。",
+                    Info = "生成1张起始牌组之外的银色松鼠党“特殊”牌。",
                     CardArtsId = "20007500",
-                    LinkedCards=new List<String> {"13023","13024","13025","13026","13027","13028","13029","13030","13031","13032","13033","13034","13035","13036","13037","13038","13039","13040","13041","13042","13043","13044","53018","53019","53020","53021","70054","70138"},
+                    LinkedCards=new List<String> {"53018","53019","53020","53021","70054","70138"},
                 }
             },
             {

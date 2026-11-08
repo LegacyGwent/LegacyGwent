@@ -1,6 +1,6 @@
 # October 24 card batch
 
-Last verified: 2026-10-25
+Last verified: 2026-11-09
 
 ## Movement and imported behavior
 
@@ -21,7 +21,13 @@ Last verified: 2026-10-25
   not a new global definition of "played". Clear the maximum at round end.
   Tests must use `Effects.RaiseEvent` or real Play, not the separate legacy
   `Card.Effect` instance after recording state through global events.
-- Filavandrel `51003` was already Scoia'tael in the incoming AI baseline.
+- Filavandrel `51003` generates a **Scoia'tael Silver special** outside the
+  starting deck. The October 24 Neutral -> Scoia'tael change applies to the
+  generated pool, not the leader's own faction (which was already Scoia'tael).
+  Keep the effect predicate, map Info, all twelve locale entries and LinkedCards
+  aligned; LinkedCards lists the active eligible pool before match-specific
+  starting-deck exclusion, with a regression requiring pool equality. CardMap
+  `1.0.0.213` carries this correction.
 
 ## Countdown contract and Queen chains
 
