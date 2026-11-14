@@ -3903,7 +3903,7 @@
         },
         "70122": {
             "Name": "Driada Piastunka",
-            "Info": "Ulepsz wszystkie pozostałe Driady w tym rzędzie o 1. Za każdą ulepszoną Driadę wzmocnij losową nieszpiegowską jednostkę w ręce o 1.",
+            "Info": "Wzmocnij wszystkie pozostałe driady w tym rzędzie o 1, następnie wzmocnij tymczasowo wybraną jednostkę w ręce o łączną wartość wzmocnienia.",
             "Flavor": "Przyucza młode driady: pokazuje im, jak robić strzały, kształtować rośliny, podrzynać gardła..."
         },
         "70123": {
@@ -4348,7 +4348,7 @@
         },
         "70198": {
             "Name": "Dziewczyna, która wypiła wodę Brokilonu",
-            "Info": "Stwórz Skazaną bazową kopię tej jednostki w każdym innym sojuszniczym rzędzie. Na początku tury przemień ją w najsilniejszą Driadę w jej rzędzie.",
+            "Info": "Stwórz Skazaną podstawową kopię tej jednostki w innym sojuszniczym rzędzie. Na początku każdej tury przemień się w podstawową kopię najsilniejszej driady o innej nazwie w tym rzędzie.",
             "Flavor": ""
         },
         "70199": {

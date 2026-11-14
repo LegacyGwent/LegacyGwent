@@ -29,6 +29,7 @@ Read this file first, then load only the rows relevant to the task.
 | October 7 card batch | [october-7-batch-2026.md](october-7-batch-2026.md) | Egmond timer, Cat School snapshot/damage, and exchange exclusions |
 | October 12 card batch | [october-12-batch-2026.md](october-12-batch-2026.md) | Restored Cultist, transform facts/current-state copies, actual-loss Artis, and named DIY effect imports |
 | October 24 card batch | [october-24-batch-2026.md](october-24-batch-2026.md) | Delayed movement damage, countdown chains, Vampire destruction, and local art delivery |
+| November 14 cards, cemetery countdown visibility | [november-14-batch-2026.md](november-14-batch-2026.md) | Dryad selection/original copies, offboard status publication, and Cerys full-board retry |
 | Zone changes, state reset, unlocking, replay and return-to-deck | [zone-state-transitions.md](zone-state-transitions.md) | A-H transition matrix, Repair versus Resurrect, preserved power/counters, and card-specific exceptions |
 | Deployment, landing, damage, shield, duel, repeated effects | [gameplay-lifecycle.md](gameplay-lifecycle.md) | Server gameplay pipeline and timing boundaries |
 | Complex card effects, headless matches, deterministic scenarios | [testing.md](testing.md) | Isolated in-process gameplay tests and fixture |

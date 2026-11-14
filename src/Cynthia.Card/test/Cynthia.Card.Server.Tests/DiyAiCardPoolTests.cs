@@ -19,7 +19,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberTwentyFourthBatchAppendsQueenAndPromotesPlumardWithoutChangingHistory()
         {
-            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 214), GwentMap.CardMapVersion);
             Assert.Equal("70213", GwentMap.CardMap.Keys.Last());
             var queen = GwentMap.CardMap[CardId.KikimoreQueen];
             Assert.Equal("齐齐摩女王", queen.Name);
@@ -62,7 +62,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberTwelfthBatchPreservesIdentityAndRestoresOnlyCultist()
         {
-            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 214), GwentMap.CardMapVersion);
             Assert.Equal(10, GwentMap.CardMap[CardId.Artis].Strength);
             Assert.Equal(8, GwentMap.CardMap[CardId.ImmortalCavalry].Strength);
             var cultist = GwentMap.CardMap[CardId.CultistOblation];
@@ -95,7 +95,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void OctoberSeventhBatchPreservesIdentityAndMatchesAllLocaleSurfaces()
         {
-            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 214), GwentMap.CardMapVersion);
             Assert.Equal(7, GwentMap.CardMap[CardId.Brehen].Strength);
             Assert.True(GwentMap.CardMap[CardId.Egmond].IsCountdown);
             Assert.Equal(2, GwentMap.CardMap[CardId.Egmond].Countdown);
@@ -152,7 +152,7 @@ namespace Cynthia.Card.Server.Tests
         [Fact]
         public void CardMapOrdinalOrderRemainsHistoricalDecodeCompatible()
         {
-            Assert.Equal(new Version(1, 0, 0, 213), GwentMap.CardMapVersion);
+            Assert.Equal(new Version(1, 0, 0, 214), GwentMap.CardMapVersion);
             Assert.Equal(738, GwentMap.CardMap.Count);
 
             var historicalIds = string.Join(",", GwentMap.CardMap.Keys.Take(709));
@@ -1086,7 +1086,7 @@ namespace Cynthia.Card.Server.Tests
             Assert.Contains(Categorie.Dryad, girl.Categories);
             Assert.Equal("c10001700", girl.CardArtsId);
             Assert.Equal(
-                "在己方其它排生成1张佚亡原始同名牌。回合开始时，转化为同排最强的“树精”单位。",
+                "在己方其它排生成1张佚亡原始同名牌。每回合开始时，变为同排最强非同名“树精”单位的原始同名牌。",
                 girl.Info);
 
             Assert.All(GwentMap.CardMap.Values, card =>
@@ -2709,7 +2709,7 @@ namespace Cynthia.Card.Server.Tests
             var expectedMapInfo = new Dictionary<string, string>
             {
                 [CardId.Operator] = "力竭。休战：选择己方手牌中的1张铜色单位牌，为双方手牌各添加1张其原始同名牌。",
-                ["22007"] = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
+                ["22007"] = "吞噬1个战力不高于7点的单位，将其战力变为自身增益。",
                 ["34005"] = "对1名敌军单位造成2点伤害。\n己方回合内每出现1个敌军间谍单位，便在回合结束时对1个敌军单位造成2点伤害。",
                 [CardId.Saesenthessis] = "获得等同于友军和手牌中“矮人”单位数量的增益；造成等同于友军和手牌中“精灵”单位数量的伤害。",
                 [CardId.XavierMoran] = "增益自身等同于本小局打出的“矮人”单位牌的最强基础战力。",
@@ -2721,7 +2721,7 @@ namespace Cynthia.Card.Server.Tests
                 ["70095"] = "对1个战力低于自身的单位造成两者战力差值的伤害，或摧毁1个战力不低于自身的单位全部护甲。",
                 [CardId.CrowClanDruid] = "生成1只“乌鸦”。每2回合结束时，若同排有“乌鸦”，重复此能力。",
                 [CardId.Wisteria] = "选择2个单位，若为偶数战力，使其获得6点增益；若为奇数战力，对其造成6点伤害。",
-                [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
+                [CardId.Princess] = "生成1只熊。每回合开始时，将同排的1只熊变为狂暴的熊。",
                 [CardId.DeadeyeAmbush] = "选择1个友军单位，将其上移1排并使其获得5点增益；选择1个敌军单位，将其移至敌方近战排并对其造成5点伤害。",
                 [CardId.Albastra] = "生成左翼和右翼。在对方同排降下“刺骨冰霜”，每2回合开始时，重复此能力。若己方没有左右翼，摧毁自身。免疫。"
             };

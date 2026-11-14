@@ -11,17 +11,14 @@ namespace Cynthia.Card
 
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
-            for (var rowIndex = 0; rowIndex < 3; rowIndex++)
+            var rows = Enumerable.Range(0, 3).Select(index => index.IndexToMyRow())
+                .Where(row => row != Card.Status.CardRow && Game.RowToList(PlayerIndex, row).Count < Game.RowMaxCount)
+                .ToList();
+            if (rows.Count > 0)
             {
-                var row = rowIndex.IndexToMyRow();
-                if (row == Card.Status.CardRow)
-                {
-                    continue;
-                }
-
+                var row = await Game.GetSelectRow(PlayerIndex, Card, rows);
                 await Game.CreateCardAtEnd(CardId.GirlWhoDrankBrokilonWater, PlayerIndex, row,
-                    copy => copy.IsDoomed = true,
-                    source: Card);
+                    copy => copy.IsDoomed = true, source: Card);
             }
 
             return 0;
@@ -29,13 +26,14 @@ namespace Cynthia.Card
 
         public async Task HandleEvent(AfterTurnStart @event)
         {
-            if (@event.PlayerIndex != PlayerIndex || !Card.Status.CardRow.IsOnPlace())
+            if (!Card.Status.CardRow.IsOnPlace())
             {
                 return;
             }
 
             var strongestDryad = Game.RowToList(PlayerIndex, Card.Status.CardRow)
                 .Where(candidate => candidate != Card
+                    && candidate.CardInfo().Name != Card.CardInfo().Name
                     && candidate.IsAliveOnPlance()
                     && !candidate.Status.Conceal
                     && candidate.CardInfo().CardType == CardType.Unit

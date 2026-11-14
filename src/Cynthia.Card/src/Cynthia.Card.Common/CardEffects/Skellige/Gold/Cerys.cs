@@ -14,10 +14,12 @@ namespace Cynthia.Card
 
             if (@event.Source.PlayerIndex == Card.PlayerIndex && Card.Status.CardRow.IsInCemetery())
             {
-                await Card.Effect.SetCountdown(offset: -1);
+                await Card.Effect.SetCountdown(value: System.Math.Max(0, Card.Effect.Countdown - 1));
                 if (Card.Effect.Countdown <= 0)
                 {
-                    await Card.Effect.Resurrect(new CardLocation() { RowPosition = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true).RowPosition, CardIndex = int.MaxValue }, Card);
+                    var location = Game.GetRandomCanPlayLocation(Card.PlayerIndex, true);
+                    if (location == null) return;
+                    await Card.Effect.Resurrect(new CardLocation() { RowPosition = location.RowPosition, CardIndex = int.MaxValue }, Card);
                     //重置计数器，复活到随机排最右侧
                     await Card.Effect.SetCountdown(value: 4);
                     await Card.Effect.Strengthen(1, Card);

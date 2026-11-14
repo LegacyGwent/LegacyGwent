@@ -3903,7 +3903,7 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Strengthen all other Dryads on this row by 1. For each Dryad Strengthened, Boost a random non-Spying unit in your hand by 1.",
+            "Info": "Strengthen all other Dryads on the same row by 1, then boost a unit in your hand by the total amount strengthened.",
             "Flavor": "She teaches young dryads many useful skills: fletching arrows, communing with the forest, slitting the throats of men..."
         },
         "70123": {
@@ -4348,7 +4348,7 @@
         },
         "70198": {
             "Name": "Girl Who Drank Brokilon Water",
-            "Info": "Spawn a Doomed base copy of this unit in each other allied row. On turn start, Transform into the strongest Dryad unit in its row.",
+            "Info": "Spawn a Doomed base copy of this unit on another allied row. At the start of every turn, transform into a base copy of the strongest Dryad with a different name on the same row.",
             "Flavor": ""
         },
         "70199": {

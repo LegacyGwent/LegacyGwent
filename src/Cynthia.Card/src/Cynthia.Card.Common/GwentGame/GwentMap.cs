@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 213);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 214);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -3175,7 +3175,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。",
-                    Info = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
+                    Info = "吞噬1个战力不高于7点的单位，将其战力变为自身增益。",
                     CardArtsId = "13210700",
                     LinkedCards=new List<String> {},
                 }
@@ -7292,7 +7292,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     Flavor = "我一直很好奇，这帮家伙是怎么解决内急的？",
-                    Info = "摧毁1个单位的护甲。扣除的护甲值将被转化为自身增益。",
+                    Info = "摧毁1个单位的护甲。扣除的护甲值将被变为自身增益。",
                     CardArtsId = "12231400",
                     LinkedCards=new List<String> {},
                 }
@@ -12263,7 +12263,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
-                    Info = "选择1张手牌，将其转化为1张起始牌组中铜色单位牌的原始同名牌，随后将其揭示。",
+                    Info = "选择1张手牌，将其变为1张起始牌组中铜色单位牌的原始同名牌，随后将其揭示。",
                     CardArtsId = "202239",
                     LinkedCards=new List<String> {},
                 }
@@ -12329,7 +12329,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
                     Flavor = "“十分丰满……也十分危险。”",
-                    Info = "3回合后的回合结束时，转化为“安德莱格战士”。",
+                    Info = "3回合后的回合结束时，变为“安德莱格战士”。",
                     CardArtsId = "202440",
                     LinkedCards=new List<String> {"70108"},
                 }
@@ -13363,7 +13363,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛唯一的戒律：杀戮",
-                    Info = "己方回合中，每当有单位被转化为其它单位时，在左侧生成1个佚亡同名牌，随后对自身造成4点伤害。",
+                    Info = "己方回合中，每当有单位被变为其它单位时，在左侧生成1个佚亡同名牌，随后对自身造成4点伤害。",
                     CardArtsId = "202285",
                     LinkedCards=new List<String> {},
                 }
@@ -13825,7 +13825,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……",
-                    Info = "使同排所有其它“树精”单位获得1点强化。每强化1个“树精”单位，使手牌中随机非间谍单位牌获得1点增益。",
+                    Info = "使同排所有其它“树精”单位获得1点强化，使手牌中1张单位牌获得等同于强化数值的增益。",
                     CardArtsId = "202275",
                     LinkedCards=new List<String> {},
                 }
@@ -14206,7 +14206,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？",
-                    Info = "将1个银色/铜色友军单位保留基础战力转化为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
+                    Info = "将1个银色/铜色友军单位保留基础战力变为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
                     CardArtsId = "202270",
                     LinkedCards=new List<String> {},
                 }
@@ -14650,7 +14650,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "己方回合结束时，若自身至少具有3点增益，将增益转化为护甲并重置自身，然后使同排其它友军单位获得2点增益。",
+                    Info = "己方回合结束时，若自身至少具有3点增益，将增益变为护甲并重置自身，然后使同排其它友军单位获得2点增益。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14692,7 +14692,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "将一个友军单位转化为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
+                    Info = "将一个友军单位变为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
                     CardArtsId = "202235",
                     LinkedCards=new List<String> {},
                 }
@@ -14841,7 +14841,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "你有萝卜所具备的一切美德一沉默寡言",
-                    Info = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
+                    Info = "生成1只熊。每回合开始时，将同排的1只熊变为狂暴的熊。",
                     CardArtsId = "c10004000",
                     LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -15116,7 +15116,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
-                    Info = "在双方同排各生成“镜像”。每回合结束时，重复此能力，随后保留战力转化为“夜之妖灵”。",
+                    Info = "在双方同排各生成“镜像”。每回合结束时，重复此能力，随后保留战力变为“夜之妖灵”。",
                     CardArtsId = "202530",
                     LinkedCards=new List<String> {"70186", "70187"},
                 }
@@ -15158,7 +15158,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "一个苍白憔悴，衣衫褴褛的女人，能有多大危害？危害可大了。",
-                    Info = "每回合结束时，使双方同排所有“镜像”获得1点增益，随后保留战力转化为“日间妖灵”。",
+                    Info = "每回合结束时，使双方同排所有“镜像”获得1点增益，随后保留战力变为“日间妖灵”。",
                     CardArtsId = "202531",
                     LinkedCards=new List<String> {"70185", "70186"},
                 }
@@ -15518,7 +15518,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Dryad },
                     Flavor = "",
-                    Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，转化为同排最强的“树精”单位。",
+                    Info = "在己方其它排生成1张佚亡原始同名牌。每回合开始时，变为同排最强非同名“树精”单位的原始同名牌。",
                     CardArtsId = "c10001700",
                     LinkedCards = new List<String> {},
                 }
