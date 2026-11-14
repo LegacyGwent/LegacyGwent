@@ -129,12 +129,41 @@ namespace Cynthia.Card
         }
 
         //使卡牌"进入墓地"
+        private GameCard _cemeterySource;
+        private bool _cemeteryPending;
+
+        private static bool IsDestructibleZone(RowPosition row) =>
+            row.IsOnPlace() || row.IsInHand() || row.IsInDeck();
+
         public virtual Task ToCemetery(CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true)
         {
-            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish: isNeedBanish, isNeedSentEvent: isNeedSentEvent);
+            return ToCemetery(discardInfo: (false, null), isRoundEnd: false, type: type, isNeedBanish: isNeedBanish, isNeedSentEvent: isNeedSentEvent, source: _cemeterySource);
         }
-        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true)
+
+        // Keep the existing virtual entry point: effect overrides still observe and
+        // may customize attributed destruction just as they do ordinary removal.
+        public async Task ToCemetery(GameCard source, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true)
         {
+            var previousSource = _cemeterySource;
+            _cemeterySource = source;
+            try
+            {
+                await ToCemetery(type, isNeedBanish, isNeedSentEvent);
+            }
+            finally
+            {
+                _cemeterySource = previousSource;
+            }
+        }
+        private async Task ToCemetery((bool isDiscard, GameCard discardSource) discardInfo, bool isRoundEnd, CardBreakEffectType type = CardBreakEffectType.ToCemetery, bool isNeedBanish = true, bool isNeedSentEvent = true, GameCard source = null)
+        {
+            // A nested reaction can already have killed this unit. Its first
+            // removal owns the death and attribution; do not schedule it twice.
+            if (_cemeteryPending) return;
+            _cemeteryPending = true;
+            var destruction = source != null && IsDestructibleZone(Card.Status.CardRow) &&
+                Card.Status.Type == CardType.Unit && !isRoundEnd && !discardInfo.isDiscard
+                ? new AfterCardDestroyed(Card, source) : null;
             var isDead = Card.Status.CardRow.IsOnPlace();
             var deadposition = Game.GetCardLocation(Card);
             await Game.SendEvent(new BeforeCardToCemetery(Card, deadposition, isRoundEnd));
@@ -176,6 +205,8 @@ namespace Cynthia.Card
                         if (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit)
                         {
                             await Banish();
+                            _cemeteryPending = false;
+                            await sendDestructionEvent();
                             return;
                         }
                     }
@@ -189,8 +220,17 @@ namespace Cynthia.Card
                     });
                 }
             });
+            async Task sendDestructionEvent()
+            {
+                if (destruction == null) return;
+                var fact = destruction;
+                destruction = null;
+                await Game.SendEvent(fact);
+            }
             async Task sendEventTask()
             {
+                _cemeteryPending = false;
+                await sendDestructionEvent();
                 if (Card.Status.IsDoomed || (isNeedBanish && Card.Status.Strength <= 0 && Card.Status.Type == CardType.Unit))//如果是佚亡,放逐
                 {
                     await Banish();
@@ -395,15 +435,17 @@ namespace Cynthia.Card
             //有单位被削弱了,应该触发对应事件<暂未定义,待补充>
             await Game.SendEvent(new AfterCardWeaken(Card, num, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
-            if ((Card.Status.Strength + Card.Status.HealthStatus) <= 0)
+            if ((Card.Status.Strength + Card.Status.HealthStatus) <= 0 && !_cemeteryPending)
             {
                 if (Card.Status.Strength > 0)
                 {
-                    await ToCemetery();
+                    await ToCemetery(source: source);
                 }
                 else
                 {
+                    var destruction = IsDestructibleZone(Card.Status.CardRow) ? new AfterCardDestroyed(Card, source) : null;
                     await Banish();
+                    if (destruction != null && source != null) await Game.SendEvent(destruction);
                 }
             }
         }
@@ -548,7 +590,7 @@ namespace Cynthia.Card
             }
             if ((Card.CardPoint()) <= 0)
             {
-                await ToCemetery();
+                await ToCemetery(source: source);
                 return;
             }
         }
@@ -559,7 +601,7 @@ namespace Cynthia.Card
             Card.Status.HealthStatus -= num;
             if ((Card.CardPoint()) <= 0)
             {
-                await ToCemetery();
+                await ToCemetery(source: source);
                 return;
             }
             await Game.ShowSetCard(Card);
@@ -806,11 +848,11 @@ namespace Cynthia.Card
             }
             else if (target.Status.CardRow.IsOnRow())
             {//如果在场上,展示吞噬动画,之后不展示动画的情况进入墓地
-                await target.Effect.ToCemetery(CardBreakEffectType.Consume);
+                await target.Effect.ToCemetery(source: Card, type: CardBreakEffectType.Consume);
             }
             else
             {
-                await target.Effect.ToCemetery();
+                await target.Effect.ToCemetery(source: Card);
             }
             await Boost(point, target);
             await Game.ClientDelay(500);
@@ -819,11 +861,11 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardConsume(target, Card));
             //8888888888888888888888888888888888888888888888888888888888888888888888
         }
-        public virtual async Task Move(CardLocation location, GameCard source)//发送位移
+        public virtual async Task<bool> Move(CardLocation location, GameCard source)//发送位移；返回是否实际执行位移
         {//移动,只限于从场上移动到另一排
             //如果不在场上,返回
             var count = Game.RowToList(Card.PlayerIndex, location.RowPosition).Count;
-            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead || Card.Status.Type == CardType.Special) return;
+            if (!Card.Status.CardRow.IsOnPlace() || count >= Game.RowMaxCount || Card.IsDead || Card.Status.Type == CardType.Special) return false;
             if (location.CardIndex > count)
             {
                 location.CardIndex = count;
@@ -837,6 +879,7 @@ namespace Cynthia.Card
             await Game.SendEvent(new AfterCardMove(Card, source));
             //8888888888888888888888888888888888888888888888888888888888888888888888
             await Game.AddTask(async () => await CardDown(isSpyingChange, false, false, (true, isSpyingChange), false));
+            return true;
         }
         public virtual async Task Summon(CardLocation location, GameCard source)//召唤到什么地方
         {   //召唤

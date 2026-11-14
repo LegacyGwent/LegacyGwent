@@ -74,9 +74,13 @@ Last verified: 2026-09-27
   persists manual selections in `DiyAi.TextLanguage` and
   `DiyAi.AudioLanguage`. This makes Chinese the Editor/player default without
   inheriting the stable Windows client's PlayerPrefs.
-- Login announcements have separate Chinese (`GetNotes`) and fallback English
-  (`GetNotesEN`) endpoints. Keep the English branch mutually exclusive with
-  `language == "cn"`; otherwise the later fetch overwrites the Chinese news.
+- Login announcements come from server code for Chinese (`GetNotes`) and English
+  (`GetNotesEN`); `GetLocalizedNotes` uses server `LoginMenu_NewsBody` for other
+  languages. Keep bundled and streaming fallback text aligned. Source edits only
+  reach connected clients after rebuilding and restarting the serving process;
+  reopening Login against an old process still returns the old announcement.
+  Keep English fetching mutually exclusive with `language == "cn"` to prevent
+  overwriting Chinese news.
 - Desktop Unity CI runs on relevant pushes; dispatch the mobile workflow for an
   Android APK. Do not expect a workflow environment variable to become a
   persistent runtime variable inside a built player.

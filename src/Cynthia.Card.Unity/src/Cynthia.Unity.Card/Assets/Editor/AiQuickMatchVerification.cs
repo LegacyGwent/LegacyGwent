@@ -39,8 +39,8 @@ public static class AiQuickMatchVerification
     private static void VerifyPack(string text, string source)
     {
         var menu = (JObject)JObject.Parse(text.TrimStart('\uFEFF'))["MenuLocales"];
-        Require(menu != null && !string.IsNullOrWhiteSpace((string)menu["MainMenu_PlayingvsAIText"]),
-            source + " is missing the selector label.");
+        Require(menu != null && !string.IsNullOrWhiteSpace((string)menu["MainMenu_PlayVsAIButton"]),
+            source + " is missing the AI selector button label.");
         for (var index = 0; index < 6; index++)
             Require(!string.IsNullOrWhiteSpace((string)menu["ai" + index + "_name"]),
                 source + " is missing the name for AI " + index);

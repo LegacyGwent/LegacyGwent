@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -80,6 +80,8 @@ namespace Cynthia.Card.Gameplay.Tests
 
             fixture.Game.GameRound = (TwoPlayer)fixture.Game.Player1Index;
             await fixture.Game.SendEvent(new AfterCardMove(dryad, dryad));
+            Assert.Equal(-3, enemy.Status.HealthStatus);
+            await fixture.Game.SendEvent(new AfterTurnOver(fixture.Game.Player1Index));
             Assert.Equal(-6, enemy.Status.HealthStatus);
         }
 

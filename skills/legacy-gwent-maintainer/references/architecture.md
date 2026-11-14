@@ -91,6 +91,21 @@ Last verified: 2026-08-02
   native-plugin changes still require a full player release. Treat HybridCLR as
   a separate IL2CPP migration rather than part of the first resource-update step.
 
+## Windows match notification
+
+- `MatchInfo.RunMatch` calls `MatchTaskbarNotification.NotifyMatchFound` only
+  after a successful matchmaking result; cancellation, spectating and reconnect
+  paths do not trigger it. The helper persists across the GamePlay scene load.
+- Windows standalone uses `FlashWindowEx` with taskbar-only flashing until the
+  player returns to the foreground, plus explicit stop on focus/disable/quit.
+  Window lookup checks the current process and `UnityWndClass`, including a
+  minimized window. Never restore or activate the window to notify the player.
+- Native calls are excluded from the Unity Editor and non-Windows builds.
+  Background processing remains enabled so minimized matchmaking can complete.
+  Editor compilation alone does not validate native taskbar behavior; use a
+  Windows player, and distinguish an isolated notification harness from an
+  actual end-to-end match or a distributed client release.
+
 ## Branch tracks
 
 - `diy` is the stable DIY baseline.

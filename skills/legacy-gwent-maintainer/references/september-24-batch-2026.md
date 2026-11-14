@@ -1,6 +1,6 @@
 # September 24 card batch
 
-Last verified: 2026-09-29
+Last verified: 2026-10-17
 
 ## Identity and localization
 
@@ -35,20 +35,28 @@ Last verified: 2026-09-29
 
 ## New-card timing
 
-- Vlodimir lets its controller choose any Bronze/Silver Witcher unit from deck.
+- Vlodimir has 2 base Strength and lets its controller choose any Bronze/Silver Witcher unit from deck.
   While an
   unlocked allied Vlodimir remains on board, Gaunter O'Dimm gets up to three
   guesses; every failed guess rolls a new random unit, and a correct guess or
   the third failure ends the sequence.
-- Gezras Strengthens the selected Bronze/Silver Witcher or Beast by 1, or
-  Weakens its base Strength to 1, then clears temporary board state and replays
-  that same card. The Strengthen/Weaken survives the replay.
+- Gezras is both Witcher and Elf. While unlocked on the board, it cancels
+  Hazard damage to allied units in its row through the normal damage event.
+  On Deploy, its controller may select up to seven off-row allied Witcher or
+  Elf units to move into its row. The selection is also bounded by row space;
+  unused capacity, including voluntary early stop or a full row, becomes one
+  Weaken on a unit selectable by the standard all-board selector at
+  `7 - successful moves`. A movement still
+  counts if an `AfterCardMove` reaction kills its target: `CardEffect.Move`
+  reports whether the move was executed before those reactions, rather than
+  making callers infer success from the target's final row.
 - Gaetan and Cat School Witcher recalculate the current opposing-row population
   at their documented repeat or damage step. Gaetan may choose its damage target
   anywhere on the board; its repetition count follows
   [September 29](september-29-batch-2026.md). Cat School Witcher Thug moves two
   enemies to the opposing row, then chooses a damage target anywhere on the
   board for each of its two hits; it recounts the opposing row before each hit.
-  Brehen's Strengthen was removed in the October 7 batch.
+  Its base Strength is 1 as of October 17. Brehen's Strengthen was removed in
+  the October 7 batch.
 - Dwarf Berserker's Deploy selects only two allied units to move into its row.
   When it moves, a random lowest-power allied unit in its new row gains 2 Boost.

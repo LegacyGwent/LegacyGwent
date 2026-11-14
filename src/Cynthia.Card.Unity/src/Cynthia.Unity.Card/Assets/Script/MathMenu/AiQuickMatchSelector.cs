@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 // A compact casual-match picker built solely from the extracted old-client
 // GwentButton prefab. Selecting a row starts its forced AI match immediately.
+// The trigger is anchored under the whole card/password panel (CardShow in
+// Game.unity) and the opponent list still unfolds upwards from it.
 public sealed class AiQuickMatchSelector : MonoBehaviour
 {
     public sealed class Opponent
@@ -32,6 +34,9 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
     private const string LegacyButtonPrefab = "Prefab/GwentButton";
     private const float TriggerHeight = 46f;
     private const float RowHeight = 42f;
+    // The trigger hangs from the bottom edge of the whole card/password panel.
+    private const float PanelGap = 12f;
+    private const float PopupGap = 4f;
     private MatchInfo owner;
     private GameObject root;
     private GameObject popup;
@@ -55,25 +60,35 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
         owner = matchInfo;
         var prefab = Resources.Load<GameObject>(LegacyButtonPrefab);
         var passwordRect = owner.MatchPasswordObject == null ? null : owner.MatchPasswordObject.GetComponent<RectTransform>();
-        if (prefab == null || passwordRect == null || passwordRect.parent == null)
+        // In Game.unity the casual-match password lives directly inside the framed
+        // CardShow panel (anchored centre, 419x851). Taking the bounds from that
+        // parent keeps the trigger under the real panel instead of at a fixed
+        // offset above the password box.
+        var panelRect = passwordRect == null ? null : passwordRect.parent as RectTransform;
+        if (prefab == null || panelRect == null)
         {
             Debug.LogError("AI quick match requires Prefab/GwentButton and the casual-match password field.");
             enabled = false;
             return;
         }
 
+        var panelWidth = panelRect.rect.width;
+        if (panelWidth <= 0f && passwordRect != null) panelWidth = passwordRect.rect.width;
+
         root = new GameObject("AiQuickMatch", typeof(RectTransform));
         root.layer = owner.MatchPasswordObject.layer;
         var rootRect = root.GetComponent<RectTransform>();
-        rootRect.SetParent(passwordRect.parent, false);
-        rootRect.anchorMin = passwordRect.anchorMin;
-        rootRect.anchorMax = passwordRect.anchorMax;
-        rootRect.pivot = new Vector2(.5f, 0f);
-        rootRect.sizeDelta = new Vector2(passwordRect.sizeDelta.x, TriggerHeight);
-        rootRect.anchoredPosition = passwordRect.anchoredPosition + new Vector2(0f, 78f);
+        rootRect.SetParent(panelRect, false);
+        // Anchor to the panel's bottom edge and pivot at the top, so the trigger
+        // always hangs just below the panel and can never cover the password box.
+        // Equal left/right insets make it span the panel's full width.
+        rootRect.anchorMin = rootRect.anchorMax = new Vector2(.5f, 0f);
+        rootRect.pivot = new Vector2(.5f, 1f);
+        rootRect.sizeDelta = new Vector2(panelWidth, TriggerHeight);
+        rootRect.anchoredPosition = new Vector2(0f, -PanelGap);
         root.transform.SetAsLastSibling();
 
-        var trigger = MakeLegacyButton(prefab, root.transform, "AiQuickMatchTrigger", Vector2.zero, TriggerHeight);
+        var trigger = MakeLegacyButton(prefab, root.transform, "AiQuickMatchTrigger", Vector2.zero, TriggerHeight, panelWidth);
         triggerLabel = trigger.GetComponentInChildren<Text>();
         trigger.GetComponent<Button>().onClick.AddListener(Toggle);
 
@@ -83,14 +98,15 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
         popupRect.SetParent(root.transform, false);
         popupRect.anchorMin = popupRect.anchorMax = new Vector2(.5f, 0f);
         popupRect.pivot = new Vector2(.5f, 0f);
-        popupRect.sizeDelta = new Vector2(rootRect.sizeDelta.x, Opponents.Count * RowHeight);
-        popupRect.anchoredPosition = new Vector2(0f, TriggerHeight + 4f);
+        popupRect.sizeDelta = new Vector2(panelWidth, Opponents.Count * RowHeight);
+        // Rows keep unfolding upwards, exactly as they did before the move.
+        popupRect.anchoredPosition = new Vector2(0f, TriggerHeight + PopupGap);
 
         foreach (var opponent in Opponents)
         {
             var current = opponent;
             var button = MakeLegacyButton(prefab, popup.transform, "AiQuickMatch-" + current.Index,
-                new Vector2(0f, current.Index * RowHeight), RowHeight);
+                new Vector2(0f, current.Index * RowHeight), RowHeight, panelWidth);
             var label = button.GetComponentInChildren<Text>();
             rows.Add(new Row { Opponent = current, Label = label });
             button.GetComponent<Button>().onClick.AddListener(() => StartOpponent(current));
@@ -99,7 +115,7 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
         RefreshLabels();
     }
 
-    private static GameObject MakeLegacyButton(GameObject prefab, Transform parent, string name, Vector2 position, float height)
+    private static GameObject MakeLegacyButton(GameObject prefab, Transform parent, string name, Vector2 position, float height, float width)
     {
         var button = Instantiate(prefab, parent, false);
         button.name = name;
@@ -107,7 +123,7 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
         rect.anchorMin = rect.anchorMax = new Vector2(.5f, 0f);
         rect.pivot = new Vector2(.5f, 0f);
         rect.anchoredPosition = position;
-        rect.sizeDelta = new Vector2(322f, height);
+        rect.sizeDelta = new Vector2(width, height);
         return button;
     }
 
@@ -138,7 +154,9 @@ public sealed class AiQuickMatchSelector : MonoBehaviour
 
     private void RefreshLabels()
     {
-        if (triggerLabel != null) triggerLabel.text = LocalizedLabel.Get("MainMenu_PlayingvsAIText");
+        // The trigger owns its own label key; MainMenu_PlayingvsAIText stays reserved
+        // for the online-count HUD statistic.
+        if (triggerLabel != null) triggerLabel.text = LocalizedLabel.Get("MainMenu_PlayVsAIButton");
         foreach (var row in rows)
             if (row.Label != null)
                 row.Label.text = string.Format("AI {0} - {1}", row.Opponent.Index, LocalizedLabel.Get(row.Opponent.NameKey));

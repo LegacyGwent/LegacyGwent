@@ -85,6 +85,7 @@
         "MainMenu_PlayersOnlineText": "Players Online:",
         "MainMenu_PlayingPvpText": "Playing (pvp):",
         "MainMenu_PlayingvsAIText": "Playing (vs AI):",
+        "MainMenu_PlayVsAIButton": "Play vs AI",
         "MainMenu_PlayingCasualText": "Playing:",
         "MainMenu_PlayingRankText": "Playing:",
         "MainMenu_CasualFlagText": "Opponent Found",
@@ -867,7 +868,7 @@
         "IngameMenu_ShowCards": "Show cards",
         "Leaderboard_RankNumber": "Rank {0}",
         "LoginMenu_Connecting": "Connecting to the server… Please wait…",
-        "LoginMenu_NewsBody": "Welcome to the experimental DiyGwent AITest realm on port 5010!\n\nThis game is permanently free and open-source.\nDownloads and community: https://discord.gg/Dw9sKgaUZN\n\nAI matchmaking:\nai: Geralt and Ciri\nai1: Recruit Training\nai2: Avallac’h\nai3: King Auberon\nai4: Iron Falcon Mercenaries\nai5: Dragon Hunter\nEnter the corresponding matchmaking password to challenge the AI. Players take priority when available. Add #f to force an AI match (for example, ai#f).",
+        "LoginMenu_NewsBody": "Welcome to the experimental DiyGwent AITest realm on port 5010!\n\nThis game is permanently free and open-source.\nDownloads and community: https://discord.gg/Dw9sKgaUZN\n\nAI matchmaking:\nai: Geralt and Ciri\nai1: Recruit Training\nai2: Avallac’h\nai3: King Auberon\nai4: Iron Falcon Mercenaries\nai5: Dragon Hunter\nTo play against AI, open Casual mode and click “Play vs AI” below the password field. Choose an opponent from the menu that opens upward to start a match.",
         "LoginMenu_Status": "Status:",
         "Season_NoData": "No season data",
         "Spectator_RoomNumber": "Room {0}",
@@ -2722,7 +2723,7 @@
         },
         "51003": {
             "Name": "Filavandrel",
-            "Info": "Deploy: Generate a Neutral Silver special card outside your starting deck.",
+            "Info": "Deploy: Generate a Scoia'tael Silver special card outside your starting deck.",
             "Flavor": "Though we are now few and scattered, our hearts burn brighter than ever."
         },
         "51004": {
@@ -2742,7 +2743,7 @@
         },
         "52003": {
             "Name": "Xavier Moran",
-            "Info": "Deploy: Boost this unit by the base Strength of the Highest base Strength Dwarf you played this round.",
+            "Info": "Boost self by the highest base power of a Dwarf unit played this round.",
             "Flavor": "Well? Somethin' wrong? Venison a wee bit rank for ye? Ehh, princess?"
         },
         "52004": {
@@ -3867,7 +3868,7 @@
         },
         "70114": {
             "Name": "Dryad Sharpshooter",
-            "Info": "Deploy: Damage an enemy by 3. During your turn, if this unit is moved to the Ranged row, repeat this ability.",
+            "Info": "Deal 3 damage. During your turn, if this unit or an enemy unit is moved to the ranged row, repeat this ability at turn end.",
             "Flavor": "She does no warning shot, always aims to kill. No mercy, even for the little ones."
         },
         "70115": {
@@ -3902,7 +3903,7 @@
         },
         "70122": {
             "Name": "Dryad Matron",
-            "Info": "Strengthen all other Dryads on this row by 1. For each Dryad Strengthened, Boost a random non-Spying unit in your hand by 1.",
+            "Info": "Strengthen all other Dryads on the same row by 1, then boost a unit in your hand by the total amount strengthened.",
             "Flavor": "She teaches young dryads many useful skills: fletching arrows, communing with the forest, slitting the throats of men..."
         },
         "70123": {
@@ -3952,7 +3953,7 @@
         },
         "70132": {
             "Name": "Garkain",
-            "Info": "Deploy: Deal 1 Damage to a random enemy 5 times. If an enemy was already Damaged, Drain it instead.",
+            "Info": "Deal 1 damage to a random unit on the opposing row 5 times. If the target is wounded, Drain instead.",
             "Flavor": "Blood on the ceiling, entrails on the wall... Got garkain written all over it."
         },
         "70133": {
@@ -4027,7 +4028,7 @@
         },
         "70147": {
             "Name": "Plumard",
-            "Info": "Whenever a different allied unit on the same row Drains, Drain the same target by 1.",
+            "Info": "While on your side of the board, in hand or in deck: Boost self by 1 whenever an allied Vampire destroys a unit. Whenever a differently named unit on this row Drains, Drain 1 power from the same target.",
             "Flavor": "One alone poses no great threat. But a dozen? Gods be with you."
         },
         "70148": {
@@ -4207,7 +4208,7 @@
         },
         "70183": {
             "Name": "Feast of Blood",
-            "Info": "Choose a Vampire ally and make it Drain an enemy by 4.\nIf it survives, Spawn a Plumard on its right.",
+            "Info": "Choose an allied Vampire and have it Drain 4 power from an enemy unit. If the target survives, Spawn a Plumard to the right.",
             "Flavor": "Vampires have been known to fast for years at a time. Yet once the hunt resumes, they feed and feed until frenzied and drunk on blood."
         },
         "70184": {
@@ -4347,7 +4348,7 @@
         },
         "70198": {
             "Name": "Girl Who Drank Brokilon Water",
-            "Info": "Spawn a Doomed base copy of this unit in each other allied row. On turn start, Transform into the strongest Dryad unit in its row.",
+            "Info": "Spawn a Doomed base copy of this unit on another allied row. At the start of every turn, transform into a base copy of the strongest Dryad with a different name on the same row.",
             "Flavor": ""
         },
         "70199": {
@@ -4392,7 +4393,7 @@
         },
         "70207": {
             "Name": "Gezras of Leyda",
-            "Info": "Choose one: Strengthen an allied Bronze/Silver Witcher or Beast by 1; or Weaken it to 1. Then replay it.",
+            "Info": "Units on this row are immune to Hazard damage. Move up to 8 allied Witcher and Elf units to this row, then Weaken an enemy unit by the number of unused moves.",
             "Flavor": ""
         },
         "70208": {
@@ -4423,6 +4424,11 @@
         "70212": {
             "Name": "Raffard’s Vengeance",
             "Info": "Every 4 turns, at turn end, deal 10 damage. Increase the damage by 1 for each Mage on the same row. Crewed: Reduce the countdown by 1.",
+            "Flavor": ""
+        },
+        "70213": {
+            "Name": "Kikimore Queen",
+            "Info": "At the start of every 2nd allied turn, advance the Countdown of all other allied Insectoid units once. Immune.",
             "Flavor": ""
         }
     }

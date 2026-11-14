@@ -1655,6 +1655,18 @@ namespace Cynthia.Card.Server
 
         public async Task ShowSetCard(GameCard card)//更新敌我的一个卡牌
         {
+            // Off-board views cache complete zone snapshots, not SetCard updates.
+            // Use their existing visibility-aware messages after status changes.
+            if (card.Status.CardRow.IsInCemetery())
+            {
+                await SetCemeteryInfo();
+                return;
+            }
+            if (card.Status.CardRow.IsInDeck())
+            {
+                await SetDeckInfo(card.PlayerIndex);
+                return;
+            }
             if (card.Status.CardRow.IsOnRow())
                 await Task.WhenAll(SendSetCard(Player1Index, card), SendSetCard(Player2Index, card));
             await SendSpectatorSetCard(card);

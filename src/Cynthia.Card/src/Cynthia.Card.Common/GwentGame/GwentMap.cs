@@ -8,7 +8,7 @@ namespace Cynthia.Card
     public static class GwentMap
     {
         //更新CardMap内容请务必将CardMapVersion更新
-        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 210);
+        public static Version CardMapVersion { get; } = new Version(1, 0, 0, 214);
         public static IDictionary<string, int> CardIdMap { get; set; }
         public static string[] CardIdIndexMap { get; set; }
 
@@ -3175,7 +3175,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Insectoid},
                     Flavor = "对付巨章鱼怪？简单。找出你最好的剑——卖了它，雇个猎魔人。",
-                    Info = "吞噬1个战力不高于7点的单位，将其战力转化为自身增益。",
+                    Info = "吞噬1个战力不高于7点的单位，将其战力变为自身增益。",
                     CardArtsId = "13210700",
                     LinkedCards=new List<String> {},
                 }
@@ -7292,7 +7292,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Soldier,Categorie.Kaedwen},
                     Flavor = "我一直很好奇，这帮家伙是怎么解决内急的？",
-                    Info = "摧毁1个单位的护甲。扣除的护甲值将被转化为自身增益。",
+                    Info = "摧毁1个单位的护甲。扣除的护甲值将被变为自身增益。",
                     CardArtsId = "12231400",
                     LinkedCards=new List<String> {},
                 }
@@ -8052,9 +8052,9 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Leader,Categorie.Elf},
                     Flavor = "虽然我们人数不多、四散分离，但我们的内心燃烧得比任何时候都要炽热。",
-                    Info = "生成1张起始牌组之外的银色中立“特殊”牌。",
+                    Info = "生成1张起始牌组之外的银色松鼠党“特殊”牌。",
                     CardArtsId = "20007500",
-                    LinkedCards=new List<String> {"13023","13024","13025","13026","13027","13028","13029","13030","13031","13032","13033","13034","13035","13036","13037","13038","13039","13040","13041","13042","13043","13044","53018","53019","53020","53021","70054","70138"},
+                    LinkedCards=new List<String> {"53018","53019","53020","53021","70054","70138"},
                 }
             },
             {
@@ -8136,7 +8136,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Dwarf},
                     Flavor = "怎么了，公主？吃不惯野味吗？嗯？",
-                    Info = "使自身获得等同于最后打出的非同名“矮人”单位牌的初始战力的增益。",
+                    Info = "增益自身等同于本小局打出的“矮人”单位牌的最强基础战力。",
                     CardArtsId = "20008000",
                     LinkedCards=new List<String> {},
                 }
@@ -12263,7 +12263,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Mage},
                     Flavor = "“据说他创造出的幻象栩栩如生，连他自己都开始信了……”",
-                    Info = "选择1张手牌，将其转化为1张起始牌组中铜色单位牌的原始同名牌，随后将其揭示。",
+                    Info = "选择1张手牌，将其变为1张起始牌组中铜色单位牌的原始同名牌，随后将其揭示。",
                     CardArtsId = "202239",
                     LinkedCards=new List<String> {},
                 }
@@ -12329,7 +12329,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{ Categorie.Insectoid,Categorie.Token},
                     Flavor = "“十分丰满……也十分危险。”",
-                    Info = "3回合后的回合结束时，转化为“安德莱格战士”。",
+                    Info = "3回合后的回合结束时，变为“安德莱格战士”。",
                     CardArtsId = "202440",
                     LinkedCards=new List<String> {"70108"},
                 }
@@ -12497,7 +12497,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Soldier,Categorie.Dryad},
                     Flavor = "",
-                    Info = "造成3点伤害。己方回合中，若被移至远程排，重复此能力。",
+                    Info = "造成3点伤害。己方回合中，若自身或有敌军单位被移至远程排，回合结束时，重复此能力。",
                     CardArtsId = "202676",
                     LinkedCards=new List<String> {},
                 }
@@ -13363,7 +13363,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cultist},
                     Flavor = "斯瓦勃洛唯一的戒律：杀戮",
-                    Info = "己方回合中，每当有单位被转化为其它单位时，在左侧生成1个佚亡同名牌，随后对自身造成4点伤害。",
+                    Info = "己方回合中，每当有单位被变为其它单位时，在左侧生成1个佚亡同名牌，随后对自身造成4点伤害。",
                     CardArtsId = "202285",
                     LinkedCards=new List<String> {},
                 }
@@ -13762,7 +13762,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Vampire},
                     Flavor = "如此恐怖的现场……显然是蝠翼脑魔所为。",
-                    Info = "使对方同排的随机单位受到1点伤害5次，若目标受伤则变为汲食。",
+                    Info = "对对方同排的随机单位造成1点伤害5次，若目标受伤则变为汲食。",
                     CardArtsId = "202224",
                     LinkedCards=new List<String> {},
                 }
@@ -13825,7 +13825,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "她将许多有用的技能教给年轻的树精：制作箭矢，与森林沟通，以及狩猎进入森林的人类……",
-                    Info = "使同排所有其它“树精”单位获得1点强化。每强化1个“树精”单位，使手牌中随机非间谍单位牌获得1点增益。",
+                    Info = "使同排所有其它“树精”单位获得1点强化，使手牌中1张单位牌获得等同于强化数值的增益。",
                     CardArtsId = "202275",
                     LinkedCards=new List<String> {},
                 }
@@ -14206,7 +14206,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Dryad},
                     Flavor = "真的吗？布洛克莱昂的花朵一年绽开七次？这怎么可能呢？",
-                    Info = "将1个银色/铜色友军单位保留基础战力转化为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
+                    Info = "将1个银色/铜色友军单位保留基础战力变为自身的同名牌，随后使战力低于自身的友军单位获得1点增益。",
                     CardArtsId = "202270",
                     LinkedCards=new List<String> {},
                 }
@@ -14351,10 +14351,10 @@ namespace Cynthia.Card
                     CardType = CardType.Unit,
                     IsDoomed = false,
                     IsCountdown = false,
-                    IsDerive = true,
+                    IsDerive = false,
                     Categories = new Categorie[]{Categorie.Vampire},
                     Flavor = "一只构成不了什么威胁。要是有一群？那就很要命了。",
-                    Info = "同排非同名单位汲取时，汲取同目标1点战力。",
+                    Info = "位于己方半场、手牌或牌组：友军“吸血鬼”单位摧毁单位时获得1点增益。同排非同名单位汲食时，汲食同目标1点战力。",
                     CardArtsId = "202231",
                     LinkedCards=new List<String> {},
                 }
@@ -14650,7 +14650,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Lyria,Categorie.Officer},
                     Flavor = "",
-                    Info = "己方回合结束时，若自身至少具有3点增益，将增益转化为护甲并重置自身，然后使同排其它友军单位获得2点增益。",
+                    Info = "己方回合结束时，若自身至少具有3点增益，将增益变为护甲并重置自身，然后使同排其它友军单位获得2点增益。",
                     CardArtsId = "202112",
                     LinkedCards=new List<String> {},
                 }
@@ -14692,7 +14692,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Cursed},
                     Flavor = "",
-                    Info = "将一个友军单位转化为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
+                    Info = "将一个友军单位变为起始卡组中的1张非同名金色单位牌，随后使其获得2点增益。",
                     CardArtsId = "202235",
                     LinkedCards=new List<String> {},
                 }
@@ -14841,7 +14841,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{ Categorie.Beast},
                     Flavor = "你有萝卜所具备的一切美德一沉默寡言",
-                    Info = "生成1只熊。每回合开始时，将同排的1只熊转化为狂暴的熊。",
+                    Info = "生成1只熊。每回合开始时，将同排的1只熊变为狂暴的熊。",
                     CardArtsId = "c10004000",
                     LinkedCards=new List<String> {"15010","65002"},
                 }
@@ -15074,7 +15074,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Special, Categorie.Organic},
                     Flavor = "众所周知，吸血鬼每隔好几年才会进食一次。然而一旦开荤，他们就会抛去节制，直到喝得酩酊大醉、丧心病狂。",
-                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。（吸血鸟怪：同排非同名单位汲取时，汲取同目标1点战力。）",
+                    Info = "选择一个友方吸血鬼，使其汲食一个敌方单位4点战力，若目标存活，则在右侧生成一个“吸血鸟怪”。",
                     CardArtsId = "202228",
                     LinkedCards=new List<String> {"70147"},
                 }
@@ -15116,7 +15116,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "和常识相反，农夫白天不干活，不是为了躲太阳。是为了躲日间妖灵。",
-                    Info = "在双方同排各生成“镜像”。每回合结束时，重复此能力，随后保留战力转化为“夜之妖灵”。",
+                    Info = "在双方同排各生成“镜像”。每回合结束时，重复此能力，随后保留战力变为“夜之妖灵”。",
                     CardArtsId = "202530",
                     LinkedCards=new List<String> {"70186", "70187"},
                 }
@@ -15158,7 +15158,7 @@ namespace Cynthia.Card
                     IsDerive = true,
                     Categories = new Categorie[]{Categorie.Cursed},
                     Flavor = "一个苍白憔悴，衣衫褴褛的女人，能有多大危害？危害可大了。",
-                    Info = "每回合结束时，使双方同排所有“镜像”获得1点增益，随后保留战力转化为“日间妖灵”。",
+                    Info = "每回合结束时，使双方同排所有“镜像”获得1点增益，随后保留战力变为“日间妖灵”。",
                     CardArtsId = "202531",
                     LinkedCards=new List<String> {"70185", "70186"},
                 }
@@ -15518,7 +15518,7 @@ namespace Cynthia.Card
                     IsDerive = false,
                     Categories = new Categorie[] { Categorie.Dryad },
                     Flavor = "",
-                    Info = "在己方其它排生成1张佚亡原始同名牌。回合开始时，转化为同排最强的“树精”单位。",
+                    Info = "在己方其它排生成1张佚亡原始同名牌。每回合开始时，变为同排最强非同名“树精”单位的原始同名牌。",
                     CardArtsId = "c10001700",
                     LinkedCards = new List<String> {},
                 }
@@ -15634,7 +15634,7 @@ namespace Cynthia.Card
                 "70204",//弗洛迪米·伊佛瑞克 Vlodimir von Everec
                 new GwentCard()
                 {
-                    CardId = "70204", Name = "弗洛迪米·伊佛瑞克", Strength = 1, Group = Group.Silver,
+                    CardId = "70204", Name = "弗洛迪米·伊佛瑞克", Strength = 2, Group = Group.Silver,
                     Faction = Faction.Neutral, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Cursed },
@@ -15676,8 +15676,8 @@ namespace Cynthia.Card
                     CardId = "70207", Name = "雷达的吉兹拉斯", Strength = 5, Group = Group.Gold,
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
-                    Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
-                    Info = "择一：选择1个友军铜色/银色“猎魔人”或“野兽”单位，使其获得1点强化；或削弱其战力至1点。随后将其重新打出。",
+                    Categories = new Categorie[] { Categorie.Witcher, Categorie.Elf }, Flavor = "",
+                    Info = "使同排单位免疫来自灾厄的伤害。将最多8个友军“猎魔人”和“精灵”单位移至此排，对1个敌军单位造成等同于其溢出移动次数的削弱。",
                     CardArtsId = "202801", LinkedCards = new List<String> {},
                 }
             },
@@ -15709,7 +15709,7 @@ namespace Cynthia.Card
                 "70210",//猫学派猎魔人恶徒 Cat School Witcher Thug
                 new GwentCard()
                 {
-                    CardId = "70210", Name = "猫学派猎魔人恶徒", Strength = 2, Group = Group.Copper,
+                    CardId = "70210", Name = "猫学派猎魔人恶徒", Strength = 1, Group = Group.Copper,
                     Faction = Faction.ScoiaTael, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
                     IsDoomed = false, IsCountdown = false, IsDerive = false,
                     Categories = new Categorie[] { Categorie.Witcher }, Flavor = "",
@@ -15739,6 +15739,18 @@ namespace Cynthia.Card
                     Categories = new Categorie[] { Categorie.Machine }, Flavor = "",
                     Info = "每4回合结束时，造成10点伤害。同排每有1个“法师”单位，伤害提高1点。驱动：减少1次回合计数。",
                     CardArtsId = "203050", LinkedCards = new List<String> {},
+                }
+            },
+            {
+                "70213",//齐齐摩女王 Kikimore Queen
+                new GwentCard()
+                {
+                    CardId = "70213", Name = "齐齐摩女王", Strength = 8, Group = Group.Gold,
+                    Faction = Faction.Monsters, CardUseInfo = CardUseInfo.MyRow, CardType = CardType.Unit,
+                    IsDoomed = false, IsCountdown = true, Countdown = 2, IsDerive = false,
+                    Categories = new Categorie[] { Categorie.Insectoid }, Flavor = "",
+                    Info = "每2回合开始时，触发所有其它友军“类虫生物”单位的倒计时1次。免疫。",
+                    CardArtsId = "d19130000", LinkedCards = new List<String> {},
                 }
             },
         };

@@ -52,3 +52,14 @@ arguments such as `resolve(strict=True)`. Resolve without that keyword and
 explicitly verify the release directory exists. Local syntax/unit tests cannot
 prove remote standard-library compatibility; the foreground live check is the
 acceptance gate.
+
+## Newly added Unity metadata and patch checks
+
+- Symptom: local unstaged `git diff --check` passes, but CI rejects new Sprite
+  `.meta` files for trailing spaces copied from a standard importer template.
+- Cause: unstaged diff ignores untracked files; after committing it is empty.
+- Fix: strip trailing whitespace without changing importer values.
+- Prevention: stage new files and check `git diff --cached --check`, then verify
+  the complete publication range with `git diff --check <remote-base> HEAD`.
+- Verification: the latter command must match CI's BEFORE_SHA-to-HEAD scope,
+  including all new binary sidecars and earlier local commits.

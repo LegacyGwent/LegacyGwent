@@ -61,6 +61,15 @@ namespace Cynthia.Card.Gameplay.Tests
             PlayerName = playerName;
         }
 
+        public IList<(ServerOperationType Type, string Json)> ReceivedSnapshots { get; } = new List<(ServerOperationType, string)>();
+
+        public override async Task HandleServerOperation(Operation<ServerOperationType> operation)
+        {
+            ReceivedSnapshots.Add((operation.OperationType,
+                string.Join("\n", operation.Arguments)));
+            await base.HandleServerOperation(operation);
+        }
+
         public override void SetDeckAndName()
         {
             PlayerName = _requestedName ?? "headless";

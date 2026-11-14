@@ -7,7 +7,7 @@ namespace Cynthia.Card
 {
     [CardEffectId("70122")]//树精族母 DryadMatron
     public class DryadMatron : CardEffect
-    {//使同排其他树人单位获得1点强化，每强化1个树人，使手牌中随机非间谍单位牌获得1点增益。
+    {// Strengthen the row first, then boost one selected hand unit by the total.
         public DryadMatron(GameCard card) : base(card) { }
         public override async Task<int> CardPlayEffect(bool isSpying, bool isReveal)
         {
@@ -16,17 +16,20 @@ namespace Cynthia.Card
                 .Where(x => x != Card && x.HasAnyCategorie(Categorie.Dryad))
                 .ToList();
 
+            var totalStrengthening = 0;
             foreach (var dryad in dryads)
             {
+                var before = dryad.Status.Strength;
                 await dryad.Effect.Strengthen(1, Card);
-                var handTargets = Game.PlayersHandCard[PlayerIndex]
-                    .Where(x => x.CardInfo().CardType == CardType.Unit &&
-                        x.CardInfo().CardUseInfo == CardUseInfo.MyRow)
-                    .ToList();
-                if (handTargets.TryMessOne(out var handTarget, RNG))
-                {
-                    await handTarget.Effect.Boost(1, Card);
-                }
+                totalStrengthening += System.Math.Max(0, dryad.Status.Strength - before);
+            }
+            var handTargets = Game.PlayersHandCard[PlayerIndex]
+                .Where(x => x.CardInfo().CardType == CardType.Unit).ToList();
+            if (totalStrengthening > 0 && handTargets.Count > 0)
+            {
+                var selected = await Game.GetSelectMenuCards(PlayerIndex, handTargets, 1, "选择增益1张单位牌");
+                if (selected.Count > 0)
+                    await selected.First().Effect.Boost(totalStrengthening, Card);
             }
             return 0;
         }

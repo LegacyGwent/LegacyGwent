@@ -7,7 +7,7 @@ namespace Cynthia.Card.Gameplay.Tests
     public class AugustFourteenthFirstBatchTests
     {
         [Fact]
-        public async Task BrokilonGirlCreatesDoomedCopiesInBothOtherRows()
+        public async Task BrokilonGirlCreatesOneDoomedCopyInSelectedOtherRow()
         {
             var fixture = new HeadlessGameFixture();
             var girl = fixture.AddCard(
@@ -20,13 +20,12 @@ namespace Cynthia.Card.Gameplay.Tests
             var copies = fixture.Game.GetPlaceCards(fixture.Game.Player1Index)
                 .Where(card => card != girl && card.Status.CardId == CardId.GirlWhoDrankBrokilonWater)
                 .ToArray();
-            Assert.Equal(2, copies.Length);
+            Assert.Single(copies);
             Assert.Contains(copies, card => card.Status.CardRow == RowPosition.MyRow1 && card.Status.IsDoomed);
-            Assert.Contains(copies, card => card.Status.CardRow == RowPosition.MyRow3 && card.Status.IsDoomed);
         }
 
         [Fact]
-        public async Task BrokilonGirlTransformsIntoStrongestSameRowDryadOnOwnerTurnOnly()
+        public async Task BrokilonGirlTransformsIntoOriginalStrongestDryadOnEitherTurn()
         {
             var fixture = new HeadlessGameFixture();
             var girl = fixture.AddCard(
@@ -37,9 +36,7 @@ namespace Cynthia.Card.Gameplay.Tests
             await fixture.SynchronizeClientsAsync();
 
             await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player2Index));
-            Assert.Equal(CardId.GirlWhoDrankBrokilonWater, girl.Status.CardId);
-
-            await fixture.Game.SendEvent(new AfterTurnStart(fixture.Game.Player1Index));
+            Assert.Equal(GwentMap.CardMap[strongest.Status.CardId].Strength, girl.Status.Strength);
             Assert.Equal(strongest.Status.CardId, girl.Status.CardId);
         }
 
